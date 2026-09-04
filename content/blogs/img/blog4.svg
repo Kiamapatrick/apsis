@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1c3a56;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#263f5c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="acc4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f58220;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb64c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg4)"/>
+  <circle cx="150" cy="150" r="200" fill="#7c9bc1" fill-opacity="0.04"/>
+  <circle cx="650" cy="350" r="200" fill="#f58220" fill-opacity="0.04"/>
+  <!-- VS divider -->
+  <line x1="400" y1="80" x2="400" y2="360" stroke="#7c9bc1" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="8,5"/>
+  <!-- Left side: Person/accountant -->
+  <circle cx="250" cy="165" r="38" fill="none" stroke="#7c9bc1" stroke-width="2.5" stroke-opacity="0.6"/>
+  <circle cx="250" cy="155" r="20" fill="#7c9bc1" fill-opacity="0.2"/>
+  <path d="M200 220 Q250 195 300 220" fill="none" stroke="#7c9bc1" stroke-width="2.5" stroke-opacity="0.6" stroke-linecap="round"/>
+  <!-- Briefcase under accountant -->
+  <rect x="218" y="232" width="64" height="46" rx="6" fill="none" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.5"/>
+  <path d="M234 232 L234 222 Q250 216 266 222 L266 232" fill="none" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="218" y1="252" x2="282" y2="252" stroke="#7c9bc1" stroke-width="1.5" stroke-opacity="0.4"/>
+  <text x="250" y="320" font-family="Arial, sans-serif" font-size="14" fill="#7c9bc1" text-anchor="middle" font-weight="600" fill-opacity="0.8">ACCOUNTANT</text>
+  <!-- Right side: Laptop/DIY -->
+  <rect x="460" y="148" width="110" height="72" rx="6" fill="none" stroke="#f58220" stroke-width="2.5" stroke-opacity="0.6"/>
+  <rect x="460" y="148" width="110" height="72" rx="6" fill="#f58220" fill-opacity="0.05"/>
+  <!-- Screen content lines -->
+  <line x1="474" y1="168" x2="556" y2="168" stroke="#f58220" stroke-width="1.5" stroke-opacity="0.4"/>
+  <line x1="474" y1="184" x2="546" y2="184" stroke="#f58220" stroke-width="1.5" stroke-opacity="0.3"/>
+  <line x1="474" y1="200" x2="536" y2="200" stroke="#f58220" stroke-width="1.5" stroke-opacity="0.3"/>
+  <!-- Laptop base -->
+  <rect x="448" y="220" width="134" height="10" rx="3" fill="none" stroke="#f58220" stroke-width="2" stroke-opacity="0.5"/>
+  <text x="515" y="320" font-family="Arial, sans-serif" font-size="14" fill="#f58220" text-anchor="middle" font-weight="600" fill-opacity="0.8">DIY</text>
+  <!-- VS badge -->
+  <circle cx="400" cy="220" r="24" fill="#1e3a56"/>
+  <circle cx="400" cy="220" r="24" fill="none" stroke="url(#acc4)" stroke-width="2"/>
+  <text x="400" y="226" font-family="Georgia, serif" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">VS</text>
+  <!-- Label -->
+  <rect x="0" y="390" width="800" height="90" fill="#000000" fill-opacity="0.25"/>
+  <text x="400" y="432" font-family="Georgia, serif" font-size="21" fill="#ffffff" fill-opacity="0.9" text-anchor="middle" font-weight="bold">Hire an Accountant or DIY?</text>
+  <text x="400" y="462" font-family="Arial, sans-serif" font-size="14" fill="#7c9bc1" text-anchor="middle">Accounting</text>
+</svg>

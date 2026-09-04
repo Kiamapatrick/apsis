@@ -1,0 +1,450 @@
+/* ============================================================
+   APSIS Business Consulting – contact.css
+   Matches style-v2.css + about.css design system exactly.
+   All tokens inherited from style-v2.css
+   ============================================================ */
+
+/* ── Page Hero ───────────────────────────────────────────── */
+.contact-hero {
+    position: relative;
+    min-height: 72vh;
+    margin-top: 76px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        linear-gradient(150deg, rgba(13, 33, 55, 0.93) 0%, rgba(30, 58, 86, 0.88) 60%, rgba(26, 74, 122, 0.82) 100%),
+        url('../img/contact.jpg') center / cover no-repeat;
+}
+
+/* Fallback if no contact.jpg — use same navy gradient */
+.contact-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(150deg, rgba(13, 33, 55, 0.55) 0%, rgba(26, 74, 122, 0.35) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.contact-hero-mesh {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        radial-gradient(ellipse 60% 60% at 20% 40%, rgba(124, 155, 193, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 50% at 80% 60%, rgba(245, 130, 32, 0.10) 0%, transparent 70%);
+    animation: contactMeshFloat 18s ease-in-out infinite alternate;
+}
+
+@keyframes contactMeshFloat {
+    from {
+        transform: scale(1) translate(0, 0);
+    }
+
+    to {
+        transform: scale(1.05) translate(-10px, 16px);
+    }
+}
+
+.contact-hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+        linear-gradient(rgba(124, 155, 193, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 155, 193, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+.contact-hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 5rem 1.5rem 4rem;
+}
+
+.contact-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(124, 155, 193, 0.14);
+    border: 1px solid rgba(124, 155, 193, 0.35);
+    border-radius: 50px;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: ctFadeUp 0.7s ease forwards 0.3s;
+}
+
+.contact-hero-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: ctFadeUp 0.7s ease forwards 0.6s;
+}
+
+.contact-hero-accent {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-lt) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    forced-color-adjust: none;
+}
+
+.contact-hero-sub {
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 560px;
+    margin: 0 auto 2rem;
+    line-height: 1.75;
+    opacity: 0;
+    animation: ctFadeUp 0.7s ease forwards 0.9s;
+}
+
+.contact-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    animation: ctFadeUp 0.7s ease forwards 1.1s;
+}
+
+.contact-breadcrumb a {
+    color: var(--orange-lt);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-breadcrumb a:hover {
+    color: #fff;
+}
+
+.contact-breadcrumb span {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-breadcrumb i.bi-chevron-right {
+    color: var(--orange);
+    font-size: 0.75rem;
+}
+
+@keyframes ctFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Contact Intro / Channels ────────────────────────────── */
+.contact-intro-section {
+    padding: 6rem 0 4rem;
+    background: var(--off-white);
+}
+
+.contact-channels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+}
+
+.channel-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: var(--text-main);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.channel-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--orange-lt));
+    transform: scaleX(0);
+    transition: var(--transition);
+}
+
+.channel-card:hover::after {
+    transform: scaleX(1);
+}
+
+.channel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(245, 130, 32, 0.2);
+    color: var(--text-main);
+}
+
+.channel-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue-lt) 0%, #c8ddf0 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--navy-mid);
+    transition: var(--transition);
+}
+
+.channel-card:hover .channel-icon {
+    background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.channel-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.channel-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.channel-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.channel-arrow {
+    color: var(--border);
+    font-size: 1rem;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.channel-card:hover .channel-arrow {
+    color: var(--orange);
+    transform: translateX(4px);
+}
+
+/* ── Contact Main Section ────────────────────────────────── */
+.contact-main-section {
+    padding: 5rem 0 6rem;
+    background: linear-gradient(150deg, #fff5ee 0%, var(--white) 60%, var(--off-white) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-main-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 50% 60% at 90% 50%, rgba(245, 130, 32, 0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 10% 60%, rgba(124, 155, 193, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.contact-main-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* ── Form Column ─────────────────────────────────────────── */
+.contact-form-wrap-v2 {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+/* Orange accent bar on left — matches strength-card */
+/* .contact-form-wrap-v2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, var(--orange), var(--orange-lt)); }*/
+
+.form-row-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+/* Reuse style-v2 form-group-v2; add icon wrapper */
+.input-icon-wrap {
+    position: relative;
+}
+
+.input-icon-wrap>i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--blue-acc);
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.input-icon-wrap input {
+    padding-left: 2.75rem !important;
+}
+
+.form-group-v2 input:focus+i,
+.input-icon-wrap input:focus~i,
+.input-icon-wrap:focus-within>i {
+    color: var(--orange);
+}
+
+/* Override textarea (no icon) */
+.form-group-v2 textarea {
+    padding: 0.8rem 1rem;
+    resize: vertical;
+    min-height: 130px;
+}
+
+/* ── Info Column ─────────────────────────────────────────── */
+.contact-info-card-v2 {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 2.25rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+
+
+/* ci-item already defined in style-v2.css — reuse as-is */
+
+/* ── Map ─────────────────────────────────────────────────── */
+.contact-map-v2 {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.map-label {
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy));
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 0.6rem 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.map-label i {
+    color: var(--orange);
+}
+
+.contact-map-v2 iframe {
+    width: 100%;
+    height: 260px;
+    border: 0;
+    display: block;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .contact-channels {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .contact-main-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .contact-hero {
+        min-height: 60vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-hero {
+        min-height: 55vh;
+        margin-top: 68px;
+    }
+
+    .contact-intro-section,
+    .contact-main-section {
+        padding: 4rem 0;
+    }
+
+    .form-row-duo {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form-wrap-v2 {
+        padding: 1.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-hero {
+        min-height: 50vh;
+        margin-top: 60px;
+    }
+
+    .contact-channels {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-map-v2 iframe {
+        height: 220px;
+    }
+}

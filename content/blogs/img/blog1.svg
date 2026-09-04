@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a56;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d5a8a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f58220;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb64c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg1)"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="120" x2="800" y2="120" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="0" y1="240" x2="800" y2="240" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="0" y1="360" x2="800" y2="360" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="200" y1="0" x2="200" y2="480" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="480" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="480" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  <!-- Calendar icon -->
+  <rect x="300" y="140" width="200" height="180" rx="12" fill="none" stroke="#7c9bc1" stroke-width="2.5" stroke-opacity="0.6"/>
+  <rect x="300" y="140" width="200" height="48" rx="12" fill="#7c9bc1" fill-opacity="0.25"/>
+  <line x1="300" y1="188" x2="500" y2="188" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.6"/>
+  <!-- Calendar header marks -->
+  <line x1="340" y1="128" x2="340" y2="156" stroke="url(#accent1)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="460" y1="128" x2="460" y2="156" stroke="url(#accent1)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Date cells -->
+  <rect x="316" y="200" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="354" y="200" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="392" y="200" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="430" y="200" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="468" y="200" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="316" y="234" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="354" y="234" width="28" height="24" rx="4" fill="url(#accent1)" fill-opacity="0.9"/>
+  <rect x="392" y="234" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="430" y="234" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <rect x="468" y="234" width="28" height="24" rx="4" fill="#7c9bc1" fill-opacity="0.2"/>
+  <!-- Exclamation mark -->
+  <circle cx="590" cy="160" r="40" fill="#f58220" fill-opacity="0.15" stroke="#f58220" stroke-width="2" stroke-opacity="0.5"/>
+  <text x="590" y="175" font-family="Georgia, serif" font-size="38" fill="#f58220" fill-opacity="0.8" text-anchor="middle" font-weight="bold">!</text>
+  <!-- Label text -->
+  <rect x="0" y="390" width="800" height="90" fill="#000000" fill-opacity="0.25"/>
+  <text x="400" y="435" font-family="Georgia, serif" font-size="22" fill="#ffffff" fill-opacity="0.9" text-anchor="middle" font-weight="bold">KRA Filing Deadline</text>
+  <text x="400" y="462" font-family="Arial, sans-serif" font-size="14" fill="#7c9bc1" text-anchor="middle">Tax Advisory</text>
+</svg>

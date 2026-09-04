@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#17304a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#254d72;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f58220;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff9f4a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg2)"/>
+  <!-- Subtle pattern -->
+  <circle cx="100" cy="100" r="180" fill="#7c9bc1" fill-opacity="0.04"/>
+  <circle cx="700" cy="400" r="220" fill="#f58220" fill-opacity="0.04"/>
+  <!-- Document icon -->
+  <rect x="280" y="110" width="160" height="210" rx="10" fill="none" stroke="#7c9bc1" stroke-width="2.5" stroke-opacity="0.7"/>
+  <rect x="280" y="110" width="160" height="210" rx="10" fill="#7c9bc1" fill-opacity="0.06"/>
+  <!-- Folded corner -->
+  <polyline points="400,110 440,150 440,210" fill="none" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.5"/>
+  <polygon points="400,110 440,150 400,150" fill="#7c9bc1" fill-opacity="0.18"/>
+  <!-- Lines on document -->
+  <line x1="300" y1="175" x2="400" y2="175" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="300" y1="198" x2="420" y2="198" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="300" y1="221" x2="390" y2="221" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="300" y1="244" x2="410" y2="244" stroke="#7c9bc1" stroke-width="2" stroke-opacity="0.3"/>
+  <!-- Stamp / question mark -->
+  <circle cx="390" cy="270" r="26" fill="none" stroke="url(#accent2)" stroke-width="2.5"/>
+  <text x="390" y="279" font-family="Georgia, serif" font-size="28" fill="#f58220" fill-opacity="0.85" text-anchor="middle" font-weight="bold">?</text>
+  <!-- Magnifying glass -->
+  <circle cx="530" cy="190" r="45" fill="none" stroke="#7c9bc1" stroke-width="3" stroke-opacity="0.5"/>
+  <line x1="563" y1="223" x2="590" y2="250" stroke="#7c9bc1" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
+  <circle cx="530" cy="190" r="32" fill="#7c9bc1" fill-opacity="0.08"/>
+  <!-- Label -->
+  <rect x="0" y="390" width="800" height="90" fill="#000000" fill-opacity="0.25"/>
+  <text x="400" y="435" font-family="Georgia, serif" font-size="22" fill="#ffffff" fill-opacity="0.9" text-anchor="middle" font-weight="bold">KRA Tax Dispute</text>
+  <text x="400" y="462" font-family="Arial, sans-serif" font-size="14" fill="#7c9bc1" text-anchor="middle">Compliance</text>
+</svg>
