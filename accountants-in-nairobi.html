@@ -123,6 +123,7 @@
     <!-- ═══ Stylesheets ════════════════════════════════════════ -->
     <link rel="stylesheet" href="css/preloader.css" />
     <link rel="stylesheet" href="css/style-v2.css" />
+    <link rel="stylesheet" href="css/service-pages.css" />
 </head>
 
 <body>
@@ -162,15 +163,15 @@
     </nav>
 
     <!-- Page Hero -->
-    <section class="about-hero">
-        <div class="container about-hero-inner">
-            <div class="about-hero-badge">
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-badge">
                 <span class="badge-dot"></span>
                 <span>Nairobi's Trusted Tax & Accounting Firm</span>
             </div>
-            <h1 class="about-hero-title">Accountants in <span class="about-hero-accent">Nairobi</span></h1>
-            <p class="about-hero-sub">Professional bookkeeping, financial reporting, and regulatory compliance for businesses across Kenya.</p>
-            <nav class="about-breadcrumb" aria-label="breadcrumb">
+            <h1 class="page-hero-title">Accountants in <span class="page-hero-accent">Nairobi</span></h1>
+            <p class="page-hero-sub">Professional bookkeeping, financial reporting, and regulatory compliance for businesses across Kenya.</p>
+            <nav class="page-breadcrumb" aria-label="breadcrumb">
                 <a href="index.html"><i class="bi bi-house-door me-1"></i>Home</a>
                 <i class="bi bi-chevron-right mx-2"></i>
                 <span>Accountants in Nairobi</span>
@@ -193,34 +194,30 @@
             <!-- Section 1: Core Accounting Services -->
             <section class="mb-5">
                 <h3 class="h4 mb-3">Core Accounting Services</h3>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-journal-bookmark" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Bookkeeping & Financial Record Management</h5>
-                            <p class="mb-0">We maintain detailed, audit-ready financial records for your business — from daily transaction recording to ledger reconciliation. Our bookkeeping ensures transparency, accuracy, and a complete audit trail for every transaction, giving you confidence in your numbers.</p>
-                        </div>
+                <div class="service-card-grid">
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-journal-bookmark"></i></div>
+                        <h5>Bookkeeping & Financial Record Management</h5>
+                        <p class="mb-0">We maintain detailed, audit-ready financial records for your business — from daily transaction recording to ledger reconciliation. Our bookkeeping ensures transparency, accuracy, and a complete audit trail for every transaction, giving you confidence in your numbers.</p>
+                        <span class="service-card-tag">Bookkeeping</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Financial Analysis & Reporting</h5>
-                            <p class="mb-0">Beyond recording numbers, we deliver analytical insights into your business performance. Our financial analysis empowers data-driven decision-making and strategic planning, helping you understand profitability drivers, cash flow patterns, and growth opportunities.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                        <h5>Financial Analysis & Reporting</h5>
+                        <p class="mb-0">Beyond recording numbers, we deliver analytical insights into your business performance. Our financial analysis empowers data-driven decision-making and strategic planning, helping you understand profitability drivers, cash flow patterns, and growth opportunities.</p>
+                        <span class="service-card-tag">Analysis</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-shield-check" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Regulatory Compliance</h5>
-                            <p class="mb-0">We help companies adhere to Kenyan tax laws and accounting standards, preventing compliance issues before they arise. From statutory reporting requirements to KRA filing obligations, we ensure your business stays on the right side of regulation.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-shield-check"></i></div>
+                        <h5>Regulatory Compliance</h5>
+                        <p class="mb-0">We help companies adhere to Kenyan tax laws and accounting standards, preventing compliance issues before they arise. From statutory reporting requirements to KRA filing obligations, we ensure your business stays on the right side of regulation.</p>
+                        <span class="service-card-tag">Compliance</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-calculator" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Financial Statement Preparation</h5>
-                            <p class="mb-0">We prepare compliant financial statements in accordance with IFRS and Kenyan reporting standards — including statements of financial position, comprehensive income, cash flows, and changes in equity — ready for audit, board review, or regulatory submission.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-calculator"></i></div>
+                        <h5>Financial Statement Preparation</h5>
+                        <p class="mb-0">We prepare compliant financial statements in accordance with IFRS and Kenyan reporting standards — including statements of financial position, comprehensive income, cash flows, and changes in equity — ready for audit, board review, or regulatory submission.</p>
+                        <span class="service-card-tag">Reporting</span>
                     </div>
                 </div>
             </section>
@@ -229,74 +226,58 @@
             <section class="mb-5">
                 <h3 class="h4 mb-3">Industries We Serve</h3>
                 <p class="mb-4">Our accounting expertise spans multiple sectors, each with unique regulatory and reporting requirements. We apply deep sector knowledge to deliver relevant, compliant financial management:</p>
-                <div class="row g-3">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="about-pillar" style="padding: 1.25rem; background: var(--bg-white); border-radius: 10px; border: 1px solid var(--border-card); text-align: center;">
-                            <i class="bi bi-factory" style="font-size: 2rem; color: var(--orange-primary); margin-bottom: 0.5rem;"></i>
-                            <h5 class="mb-0">Manufacturing</h5>
-                            <p class="small text-muted mb-0">Cost accounting, inventory valuation, production overhead allocation</p>
-                        </div>
+                <div class="industry-grid">
+                    <div class="industry-card">
+                        <i class="bi bi-factory industry-icon"></i>
+                        <h5>Manufacturing</h5>
+                        <p>Cost accounting, inventory valuation, production overhead allocation</p>
                     </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="about-pillar" style="padding: 1.25rem; background: var(--bg-white); border-radius: 10px; border: 1px solid var(--border-card); text-align: center;">
-                            <i class="bi bi-shop" style="font-size: 2rem; color: var(--orange-primary); margin-bottom: 0.5rem;"></i>
-                            <h5 class="mb-0">Retail & Wholesale</h5>
-                            <p class="small text-muted mb-0">POS reconciliation, inventory turnover, multi-location reporting</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-shop industry-icon"></i>
+                        <h5>Retail & Wholesale</h5>
+                        <p>POS reconciliation, inventory turnover, multi-location reporting</p>
                     </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="about-pillar" style="padding: 1.25rem; background: var(--bg-white); border-radius: 10px; border: 1px solid var(--border-card); text-align: center;">
-                            <i class="bi bi-people" style="font-size: 2rem; color: var(--orange-primary); margin-bottom: 0.5rem;"></i>
-                            <h5 class="mb-0">NGOs & Non-Profits</h5>
-                            <p class="small text-muted mb-0">Donor reporting, grant compliance, fund accounting, statutory returns</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-people industry-icon"></i>
+                        <h5>NGOs & Non-Profits</h5>
+                        <p>Donor reporting, grant compliance, fund accounting, statutory returns</p>
                     </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="about-pillar" style="padding: 1.25rem; background: var(--bg-white); border-radius: 10px; border: 1px solid var(--border-card); text-align: center;">
-                            <i class="bi bi-building" style="font-size: 2rem; color: var(--orange-primary); margin-bottom: 0.5rem;"></i>
-                            <h5 class="mb-0">Public Sector</h5>
-                            <p class="small text-muted mb-0">IPSAS compliance, budget execution reporting, audit readiness</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-building industry-icon"></i>
+                        <h5>Public Sector</h5>
+                        <p>IPSAS compliance, budget execution reporting, audit readiness</p>
                     </div>
                 </div>
             </section>
 
             <!-- Section 3: Meet Your Accountant -->
             <section class="mb-5">
-                <div class="team-member" style="background: var(--bg-light); border-radius: 16px; padding: 2rem; border: 1px solid var(--border-card);">
-                    <div class="row align-items-center g-4">
-                        <div class="col-md-4 text-center">
-                            <div class="team-image-side" style="position: relative; display: inline-block;">
-                                <img src="img/stephen.jpg" alt="Stephen Chege" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--orange-primary);">
-                                <div class="team-card-name-badge" style="position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); background: var(--navy-deep); color: white; padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: 600; white-space: nowrap; font-size: 0.9rem;">Stephen Chege</div>
-                            </div>
+                <div class="team-member-inline">
+                    <div class="team-image-side">
+                        <img src="img/stephen.jpg" alt="Stephen Chege" class="team-image-inline">
+                        <div class="team-name-badge">Stephen Chege</div>
+                    </div>
+                    <div class="team-content">
+                        <div class="team-header">
+                            <h4>Stephen Chege</h4>
+                            <span class="team-role-tag">Compliance & Business Advisory</span>
                         </div>
-                        <div class="col-md-8">
-                            <div class="team-card">
-                                <div class="team-card-body">
-                                    <div class="team-card-header">
-                                        <h4 class="mb-1">Stephen Chege</h4>
-                                        <span class="team-role-tag" style="background: var(--orange-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">Compliance & Business Advisory</span>
-                                    </div>
-                                    <p>
-                                        A seasoned compliance expert and business advisor with over 15 years of post-qualification experience.
-                                        As a Certified Public Accountant (CPA-K) and member of the Institute of Internal Auditors (IIA), he
-                                        offers a wealth of expertise in business development, organizational development, and internal audit,
-                                        honed in the financial services and public accounting sectors. Holds a Bachelor of Arts from the
-                                        University of Nairobi and is currently pursuing an MBA in Strategic Management at JKUAT.
-                                    </p>
-                                    <div class="competencies-wrap">
-                                        <span class="competencies-label" style="font-weight: 600; color: var(--navy-deep);">Core Competencies</span>
-                                        <div class="competencies-tags" style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                                            <span style="background: var(--orange-primary); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Compliance</span>
-                                            <span style="background: var(--navy-mid); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Internal Audit</span>
-                                            <span style="background: var(--orange-primary); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Business Advisory</span>
-                                            <span style="background: var(--navy-mid); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Organizational Development</span>
-                                            <span style="background: var(--orange-primary); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Financial Services</span>
-                                            <span style="background: var(--navy-mid); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Risk Management</span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <p class="team-bio">
+                            A seasoned compliance expert and business advisor with over 15 years of post-qualification experience.
+                            As a Certified Public Accountant (CPA-K) and member of the Institute of Internal Auditors (IIA), he
+                            offers a wealth of expertise in business development, organizational development, and internal audit,
+                            honed in the financial services and public accounting sectors. Holds a Bachelor of Arts from the
+                            University of Nairobi and is currently pursuing an MBA in Strategic Management at JKUAT.
+                        </p>
+                        <div class="competencies-wrap">
+                            <span class="competencies-label">Core Competencies</span>
+                            <div class="competencies-tags-inline">
+                                <span class="competency-tag">Compliance</span>
+                                <span class="competency-tag">Internal Audit</span>
+                                <span class="competency-tag">Business Advisory</span>
+                                <span class="competency-tag">Organizational Development</span>
+                                <span class="competency-tag">Financial Services</span>
+                                <span class="competency-tag">Risk Management</span>
                             </div>
                         </div>
                     </div>
@@ -306,51 +287,51 @@
             <!-- Section 4: FAQ -->
             <section class="mb-5" id="faq">
                 <h3 class="h4 mb-4">Frequently Asked Questions</h3>
-                <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                <div class="accordion faq-accordion" id="faqAccordion">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq1-heading">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
                                 Do I need an accountant for a small business in Kenya?
                             </button>
                         </h4>
                         <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 Yes. Even small businesses in Kenya benefit from professional accounting support. A qualified accountant ensures your records are accurate from day one, helps you understand which taxes apply (VAT, PAYE, income tax, turnover tax), and prevents costly filing errors. Many small business owners assume they can manage on iTax alone — only to discover penalties or missed deductions later. Early professional guidance costs far less than retroactive corrections.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq2-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
                                 What's the difference between bookkeeping and accounting?
                             </button>
                         </h4>
                         <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 Bookkeeping is the systematic recording of daily financial transactions — sales, purchases, receipts, payments. Accounting takes those records and interprets them: preparing financial statements, analysing performance, ensuring regulatory compliance, and advising on tax strategy. Bookkeeping builds the foundation; accounting builds the insight. APSIS provides both, so your records are accurate and your decisions are informed.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq3-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
                                 How often should financial statements be prepared?
                             </button>
                         </h4>
                         <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 At minimum, annual financial statements are required for statutory compliance and tax filing. However, growing businesses should review monthly or quarterly management accounts — profit and loss, cash flow, balance sheet — to track performance, identify trends, and make timely decisions. APSIS can set up a reporting cadence that matches your business stage and stakeholder needs.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq4-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
                                 Can you help with accounting software setup and training?
                             </button>
                         </h4>
                         <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 Absolutely. We assist with selecting, implementing, and training your team on accounting platforms — whether QuickBooks, Sage, Xero, or custom ERP systems. Proper setup from the start prevents data integrity issues that compound over time. Our team also supports migration from manual or legacy systems to cloud-based solutions.
                             </div>
                         </div>
@@ -359,12 +340,12 @@
             </section>
 
             <!-- Section 5: CTA -->
-            <section class="text-center mb-5" style="padding: 3rem 2rem; background: linear-gradient(135deg, var(--navy-deep), var(--navy-mid)); border-radius: 16px; color: white;">
-                <h3 class="h3 mb-3">Ready to Put Your Accounting in Expert Hands?</h3>
-                <p class="mb-4" style="max-width: 700px; margin: 0 auto;">Partner with accountants who understand your industry, your compliance obligations, and your growth ambitions. Stephen Chege and the APSIS team are ready to help.</p>
+            <section class="cta-banner">
+                <h3>Ready to Put Your Accounting in Expert Hands?</h3>
+                <p>Partner with accountants who understand your industry, your compliance obligations, and your growth ambitions. Stephen Chege and the APSIS team are ready to help.</p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="contact.html" class="btn-hero-primary" style="background: var(--orange-primary); border: none; padding: 0.85rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem;">Contact Us <i class="bi bi-arrow-right"></i></a>
-                    <a href="tel:+254722670127" class="btn-hero-primary" style="background: transparent; border: 2px solid var(--orange-primary); padding: 0.85rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="bi bi-telephone-fill"></i> Call +254 722 670 127</a>
+                    <a href="contact.html" class="btn-primary">Contact Us <i class="bi bi-arrow-right"></i></a>
+                    <a href="tel:+254722670127" class="btn-outline"><i class="bi bi-telephone-fill"></i> Call +254 722 670 127</a>
                 </div>
             </section>
         </div>
@@ -411,17 +392,7 @@
                         <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax Advisory</a></li>
                     </ul>
                 </div>
-                                <div class="footer-links-col">
-                    <h5>Our Services</h5>
-                    <ul>
-                        <li><a href="accountants-in-nairobi.html"><i class="bi bi-calculator"></i> Accountants in Nairobi</a></li>
-                        <li><a href="/content/insights/kra-tax-consultant-kenya.html"><i class="bi bi-cash-coin"></i> Tax Advisors</a></li>
-                        <li><a href="financial-advisor.html"><i class="bi bi-graph-up-arrow"></i> Financial Advisor</a></li>
-                        <li><a href="/content/insights/Payroll-tax-services-kenya.html"><i class="bi bi-people"></i> Payroll Services Kenya</a></li>
-                        <li><a href="vat-compliance-kenya.html"><i class="bi bi-receipt"></i> VAT Compliance Kenya</a></li>
-                        <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax Advisory</a></li>
-                    </ul>
-                </div><div class="footer-map-col">
+                <div class="footer-map-col">
                     <h5>Our Location</h5>
                     <div class="footer-map-wrap">
                         <iframe

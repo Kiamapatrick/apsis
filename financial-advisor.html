@@ -123,6 +123,7 @@
     <!-- ═══ Stylesheets ════════════════════════════════════════ -->
     <link rel="stylesheet" href="css/preloader.css" />
     <link rel="stylesheet" href="css/style-v2.css" />
+    <link rel="stylesheet" href="css/service-pages.css" />
 </head>
 
 <body>
@@ -162,15 +163,15 @@
     </nav>
 
     <!-- Page Hero -->
-    <section class="about-hero">
-        <div class="container about-hero-inner">
-            <div class="about-hero-badge">
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-badge">
                 <span class="badge-dot"></span>
                 <span>Nairobi's Trusted Tax & Accounting Firm</span>
             </div>
-            <h1 class="about-hero-title">Financial <span class="about-hero-accent">Advisor</span> in Nairobi</h1>
-            <p class="about-hero-sub">Strategic financial advisory, FP&A, and investment expertise for growing businesses across Kenya.</p>
-            <nav class="about-breadcrumb" aria-label="breadcrumb">
+            <h1 class="page-hero-title">Financial <span class="page-hero-accent">Advisor</span> in Nairobi</h1>
+            <p class="page-hero-sub">Strategic financial advisory, FP&A, and investment expertise for growing businesses across Kenya.</p>
+            <nav class="page-breadcrumb" aria-label="breadcrumb">
                 <a href="index.html"><i class="bi bi-house-door me-1"></i>Home</a>
                 <i class="bi bi-chevron-right mx-2"></i>
                 <span>Financial Advisor</span>
@@ -193,122 +194,100 @@
             <!-- Section 1: Financial Advisory Services -->
             <section class="mb-5">
                 <h3 class="h4 mb-3">Our Financial Advisory Services</h3>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Financial Analysis & Performance Review</h5>
-                            <p class="mb-0">We deliver analytical insights into your business performance — profitability by segment, cost structure analysis, margin trends, and cash flow drivers. Our reviews give you the clarity to make data-driven decisions rather than relying on intuition.</p>
-                        </div>
+                <div class="service-card-grid">
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                        <h5>Financial Analysis & Performance Review</h5>
+                        <p class="mb-0">We deliver analytical insights into your business performance — profitability by segment, cost structure analysis, margin trends, and cash flow drivers. Our reviews give you the clarity to make data-driven decisions rather than relying on intuition.</p>
+                        <span class="service-card-tag">Analysis</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-bar-chart-line" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Financial Planning & Analysis (FP&A)</h5>
-                            <p class="mb-0">Structured FP&A processes including budgeting, forecasting, variance analysis, and scenario planning. We build financial models that connect operational drivers to financial outcomes, enabling proactive management rather than reactive firefighting.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-bar-chart-line"></i></div>
+                        <h5>Financial Planning & Analysis (FP&A)</h5>
+                        <p class="mb-0">Structured FP&A processes including budgeting, forecasting, variance analysis, and scenario planning. We build financial models that connect operational drivers to financial outcomes, enabling proactive management rather than reactive firefighting.</p>
+                        <span class="service-card-tag">FP&A</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-calculator" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Financial Modeling & Forecasting</h5>
-                            <p class="mb-0">Custom-built models for business planning, fundraising, acquisition analysis, and capital expenditure evaluation. Our models are transparent, auditable, and designed for stress-testing assumptions under multiple scenarios.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-calculator"></i></div>
+                        <h5>Financial Modeling & Forecasting</h5>
+                        <p class="mb-0">Custom-built models for business planning, fundraising, acquisition analysis, and capital expenditure evaluation. Our models are transparent, auditable, and designed for stress-testing assumptions under multiple scenarios.</p>
+                        <span class="service-card-tag">Modeling</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-gem" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Investment Appraisal & Capital Allocation</h5>
-                            <p class="mb-0">Rigorous evaluation of investment opportunities using NPV, IRR, payback period, and sensitivity analysis. We help you allocate capital to the highest-return opportunities while quantifying downside risk — essential for board-level decisions.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-gem"></i></div>
+                        <h5>Investment Appraisal & Capital Allocation</h5>
+                        <p class="mb-0">Rigorous evaluation of investment opportunities using NPV, IRR, payback period, and sensitivity analysis. We help you allocate capital to the highest-return opportunities while quantifying downside risk — essential for board-level decisions.</p>
+                        <span class="service-card-tag">Investment</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-wallet2" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Budget Management & Cost Control</h5>
-                            <p class="mb-0">Design and implementation of budgeting frameworks aligned to your strategic objectives. We establish variance reporting, cost centre accountability, and rolling forecast processes that keep spending aligned with priorities.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-wallet2"></i></div>
+                        <h5>Budget Management & Cost Control</h5>
+                        <p class="mb-0">Design and implementation of budgeting frameworks aligned to your strategic objectives. We establish variance reporting, cost centre accountability, and rolling forecast processes that keep spending aligned with priorities.</p>
+                        <span class="service-card-tag">Budgeting</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-briefcase" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Financial Consulting & Strategy</h5>
-                            <p class="mb-0">Advisory on financial strategy, capital structure optimization, financing decisions, and business restructuring. We bring an independent perspective to complex financial choices — from debt vs equity to dividend policy and shareholder returns.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-briefcase"></i></div>
+                        <h5>Financial Consulting & Strategy</h5>
+                        <p class="mb-0">Advisory on financial strategy, capital structure optimization, financing decisions, and business restructuring. We bring an independent perspective to complex financial choices — from debt vs equity to dividend policy and shareholder returns.</p>
+                        <span class="service-card-tag">Strategy</span>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 2: Who It's For -->
+            <!-- Section 2: Who We Work With -->
             <section class="mb-5">
                 <h3 class="h4 mb-3">Who We Work With</h3>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-building" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>SMEs Scaling Beyond Founder-Led Finance</h5>
-                            <p class="mb-0">When a business outgrows the founder's ability to manage finances informally, we provide the structure, reporting, and forward-looking analysis needed to scale confidently. From management accounts to board-ready packs.</p>
-                        </div>
+                <div class="industry-grid">
+                    <div class="industry-card">
+                        <i class="bi bi-building industry-icon"></i>
+                        <h5>SMEs Scaling Beyond Founder-Led Finance</h5>
+                        <p>When a business outgrows the founder's ability to manage finances informally, we provide the structure, reporting, and forward-looking analysis needed to scale confidently.</p>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-graph-up" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Established Companies Seeking Rigor</h5>
-                            <p class="mb-0">Larger organizations engage us for independent financial modeling, investment committee support, capital allocation reviews, and FP&A capability building. We augment internal finance teams with specialized expertise.</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-graph-up industry-icon"></i>
+                        <h5>Established Companies Seeking Rigor</h5>
+                        <p>Larger organizations engage us for independent financial modeling, investment committee support, capital allocation reviews, and FP&A capability building.</p>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-rocket-takeoff" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Businesses Preparing for Investment or Exit</h5>
-                            <p class="mb-0">Due diligence-ready financial models, historical normalization, valuation support, and data room preparation. We help you present your financial story credibly to investors, acquirers, or lenders.</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-rocket-takeoff industry-icon"></i>
+                        <h5>Businesses Preparing for Investment or Exit</h5>
+                        <p>Due diligence-ready financial models, historical normalization, valuation support, and data room preparation for investors, acquirers, or lenders.</p>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-shield-lock" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Organizations Needing Financial Governance</h5>
-                            <p class="mb-0">Board reporting frameworks, KPI dashboard design, budgeting process redesign, and internal control assessments. We strengthen the financial governance infrastructure that stakeholders rely on.</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-shield-lock industry-icon"></i>
+                        <h5>Organizations Needing Financial Governance</h5>
+                        <p>Board reporting frameworks, KPI dashboard design, budgeting process redesign, and internal control assessments that strengthen financial governance.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Section 3: Meet Your Advisor -->
             <section class="mb-5">
-                <div class="team-member" style="background: var(--bg-light); border-radius: 16px; padding: 2rem; border: 1px solid var(--border-card);">
-                    <div class="row align-items-center g-4">
-                        <div class="col-md-4 text-center">
-                            <div class="team-image-side" style="position: relative; display: inline-block;">
-                                <img src="img/gc.jpg" alt="Domisiano Wainaina" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--orange-primary);">
-                                <div class="team-card-name-badge" style="position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); background: var(--navy-deep); color: white; padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: 600; white-space: nowrap; font-size: 0.9rem;">Domisiano Wainaina</div>
-                            </div>
+                <div class="team-member-inline">
+                    <div class="team-image-side">
+                        <img src="img/gc.jpg" alt="Domisiano Wainaina" class="team-image-inline">
+                        <div class="team-name-badge">Domisiano Wainaina</div>
+                    </div>
+                    <div class="team-content">
+                        <div class="team-header">
+                            <h4>Domisiano Wainaina</h4>
+                            <span class="team-role-tag">Director & Lead Consultant</span>
                         </div>
-                        <div class="col-md-8">
-                            <div class="team-card">
-                                <div class="team-card-body">
-                                    <div class="team-card-header">
-                                        <h4 class="mb-1">Domisiano Wainaina</h4>
-                                        <span class="team-role-tag" style="background: var(--orange-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">Director & Lead Consultant</span>
-                                    </div>
-                                    <p>
-                                        A seasoned finance and taxation professional with over 14 years of experience specializing in financial
-                                        planning, modeling, and regulatory compliance. Expertise in driving fiscal strategy through investment
-                                        appraisal, budgeting, and forecasting. Holds an MBA, a Bachelor of Arts from the University of Nairobi,
-                                        and is a Certified Public Accountant (CPA-K).
-                                    </p>
-                                    <div class="competencies-wrap">
-                                        <span class="competencies-label" style="font-weight: 600; color: var(--navy-deep);">Core Competencies — Financial Advisory Focus</span>
-                                        <div class="competencies-tags" style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                                            <span style="background: var(--orange-primary); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Financial Planning & Analysis (FP&A)</span>
-                                            <span style="background: var(--navy-mid); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Financial Modeling & Forecasting</span>
-                                            <span style="background: var(--orange-primary); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Investment Appraisal</span>
-                                            <span style="background: var(--navy-mid); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Budget Management</span>
-                                            <span style="background: var(--orange-primary); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Regulatory Reporting</span>
-                                            <span style="background: var(--navy-mid); color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">Tax Strategy & Compliance</span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <p class="team-bio">
+                            A seasoned finance and taxation professional with over 14 years of experience specializing in financial
+                            planning, modeling, and regulatory compliance. Expertise in driving fiscal strategy through investment
+                            appraisal, budgeting, and forecasting. Holds an MBA, a Bachelor of Arts from the University of Nairobi,
+                            and is a Certified Public Accountant (CPA-K).
+                        </p>
+                        <div class="competencies-wrap">
+                            <span class="competencies-label">Core Competencies — Financial Advisory Focus</span>
+                            <div class="competencies-tags-inline">
+                                <span class="competency-tag">Financial Planning & Analysis (FP&A)</span>
+                                <span class="competency-tag">Financial Modeling & Forecasting</span>
+                                <span class="competency-tag">Investment Appraisal</span>
+                                <span class="competency-tag">Budget Management</span>
+                                <span class="competency-tag">Regulatory Reporting</span>
+                                <span class="competency-tag">Tax Strategy & Compliance</span>
                             </div>
                         </div>
                     </div>
@@ -318,51 +297,51 @@
             <!-- Section 4: FAQ -->
             <section class="mb-5" id="faq">
                 <h3 class="h4 mb-4">Frequently Asked Questions</h3>
-                <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                <div class="accordion faq-accordion" id="faqAccordion">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq1-heading">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
                                 When should a business hire a financial advisor?
                             </button>
                         </h4>
                         <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 The right time is before you need one reactively. Common triggers: preparing for fundraising or acquisition, scaling beyond informal financial management, facing a major capital allocation decision, or needing board-ready financial reporting. If you're making decisions based on bank balance rather than financial projections, you're already late. APSIS helps you build the financial infrastructure to decide with confidence.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq2-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
                                 What's the difference between a financial advisor and an accountant?
                             </button>
                         </h4>
                         <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 An accountant focuses on recording, reporting, and compliance — ensuring your financial history is accurate and your tax obligations are met. A financial advisor looks forward: modeling future scenarios, evaluating investments, structuring capital, and guiding strategic decisions. Both are essential. At APSIS, our team spans both disciplines — so your compliance is solid and your strategy is informed.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq3-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
                                 Do you provide outsourced CFO services?
                             </button>
                         </h4>
                         <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 Yes. We offer fractional CFO support for businesses that need strategic financial leadership without a full-time hire. This includes board reporting, investor relations support, banking relationship management, capital structure advisory, and financial governance — tailored to your stage and budget.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq4-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
                                 Can you help with business valuation for investment or sale?
                             </button>
                         </h4>
                         <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 We provide valuation support including DCF modeling, comparable company analysis, precedent transaction review, and earnings normalization for due diligence. Our work is designed to withstand scrutiny from investors, acquirers, and their advisors. We also advise on value drivers you can influence before going to market.
                             </div>
                         </div>
@@ -371,12 +350,12 @@
             </section>
 
             <!-- Section 5: CTA -->
-            <section class="text-center mb-5" style="padding: 3rem 2rem; background: linear-gradient(135deg, var(--navy-deep), var(--navy-mid)); border-radius: 16px; color: white;">
-                <h3 class="h3 mb-3">Make Financial Decisions With Confidence</h3>
-                <p class="mb-4" style="max-width: 700px; margin: 0 auto;">From FP&A and modeling to investment appraisal and budget management — Domisiano Wainaina and the APSIS advisory team are ready to help you build a stronger financial future.</p>
+            <section class="cta-banner">
+                <h3>Make Financial Decisions With Confidence</h3>
+                <p>From FP&A and modeling to investment appraisal and budget management — Domisiano Wainaina and the APSIS advisory team are ready to help you build a stronger financial future.</p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="contact.html" class="btn-hero-primary" style="background: var(--orange-primary); border: none; padding: 0.85rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem;">Contact Us <i class="bi bi-arrow-right"></i></a>
-                    <a href="tel:+254722670127" class="btn-hero-primary" style="background: transparent; border: 2px solid var(--orange-primary); padding: 0.85rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="bi bi-telephone-fill"></i> Call +254 722 670 127</a>
+                    <a href="contact.html" class="btn-primary">Contact Us <i class="bi bi-arrow-right"></i></a>
+                    <a href="tel:+254722670127" class="btn-outline"><i class="bi bi-telephone-fill"></i> Call +254 722 670 127</a>
                 </div>
             </section>
         </div>
@@ -423,17 +402,7 @@
                         <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax Advisory</a></li>
                     </ul>
                 </div>
-                                <div class="footer-links-col">
-                    <h5>Our Services</h5>
-                    <ul>
-                        <li><a href="accountants-in-nairobi.html"><i class="bi bi-calculator"></i> Accountants in Nairobi</a></li>
-                        <li><a href="/content/insights/kra-tax-consultant-kenya.html"><i class="bi bi-cash-coin"></i> Tax Advisors</a></li>
-                        <li><a href="financial-advisor.html"><i class="bi bi-graph-up-arrow"></i> Financial Advisor</a></li>
-                        <li><a href="/content/insights/Payroll-tax-services-kenya.html"><i class="bi bi-people"></i> Payroll Services Kenya</a></li>
-                        <li><a href="vat-compliance-kenya.html"><i class="bi bi-receipt"></i> VAT Compliance Kenya</a></li>
-                        <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax Advisory</a></li>
-                    </ul>
-                </div><div class="footer-map-col">
+                <div class="footer-map-col">
                     <h5>Our Location</h5>
                     <div class="footer-map-wrap">
                         <iframe

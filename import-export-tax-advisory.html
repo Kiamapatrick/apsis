@@ -100,6 +100,7 @@
     <!-- ═══ Stylesheets ════════════════════════════════════════ -->
     <link rel="stylesheet" href="css/preloader.css" />
     <link rel="stylesheet" href="css/style-v2.css" />
+    <link rel="stylesheet" href="css/service-pages.css" />
 </head>
 
 <body>
@@ -139,15 +140,15 @@
     </nav>
 
     <!-- Page Hero -->
-    <section class="about-hero">
-        <div class="container about-hero-inner">
-            <div class="about-hero-badge">
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-badge">
                 <span class="badge-dot"></span>
                 <span>Nairobi's Trusted Tax & Accounting Firm</span>
             </div>
-            <h1 class="about-hero-title">Import/Export Tax <span class="about-hero-accent">Advisory</span></h1>
-            <p class="about-hero-sub">Cross-border transaction compliance, advance rulings, and customs expertise for Kenyan importers and exporters.</p>
-            <nav class="about-breadcrumb" aria-label="breadcrumb">
+            <h1 class="page-hero-title">Import/Export Tax <span class="page-hero-accent">Advisory</span></h1>
+            <p class="page-hero-sub">Cross-border transaction compliance, advance rulings, and customs expertise for Kenyan importers and exporters.</p>
+            <nav class="page-breadcrumb" aria-label="breadcrumb">
                 <a href="index.html"><i class="bi bi-house-door me-1"></i>Home</a>
                 <i class="bi bi-chevron-right mx-2"></i>
                 <span>Import/Export Tax Advisory</span>
@@ -170,34 +171,30 @@
             <!-- Section 1: Import/Export Review Services -->
             <section class="mb-5">
                 <h3 class="h4 mb-3">Import & Export Review Services</h3>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-search" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Customs Valuation & Tariff Classification</h5>
-                            <p class="mb-0">We review your import declarations to ensure correct customs valuation methods (transaction value, deductive value, computed value) and accurate HS code classification. Misclassification leads to under/over-payment of duty, penalties, and clearance delays.</p>
-                        </div>
+                <div class="service-card-grid">
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-search"></i></div>
+                        <h5>Customs Valuation & Tariff Classification</h5>
+                        <p class="mb-0">We review your import declarations to ensure correct customs valuation methods (transaction value, deductive value, computed value) and accurate HS code classification. Misclassification leads to under/over-payment of duty, penalties, and clearance delays.</p>
+                        <span class="service-card-tag">Valuation</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-file-earmark-check" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Import/Export Documentation Compliance</h5>
-                            <p class="mb-0">Complete review of commercial invoices, packing lists, certificates of origin, permits, and licenses. We ensure your documentation meets KRA and Kenya Customs requirements before shipment — avoiding costly demurrage and penalties at the port.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-file-earmark-check"></i></div>
+                        <h5>Import/Export Documentation Compliance</h5>
+                        <p class="mb-0">Complete review of commercial invoices, packing lists, certificates of origin, permits, and licenses. We ensure your documentation meets KRA and Kenya Customs requirements before shipment — avoiding costly demurrage and penalties at the port.</p>
+                        <span class="service-card-tag">Documentation</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-calculator" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Duty Optimization & Exemption Analysis</h5>
-                            <p class="mb-0">Identification of applicable duty exemptions, remission schemes, and preferential rates under EAC, COMESA, and bilateral trade agreements. We structure your import/export operations to minimize legitimate duty exposure while maintaining full compliance.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-calculator"></i></div>
+                        <h5>Duty Optimization & Exemption Analysis</h5>
+                        <p class="mb-0">Identification of applicable duty exemptions, remission schemes, and preferential rates under EAC, COMESA, and bilateral trade agreements. We structure your import/export operations to minimize legitimate duty exposure while maintaining full compliance.</p>
+                        <span class="service-card-tag">Optimization</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-shield-check" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Post-Clearance Audit Support</h5>
-                            <p class="mb-0">If KRA Customs initiates a post-clearance audit, we represent you throughout the process — reviewing audit findings, preparing responses, and negotiating duty assessments. Early engagement significantly reduces exposure.</p>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-shield-check"></i></div>
+                        <h5>Post-Clearance Audit Support</h5>
+                        <p class="mb-0">If KRA Customs initiates a post-clearance audit, we represent you throughout the process — reviewing audit findings, preparing responses, and negotiating duty assessments. Early engagement significantly reduces exposure.</p>
+                        <span class="service-card-tag">Audit</span>
                     </div>
                 </div>
             </section>
@@ -206,32 +203,30 @@
             <section class="mb-5">
                 <h3 class="h4 mb-3">Advance Tax Rulings — Certainty Before You Commit</h3>
                 <p class="mb-4">An advance tax ruling from KRA provides binding guidance on the tax treatment of a proposed cross-border transaction. This certainty is invaluable for pricing, contract negotiation, and risk management.</p>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-lightbulb" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>When to Seek an Advance Ruling</h5>
-                            <ul class="mb-0 small">
-                                <li>Complex import/export transactions with uncertain duty or VAT treatment</li>
-                                <li>New product lines or markets where classification is ambiguous</li>
-                                <li>Structuring cross-border services, royalties, or intellectual property licensing</li>
-                                <li>Major capital equipment imports where valuation methodology is debatable</li>
-                                <li>Transactions with related parties requiring transfer pricing alignment</li>
-                            </ul>
-                        </div>
+                <div class="service-card-grid">
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-lightbulb"></i></div>
+                        <h5>When to Seek an Advance Ruling</h5>
+                        <ul class="mb-0 small">
+                            <li>Complex import/export transactions with uncertain duty or VAT treatment</li>
+                            <li>New product lines or markets where classification is ambiguous</li>
+                            <li>Structuring cross-border services, royalties, or intellectual property licensing</li>
+                            <li>Major capital equipment imports where valuation methodology is debatable</li>
+                            <li>Transactions with related parties requiring transfer pricing alignment</li>
+                        </ul>
+                        <span class="service-card-tag">Guidance</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card);">
-                            <div class="pillar-icon" style="margin-bottom: 0.75rem;"><i class="bi bi-check-circle" style="font-size: 1.5rem; color: var(--orange-primary);"></i></div>
-                            <h5>Our Advance Ruling Service</h5>
-                            <ul class="mb-0 small">
-                                <li>Pre-ruling assessment: we evaluate whether a ruling is necessary and likely to succeed</li>
-                                <li>Application preparation: comprehensive submission with legal analysis, facts, and supporting documents</li>
-                                <li>KRA engagement: we manage correspondence, clarifications, and follow-up until ruling issuance</li>
-                                <li>Implementation guidance: translating the ruling into operational procedures for your team</li>
-                                <li>Ongoing monitoring: tracking regulatory changes that may affect the ruling's validity</li>
-                            </ul>
-                        </div>
+                    <div class="service-card-item">
+                        <div class="service-card-icon"><i class="bi bi-check-circle"></i></div>
+                        <h5>Our Advance Ruling Service</h5>
+                        <ul class="mb-0 small">
+                            <li>Pre-ruling assessment: we evaluate whether a ruling is necessary and likely to succeed</li>
+                            <li>Application preparation: comprehensive submission with legal analysis, facts, and supporting documents</li>
+                            <li>KRA engagement: we manage correspondence, clarifications, and follow-up until ruling issuance</li>
+                            <li>Implementation guidance: translating the ruling into operational procedures for your team</li>
+                            <li>Ongoing monitoring: tracking regulatory changes that may affect the ruling's validity</li>
+                        </ul>
+                        <span class="service-card-tag">Service</span>
                     </div>
                 </div>
             </section>
@@ -239,37 +234,36 @@
             <!-- Section 3: Why This Matters for Kenyan Traders -->
             <section class="mb-5">
                 <h3 class="h4 mb-3">Why Cross-Border Tax Expertise Matters</h3>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-align: center;">
-                            <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--orange-primary); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;"><i class="bi bi-currency-exchange" style="font-size: 1.5rem; color: white;"></i></div>
-                            <h5>Cost of Non-Compliance</h5>
-                            <p class="small mb-0">Customs penalties, demurrage, seizure risk, and reputational damage with trade partners. Proactive compliance costs a fraction.</p>
-                        </div>
+                <div class="industry-grid">
+                    <div class="industry-card">
+                        <i class="bi bi-currency-exchange industry-icon"></i>
+                        <h5>Cost of Non-Compliance</h5>
+                        <p>Customs penalties, demurrage, seizure risk, and reputational damage with trade partners. Proactive compliance costs a fraction.</p>
                     </div>
-                    <div class="col-md-4">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-align: center;">
-                            <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--orange-primary); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;"><i class="bi bi-graph-up" style="font-size: 1.5rem; color: white;"></i></div>
-                            <h5>Duty Savings Are Real</h5>
-                            <p class="small mb-0">Correct classification, exemption claims, and preferential rates under EAC/COMESA can reduce landed cost by 10-25%.</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-graph-up industry-icon"></i>
+                        <h5>Duty Savings Are Real</h5>
+                        <p>Correct classification, exemption claims, and preferential rates under EAC/COMESA can reduce landed cost by 10-25%.</p>
                     </div>
-                    <div class="col-md-4">
-                        <div class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-align: center;">
-                            <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--orange-primary); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;"><i class="bi bi-clock" style="font-size: 1.5rem; color: white;"></i></div>
-                            <h5>Speed to Market</h5>
-                            <p class="small mb-0">Pre-cleared documentation and advance rulings eliminate port delays. Your goods move faster; your customers stay satisfied.</p>
-                        </div>
+                    <div class="industry-card">
+                        <i class="bi bi-clock industry-icon"></i>
+                        <h5>Speed to Market</h5>
+                        <p>Pre-cleared documentation and advance rulings eliminate port delays. Your goods move faster; your customers stay satisfied.</p>
+                    </div>
+                    <div class="industry-card">
+                        <i class="bi bi-globe industry-icon"></i>
+                        <h5>Regional Trade Access</h5>
+                        <p>EAC, COMESA, and AfCFTA opportunities require precise compliance. We help you unlock preferential market access.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Section 4: Our Team Approach -->
             <section class="mb-5">
-                <div class="about-pillar" style="padding: 2rem; background: var(--bg-light); border-radius: 16px; border: 1px solid var(--border-card); text-align: center;">
-                    <i class="bi bi-people" style="font-size: 3rem; color: var(--orange-primary); margin-bottom: 1rem;"></i>
+                <div class="about-pillar content-center">
+                    <i class="bi bi-people icon-large"></i>
                     <h4 class="mb-3">Firm-Level Expertise, Not Individual Reliance</h4>
-                    <p class="mb-3" style="max-width: 800px; margin: 0 auto;">
+                    <p class="mb-3">
                         Cross-border tax requires coordinated knowledge of customs law, VAT on imports/exports, income tax on foreign-sourced income, transfer pricing, and regional trade agreements. At APSIS, our team combines these disciplines — tax advisors, customs specialists, and systems experts work together on every engagement. You get the full breadth of our collective experience, not a single consultant's view.
                     </p>
                     <p class="mb-0 small text-muted">
@@ -281,86 +275,82 @@
             <!-- Section 5: Related Resources -->
             <section class="mb-5">
                 <h3 class="h4 mb-3">Related Resources & Services</h3>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <a href="content/blogs/business-taxes-in-kenya.html" class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-decoration: none; color: inherit; transition: all 0.2s;">
-                            <i class="bi bi-journal-richtext" style="font-size: 1.5rem; color: var(--orange-primary); margin-bottom: 0.75rem;"></i>
-                            <h5 class="mb-1">Blog: What Taxes Does a Business in Kenya Need to Pay?</h5>
-                            <p class="small text-muted mb-0">Includes import duty, VAT on imports, and withholding tax on cross-border payments.</p>
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="/content/insights/kra-tax-consultant-kenya.html" class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-decoration: none; color: inherit; transition: all 0.2s;">
-                            <i class="bi bi-cash-coin" style="font-size: 1.5rem; color: var(--orange-primary); margin-bottom: 0.75rem;"></i>
-                            <h5 class="mb-1">Service: KRA Tax Consultant Kenya</h5>
-                            <p class="small text-muted mb-0">Strategic tax planning and KRA representation for broader tax matters.</p>
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="vat-compliance-kenya.html" class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-decoration: none; color: inherit; transition: all 0.2s;">
-                            <i class="bi bi-receipt" style="font-size: 1.5rem; color: var(--orange-primary); margin-bottom: 0.75rem;"></i>
-                            <h5 class="mb-1">Service: VAT Compliance Kenya</h5>
-                            <p class="small text-muted mb-0">VAT on imports, eTIMS for cross-border invoicing, and input tax recovery.</p>
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="financial-advisor.html" class="about-pillar" style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border-card); text-decoration: none; color: inherit; transition: all 0.2s;">
-                            <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: var(--orange-primary); margin-bottom: 0.75rem;"></i>
-                            <h5 class="mb-1">Service: Financial Advisor</h5>
-                            <p class="small text-muted mb-0">Investment appraisal for cross-border capital projects and trade finance structuring.</p>
-                        </a>
-                    </div>
+                <div class="related-grid">
+                    <a href="content/blogs/business-taxes-in-kenya.html" class="related-card">
+                        <i class="bi bi-journal-richtext related-icon"></i>
+                        <span class="related-cat">Blog</span>
+                        <span class="related-title">What Taxes Does a Business in Kenya Need to Pay?</span>
+                        <span class="related-meta">Includes import duty, VAT on imports, and withholding tax on cross-border payments.</span>
+                    </a>
+                    <a href="/content/insights/kra-tax-consultant-kenya.html" class="related-card">
+                        <i class="bi bi-cash-coin related-icon"></i>
+                        <span class="related-cat">Service</span>
+                        <span class="related-title">KRA Tax Consultant Kenya</span>
+                        <span class="related-meta">Strategic tax planning and KRA representation for broader tax matters.</span>
+                    </a>
+                    <a href="vat-compliance-kenya.html" class="related-card">
+                        <i class="bi bi-receipt related-icon"></i>
+                        <span class="related-cat">Service</span>
+                        <span class="related-title">VAT Compliance Kenya</span>
+                        <span class="related-meta">VAT on imports, eTIMS for cross-border invoicing, and input tax recovery.</span>
+                    </a>
+                    <a href="financial-advisor.html" class="related-card">
+                        <i class="bi bi-graph-up-arrow related-icon"></i>
+                        <span class="related-cat">Service</span>
+                        <span class="related-title">Financial Advisor</span>
+                        <span class="related-meta">Investment appraisal for cross-border capital projects and trade finance structuring.</span>
+                    </a>
                 </div>
             </section>
 
             <!-- Section 6: FAQ -->
             <section class="mb-5" id="faq">
                 <h3 class="h4 mb-4">Frequently Asked Questions</h3>
-                <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                <div class="accordion faq-accordion" id="faqAccordion">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq1-heading">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
                                 What is an advance tax ruling and when do I need one?
                             </button>
                         </h4>
                         <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 An advance tax ruling is a binding written opinion from KRA on how a specific tax law applies to a proposed transaction. You need one when: (1) the tax treatment is genuinely uncertain, (2) the financial exposure is material, (3) you need certainty for pricing or contract terms, or (4) the transaction structure is novel. The ruling protects you from penalties if you act in accordance with it — even if KRA later changes its interpretation.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq2-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
                                 How long does an advance ruling take in Kenya?
                             </button>
                         </h4>
                         <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 KRA typically issues advance rulings within 60 days of receiving a complete application. Complex cases involving transfer pricing or novel structures may take longer. APSIS prepares thorough applications to minimize KRA clarification requests and accelerate the timeline.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq3-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
                                 What are the most common customs compliance errors?
                             </button>
                         </h4>
                         <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 Common errors include: incorrect HS code classification (leading to wrong duty rates), undervaluation or overvaluation of goods, missing or invalid certificates of origin for preferential rates, incomplete import/export licenses for controlled goods, and failure to declare related-party transactions for transfer pricing purposes. Systematic pre-clearance review catches these before submission.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item" style="border: 1px solid var(--border-card); border-radius: 10px; overflow: hidden;">
+                    <div class="accordion-item">
                         <h4 class="accordion-header" id="faq4-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4" style="font-weight: 600; background: var(--bg-white);">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
                                 Can you help with EAC and COMESA preferential duty claims?
                             </button>
                         </h4>
                         <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body" style="background: var(--bg-light);">
+                            <div class="accordion-body">
                                 Yes. We verify Rules of Origin compliance, prepare Certificate of Origin applications, and ensure your imports/exports qualify for preferential rates under EAC, COMESA, and other trade agreements. We also handle KRA queries on origin verification and represent you in disputes over preferential treatment denial.
                             </div>
                         </div>
@@ -369,12 +359,12 @@
             </section>
 
             <!-- Section 7: CTA -->
-            <section class="text-center mb-5" style="padding: 3rem 2rem; background: linear-gradient(135deg, var(--navy-deep), var(--navy-mid)); border-radius: 16px; color: white;">
-                <h3 class="h3 mb-3">Trade Across Borders With Tax Confidence</h3>
-                <p class="mb-4" style="max-width: 700px; margin: 0 auto;">From advance rulings to post-clearance audits — APSIS handles the cross-border tax complexity so your imports and exports move smoothly and compliantly.</p>
+            <section class="cta-banner">
+                <h3>Trade Across Borders With Tax Confidence</h3>
+                <p>From advance rulings to post-clearance audits — APSIS handles the cross-border tax complexity so your imports and exports move smoothly and compliantly.</p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="contact.html" class="btn-hero-primary" style="background: var(--orange-primary); border: none; padding: 0.85rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem;">Contact Us <i class="bi bi-arrow-right"></i></a>
-                    <a href="tel:+254722670127" class="btn-hero-primary" style="background: transparent; border: 2px solid var(--orange-primary); padding: 0.85rem 2rem; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="bi bi-telephone-fill"></i> Call +254 722 670 127</a>
+                    <a href="contact.html" class="btn-primary">Contact Us <i class="bi bi-arrow-right"></i></a>
+                    <a href="tel:+254722670127" class="btn-outline"><i class="bi bi-telephone-fill"></i> Call +254 722 670 127</a>
                 </div>
             </section>
         </div>
@@ -421,17 +411,7 @@
                         <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax Advisory</a></li>
                     </ul>
                 </div>
-                                <div class="footer-links-col">
-                    <h5>Our Services</h5>
-                    <ul>
-                        <li><a href="accountants-in-nairobi.html"><i class="bi bi-calculator"></i> Accountants in Nairobi</a></li>
-                        <li><a href="/content/insights/kra-tax-consultant-kenya.html"><i class="bi bi-cash-coin"></i> Tax Advisors</a></li>
-                        <li><a href="financial-advisor.html"><i class="bi bi-graph-up-arrow"></i> Financial Advisor</a></li>
-                        <li><a href="/content/insights/Payroll-tax-services-kenya.html"><i class="bi bi-people"></i> Payroll Services Kenya</a></li>
-                        <li><a href="vat-compliance-kenya.html"><i class="bi bi-receipt"></i> VAT Compliance Kenya</a></li>
-                        <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax Advisory</a></li>
-                    </ul>
-                </div><div class="footer-map-col">
+                <div class="footer-map-col">
                     <h5>Our Location</h5>
                     <div class="footer-map-wrap">
                         <iframe

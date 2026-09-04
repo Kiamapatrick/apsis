@@ -25,6 +25,13 @@
     --shadow-lg: 0 20px 60px rgba(13, 33, 55, 0.15);
     --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     color-scheme: only light;
+
+    /* Aliases for service pages inline styles */
+    --bg-light: var(--off-white);
+    --bg-white: var(--white);
+    --border-card: var(--border);
+    --orange-primary: var(--orange);
+    --navy-deep: var(--navy);
 }
 
 *,

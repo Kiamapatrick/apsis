@@ -1,0 +1,874 @@
+/* ============================================================
+   APSIS Business Consulting – service-pages.css
+   Shared components for SEO service landing pages
+   Depends on: style-v2.css (tokens), about.css (team patterns)
+   ============================================================ */
+
+/* ============================================================
+   1. PAGE HERO — Generic service page hero
+   ============================================================ */
+.page-hero {
+  position: relative;
+  min-height: 50vh;
+  margin-top: 76px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(150deg, rgba(13, 33, 55, 0.93) 0%, rgba(30, 58, 86, 0.88) 60%, rgba(26, 74, 122, 0.82) 100%),
+    url('../img/about.jpg') center/cover no-repeat;
+}
+
+.page-hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 5rem 1.5rem 4rem;
+  width: 100%;
+}
+
+.page-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(124, 155, 193, 0.14);
+  border: 1px solid rgba(124, 155, 193, 0.35);
+  border-radius: 50px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards 0.3s;
+}
+
+.page-hero-badge .badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.25);
+  animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(245, 130, 32, 0.1); }
+}
+
+.page-hero-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards 0.6s;
+}
+
+.page-hero-accent {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-lt) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  forced-color-adjust: none;
+}
+
+.page-hero-sub {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 560px;
+  margin: 0 auto 2rem;
+  line-height: 1.75;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards 0.9s;
+}
+
+.page-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards 1.1s;
+}
+
+.page-breadcrumb a {
+  color: var(--orange-lt);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.page-breadcrumb a:hover { color: #fff; }
+
+.page-breadcrumb span { color: rgba(255, 255, 255, 0.5); }
+
+.page-breadcrumb i.bi-chevron-right {
+  color: var(--orange);
+  font-size: 0.75rem;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   2. SERVICE CARD GRID — 4-column responsive grid
+   ============================================================ */
+.service-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.service-card-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.5rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card-item::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-lt));
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+
+.service-card-item:hover::after { transform: scaleX(1); }
+
+.service-card-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 42px rgba(245, 130, 32, 0.13);
+  border-color: rgba(245, 130, 32, 0.2);
+}
+
+.service-card-icon {
+  font-size: 1.75rem;
+  color: var(--orange);
+  margin-bottom: 0.85rem;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.service-card-item:hover .service-card-icon {
+  transform: scale(1.15) rotate(8deg);
+  color: var(--navy-mid);
+}
+
+.service-card-number {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--blue-lt);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+}
+
+.service-card-item:hover .service-card-number {
+  color: rgba(245, 130, 32, 0.2);
+}
+
+.service-card-item h5 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.6rem;
+}
+
+.service-card-item p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.service-card-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.7rem;
+  border-radius: 50px;
+  background: var(--blue-lt);
+  color: var(--navy-mid);
+}
+
+/* Responsive: Service Card Grid */
+@media (max-width: 1100px) {
+  .service-card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 992px) {
+  .service-card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 576px) {
+  .service-card-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   3. INDUSTRY GRID — 4-column centered cards
+   ============================================================ */
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.industry-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.industry-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(245, 130, 32, 0.25);
+}
+
+.industry-icon {
+  font-size: 2rem;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.industry-card h5 {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.industry-card p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive: Industry Grid */
+@media (max-width: 992px) {
+  .industry-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 576px) {
+  .industry-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   4. TEAM MEMBER INLINE — Horizontal layout
+   ============================================================ */
+.team-member-inline {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.team-image-inline {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--orange);
+  flex-shrink: 0;
+}
+
+.team-name-badge {
+  position: relative;
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  margin-top: -1.5rem;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.team-content { flex: 1; min-width: 0; }
+
+.team-header { margin-bottom: 0.75rem; }
+.team-header h4 { font-size: 1.4rem; color: var(--navy); margin-bottom: 0.35rem; font-weight: 700; }
+
+.team-role-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 0.35rem 0.95rem;
+  border-radius: 50px;
+}
+
+.team-bio {
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+
+.competencies-wrap { margin-top: 0.5rem; }
+
+.competencies-label {
+  display: block;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.competencies-tags-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.competency-tag {
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Alternating colors for competency tags */
+.competencies-tags-inline .competency-tag:nth-child(odd) {
+  background: var(--orange);
+  color: white;
+}
+.competencies-tags-inline .competency-tag:nth-child(even) {
+  background: var(--navy-mid);
+  color: white;
+}
+
+/* Responsive: Team Member Inline */
+@media (max-width: 768px) {
+  .team-member-inline {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  .team-image-inline { margin: 0 auto; }
+  .team-name-badge { margin-left: 0; transform: none; margin-top: -1.5rem; }
+  .competencies-tags-inline { justify-content: center; }
+}
+
+/* ============================================================
+   5. FAQ ACCORDION ENHANCEMENT
+   ============================================================ */
+.faq-accordion .accordion-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-accordion .accordion-button {
+  font-weight: 600;
+  background: var(--white);
+  color: var(--navy);
+  padding: 1.15rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.faq-accordion .accordion-button:not(.collapsed) {
+  color: var(--orange);
+  background: var(--bg-light);
+  box-shadow: none;
+}
+
+.faq-accordion .accordion-button:focus {
+  box-shadow: none;
+  border-color: var(--border);
+}
+
+.faq-accordion .accordion-button::after {
+  filter: invert(20%) sepia(80%) saturate(2000%) hue-rotate(180deg);
+}
+
+.faq-accordion .accordion-button:not(.collapsed)::after {
+  filter: invert(40%) sepia(90%) saturate(2000%) hue-rotate(10deg);
+}
+
+.faq-accordion .accordion-body {
+  background: var(--bg-light);
+  padding: 1.25rem 1.5rem;
+  color: var(--text-main);
+  line-height: 1.8;
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================================
+   6. CTA BANNER — Gradient call-to-action section
+   ============================================================ */
+.cta-banner {
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: white;
+  margin-top: 2rem;
+}
+
+.cta-banner h3 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.cta-banner p {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.9;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.cta-banner .btn-primary {
+  background: var(--orange);
+  border: none;
+  padding: 0.85rem 2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.cta-banner .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 130, 32, 0.4);
+  color: white;
+}
+
+.cta-banner .btn-outline {
+  background: transparent;
+  border: 2px solid var(--orange);
+  color: white;
+  padding: 0.85rem 2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.cta-banner .btn-outline:hover {
+  background: var(--orange);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.cta-banner .btn-primary i,
+.cta-banner .btn-outline i {
+  transition: transform 0.2s ease;
+}
+
+.cta-banner .btn-primary:hover i,
+.cta-banner .btn-outline:hover i {
+  transform: translateX(4px);
+}
+
+/* ============================================================
+   7. RELATED RESOURCES GRID — 2-column cards
+   ============================================================ */
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.related-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.related-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(245, 130, 32, 0.25);
+  color: inherit;
+  text-decoration: none;
+}
+
+.related-card .related-icon {
+  font-size: 1.5rem;
+  color: var(--orange);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.related-card .related-cat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.related-card .related-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.related-card .related-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 576px) {
+  .related-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   8. PROCESS STEPS — Numbered step layout (reused from about.css)
+   ============================================================ */
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.process-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.step-num {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--blue-lt);
+  line-height: 1;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.process-step:hover .step-num {
+  color: rgba(245, 130, 32, 0.2);
+}
+
+.step-content h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.step-content p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 576px) {
+  .process-step { gap: 1rem; }
+  .step-num { font-size: 2rem; }
+}
+
+/* ============================================================
+   9. TIP BOX — Callout box (reused from insights pages)
+   ============================================================ */
+.tip-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.tip-box__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.tip-box p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   10. TAKEAWAYS BOX — Key takeaways callout
+   ============================================================ */
+.takeaways-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.takeaways-box__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.takeaways-box__icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.takeaways-box__icon svg { width: 20px; height: 20px; }
+
+.takeaways-box__title {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.takeaways-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.takeaways-box li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.takeaways-box li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.takeaways-box li:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   11. MID CTA — Mid-page call to action
+   ============================================================ */
+.mid-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.mid-cta__text { flex: 1; min-width: 280px; }
+
+.mid-cta__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.mid-cta__heading {
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.mid-cta__sub {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.mid-cta .btn-primary {
+  background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+  color: white;
+  padding: 0.85rem 1.75rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.mid-cta .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 130, 32, 0.4);
+  color: white;
+}
+
+@media (max-width: 576px) {
+  .mid-cta { flex-direction: column; text-align: center; }
+  .mid-cta .btn-primary { justify-content: center; }
+}
+
+/* ============================================================
+   12. INTERNAL LINKS BOX — Related services/resources
+   ============================================================ */
+.internal-links-box {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.internal-links-box__title {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.internal-links-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.internal-links-box li {
+  margin-bottom: 0.5rem;
+}
+
+.internal-links-box a {
+  color: var(--navy-mid);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.internal-links-box a:hover {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+.internal-links-box a::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background: var(--orange);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.content-center {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.icon-large {
+  font-size: 3rem;
+  color: var(--orange);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ============================================================ */
+@media (max-width: 992px) {
+  .page-hero { min-height: 45vh; }
+  .page-hero-inner { padding: 4rem 1.5rem 3rem; }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    min-height: auto;
+    margin-top: 68px;
+    padding: 3rem 0 4rem;
+  }
+  .page-hero-inner { padding: 3rem 1rem 2.5rem; }
+  .page-hero-title { font-size: clamp(2.2rem, 9vw, 3.2rem); }
+  .page-hero-sub-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+}
+
+@media (max-width: 576px) {
+  .page-hero { padding: 2.5rem 0 3.5rem; margin-top: 60px; }
+  .page-hero-inner { padding: 2.5rem 1rem 2rem; }
+  .page-hero-badge { font-size: 0.75rem; padding: 0.4rem 0.9rem; }
+}
