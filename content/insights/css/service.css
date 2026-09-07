@@ -9,9 +9,13 @@
     --blue-primary: #7c9bc1;
     --navy-deep: #1e3a56;
     --navy-mid: #254d72;
+    --navy: #1e3a56;
     --orange-primary: #f58220;
     --orange-secondary: #ff9f4a;
     --orange-light: #ffb64c;
+    /* Aliases for service-pages.css compatibility */
+    --orange: #f58220;
+    --orange-lt: #ff9f4a;
     --text-main: #333333;
     --text-body: #555555;
     --text-muted: #666666;

@@ -127,23 +127,43 @@
 .hub-cta-btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.52rem 1.3rem;
-    background: var(--orange-primary, #f58220);
-    color: #fff;
+    gap: 0.45rem;
+    padding: 0.52rem 1.35rem;
+    background: linear-gradient(135deg, var(--orange-primary, #f58220) 0%, var(--orange-secondary, #ff9f4a) 100%);
+    color: #fff !important;
     font-family: "DM Sans", sans-serif;
     font-size: 0.83rem;
     font-weight: 700;
-    border-radius: 6px;
-    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    text-decoration: none !important;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: background 0.22s ease;
-    letter-spacing: 0.01em;
+    box-shadow: 0 4px 14px rgba(245, 130, 32, 0.35);
+    transition: all 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.02em;
+}
+
+.hub-cta-btn i {
+    font-size: 0.95rem;
+    transition: transform 0.26s ease;
 }
 
 .hub-cta-btn:hover {
-    background: #e5740f;
-    color: #fff;
+    background: linear-gradient(135deg, #e5740f 0%, var(--orange-primary, #f58220) 100%);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(245, 130, 32, 0.5);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.hub-cta-btn:hover i {
+    transform: scale(1.15) rotate(-6deg);
+}
+
+.hub-cta-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(245, 130, 32, 0.3);
 }
 
 /* Hamburger Toggle */
