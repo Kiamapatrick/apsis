@@ -46,29 +46,28 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
         btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Sending…`;
 
-        const data = {
-            name: form.name.value.trim(),
-            email: form.email.value.trim(),
-            subject: form.subject.value.trim(),
-            message: form.message.value.trim(),
-        };
+        // Collect form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('https://apsis-backend.onrender.com/api/messages', {
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
 
-            if (response.ok) {
+            const result = await response.json();
+
+            if (result.success) {
                 showAlert('✅ Thanks for reaching out — we\'ll get back to you shortly.', 'success');
                 form.reset();
             } else {
-                showAlert('⚠️ Message could not be sent. Please try again.', 'danger');
+                throw new Error(result.message || 'Submission failed');
             }
         } catch (err) {
             console.error('Contact form error:', err);
-            showAlert('❌ An error occurred. Please try again later.', 'danger');
+            showAlert('❌ Something went wrong, please try calling us at +254 722 670 127 instead', 'danger');
         } finally {
             btn.disabled = false;
             btn.innerHTML = originalHTML;

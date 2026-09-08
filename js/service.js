@@ -158,12 +158,12 @@
         });
     });
 
-    /* ── Contact form (basic client-side validation) ─────────── */
+    /* ── Contact form (Web3Forms integration) ────────────────── */
     const form        = document.getElementById("service-contact-form");
     const formSuccess = form && form.querySelector(".form-success");
 
     if (form) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const name  = form.querySelector('[name="name"]');
             const phone = form.querySelector('[name="phone"]');
@@ -171,11 +171,51 @@
             if (name  && !name.value.trim())  { name.focus();  return; }
             if (phone && !phone.value.trim()) { phone.focus(); return; }
 
-            // In a real deployment, POST to a backend / Formspree / etc.
-            // For now, show the success message.
-            if (formSuccess) {
-                form.style.display = "none";
-                formSuccess.style.display = "block";
+            const btn = form.querySelector('.btn-submit');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending…';
+
+            // Remove any existing error alert
+            const existingError = form.querySelector('.form-error');
+            if (existingError) existingError.remove();
+
+            // Collect form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    form.style.display = "none";
+                    if (formSuccess) {
+                        formSuccess.style.display = "block";
+                    }
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (err) {
+                console.error('Service form error:', err);
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+
+                // Show error message
+                let errorAlert = form.querySelector('.form-error');
+                if (!errorAlert) {
+                    errorAlert = document.createElement('div');
+                    errorAlert.className = 'form-error alert alert-danger mt-3';
+                    form.appendChild(errorAlert);
+                }
+                errorAlert.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Something went wrong, please try calling us at +254 722 670 127 instead';
+                errorAlert.style.display = 'block';
+                setTimeout(() => { errorAlert.style.display = 'none'; }, 8000);
             }
         });
     }

@@ -128,19 +128,40 @@
             // Remove any existing alert
             contactForm.querySelector('.contact-alert')?.remove();
 
-            // Simulate async send (replace with real fetch when backend is ready)
-            await new Promise(resolve => setTimeout(resolve, 1400));
+            // Collect form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
 
-            const alert = document.createElement('div');
-            alert.className = 'contact-alert alert alert-success mt-3';
-            alert.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Thank you! Your message has been sent. We\'ll be in touch shortly.';
-            contactForm.appendChild(alert);
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
 
-            contactForm.reset();
-            btn.disabled = false;
-            btn.innerHTML = originalHTML;
+                const result = await response.json();
 
-            setTimeout(() => alert.remove(), 6000);
+                if (result.success) {
+                    const alert = document.createElement('div');
+                    alert.className = 'contact-alert alert alert-success mt-3';
+                    alert.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Thank you! Your message has been sent. We\'ll be in touch shortly.';
+                    contactForm.appendChild(alert);
+                    contactForm.reset();
+                    setTimeout(() => alert.remove(), 6000);
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (err) {
+                console.error('Contact form error:', err);
+                const alert = document.createElement('div');
+                alert.className = 'contact-alert alert alert-danger mt-3';
+                alert.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Something went wrong, please try calling us at +254 722 670 127 instead';
+                contactForm.appendChild(alert);
+                setTimeout(() => alert.remove(), 8000);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+            }
         });
     }
 
