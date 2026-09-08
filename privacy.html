@@ -69,33 +69,42 @@
 
   <style>
     /* ── Reset ──────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     /* ── Design Tokens ──────────────────────────────────────── */
     :root {
-      --navy:        #0d2137;
-      --navy-mid:    #1e3a56;
-      --navy-lt:     #2c5278;
-      --orange:      #f58220;
-      --orange-lt:   #ff9f4a;
+      --navy: #0d2137;
+      --navy-mid: #1e3a56;
+      --navy-lt: #2c5278;
+      --orange: #f58220;
+      --orange-lt: #ff9f4a;
       --orange-pale: #fff4e8;
-      --blue-acc:    #7c9bc1;
-      --blue-lt:     #dce9f8;
-      --white:       #ffffff;
-      --off-white:   #f7f9fc;
-      --text-main:   #1a2535;
-      --text-body:   #4a5568;
-      --text-muted:  #64748b;
-      --border:      #e2e8f0;
-      --radius-sm:   10px;
-      --radius-md:   16px;
-      --shadow-sm:   0 2px 12px rgba(13, 33, 55, 0.07);
-      --shadow-md:   0 8px 32px rgba(13, 33, 55, 0.10);
+      --blue-acc: #7c9bc1;
+      --blue-lt: #dce9f8;
+      --white: #ffffff;
+      --off-white: #f7f9fc;
+      --text-main: #1a2535;
+      --text-body: #4a5568;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --shadow-sm: 0 2px 12px rgba(13, 33, 55, 0.07);
+      --shadow-md: 0 8px 32px rgba(13, 33, 55, 0.10);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-    html, body {
+    html,
+    body {
       font-family: "DM Sans", sans-serif;
       font-size: 16px;
       line-height: 1.7;
@@ -107,7 +116,9 @@
     /* ── Navbar ─────────────────────────────────────────────── */
     .site-nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 200;
       background: rgba(13, 33, 55, 0.96);
       backdrop-filter: blur(14px);
@@ -120,6 +131,7 @@
       justify-content: space-between;
       gap: 2rem;
     }
+
     .nav-brand {
       display: flex;
       align-items: center;
@@ -127,24 +139,31 @@
       text-decoration: none;
       flex-shrink: 0;
     }
+
     .nav-brand img {
       height: 34px;
       width: auto;
       border-radius: 6px;
     }
+
     .nav-brand-text {
       font-family: "Playfair Display", serif;
       font-weight: 800;
       font-size: 1.05rem;
       color: #fff;
     }
-    .nav-brand-text span { color: var(--orange); }
+
+    .nav-brand-text span {
+      color: var(--orange);
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
       gap: 0.25rem;
       list-style: none;
     }
+
     .nav-links a {
       display: flex;
       align-items: center;
@@ -158,7 +177,12 @@
       transition: all 0.2s;
       white-space: nowrap;
     }
-    .nav-links a:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
+
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
     .nav-links a.nav-cta {
       background: linear-gradient(135deg, var(--orange), var(--orange-lt));
       color: #fff;
@@ -166,14 +190,21 @@
       border-radius: 50px;
       font-weight: 600;
     }
+
     .nav-links a.nav-cta:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 16px rgba(245, 130, 32, 0.35);
       background: linear-gradient(135deg, var(--orange), var(--orange-lt));
     }
+
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .site-nav { justify-content: space-between; }
+      .nav-links {
+        display: none;
+      }
+
+      .site-nav {
+        justify-content: space-between;
+      }
     }
 
     /* ── Hero ───────────────────────────────────────────────── */
@@ -186,14 +217,18 @@
       position: relative;
       overflow: hidden;
     }
+
     .policy-hero::before {
       content: "";
       position: absolute;
-      bottom: 0; left: 0; right: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       height: 60px;
       background: var(--off-white);
       clip-path: ellipse(55% 100% at 50% 100%);
     }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -209,11 +244,14 @@
       border-radius: 50px;
       margin-bottom: 1.2rem;
     }
+
     .badge-dot {
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--orange);
     }
+
     .policy-hero h1 {
       font-family: "Playfair Display", serif;
       font-size: clamp(2.2rem, 5vw, 3.6rem);
@@ -222,13 +260,18 @@
       line-height: 1.15;
       margin-bottom: 0.75rem;
     }
-    .policy-hero h1 span { color: var(--orange); }
+
+    .policy-hero h1 span {
+      color: var(--orange);
+    }
+
     .policy-hero-sub {
       font-size: 1.05rem;
       color: rgba(255, 255, 255, 0.65);
       max-width: 480px;
       margin: 0 auto 1.5rem;
     }
+
     .policy-meta {
       display: inline-flex;
       align-items: center;
@@ -237,6 +280,7 @@
       color: rgba(255, 255, 255, 0.45);
       margin-bottom: 1.2rem;
     }
+
     .breadcrumb-row {
       display: flex;
       align-items: center;
@@ -245,13 +289,20 @@
       font-size: 0.8rem;
       color: rgba(255, 255, 255, 0.45);
     }
+
     .breadcrumb-row a {
       color: rgba(255, 255, 255, 0.55);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .breadcrumb-row a:hover { color: var(--orange-lt); }
-    .breadcrumb-row i { font-size: 0.65rem; }
+
+    .breadcrumb-row a:hover {
+      color: var(--orange-lt);
+    }
+
+    .breadcrumb-row i {
+      font-size: 0.65rem;
+    }
 
     /* ── Layout ─────────────────────────────────────────────── */
     .page-body {
@@ -263,9 +314,15 @@
       gap: 2.5rem;
       align-items: start;
     }
+
     @media (max-width: 900px) {
-      .page-body { grid-template-columns: 1fr; }
-      .toc-sidebar { display: none; }
+      .page-body {
+        grid-template-columns: 1fr;
+      }
+
+      .toc-sidebar {
+        display: none;
+      }
     }
 
     /* ── TOC Sidebar ─────────────────────────────────────────── */
@@ -273,6 +330,7 @@
       position: sticky;
       top: 80px;
     }
+
     .toc-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -280,6 +338,7 @@
       padding: 1.25rem;
       box-shadow: var(--shadow-sm);
     }
+
     .toc-title {
       font-size: 0.7rem;
       font-weight: 700;
@@ -290,12 +349,14 @@
       padding-bottom: 0.6rem;
       border-bottom: 1px solid var(--border);
     }
+
     .toc-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
     }
+
     .toc-list a {
       display: flex;
       align-items: flex-start;
@@ -309,22 +370,28 @@
       transition: all 0.2s;
       line-height: 1.4;
     }
+
     .toc-list a i {
       flex-shrink: 0;
       margin-top: 0.1rem;
       color: var(--blue-acc);
       font-size: 0.85rem;
     }
+
     .toc-list a:hover {
       color: var(--navy);
       background: var(--off-white);
     }
+
     .toc-list a.active {
       color: var(--orange);
       background: var(--orange-pale);
       font-weight: 600;
     }
-    .toc-list a.active i { color: var(--orange); }
+
+    .toc-list a.active i {
+      color: var(--orange);
+    }
 
     /* ── Contact card in sidebar ────────────────────────────── */
     .toc-contact {
@@ -334,12 +401,14 @@
       border-radius: var(--radius-sm);
       text-align: center;
     }
+
     .toc-contact p {
       font-size: 0.78rem;
       color: rgba(255, 255, 255, 0.65);
       margin-bottom: 0.6rem;
       line-height: 1.5;
     }
+
     .toc-contact a.contact-btn {
       display: inline-flex;
       align-items: center;
@@ -353,13 +422,18 @@
       text-decoration: none;
       transition: all 0.2s;
     }
+
     .toc-contact a.contact-btn:hover {
       background: var(--orange-lt);
       transform: translateY(-1px);
     }
 
     /* ── Policy Content Area ────────────────────────────────── */
-    .policy-sections { display: flex; flex-direction: column; gap: 1.5rem; }
+    .policy-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
     .policy-card {
       background: var(--white);
@@ -370,7 +444,10 @@
       transition: box-shadow 0.25s;
       scroll-margin-top: 88px;
     }
-    .policy-card:hover { box-shadow: var(--shadow-md); }
+
+    .policy-card:hover {
+      box-shadow: var(--shadow-md);
+    }
 
     .policy-card-header {
       display: flex;
@@ -380,6 +457,7 @@
       padding-bottom: 1rem;
       border-bottom: 2px solid var(--off-white);
     }
+
     .policy-icon {
       flex-shrink: 0;
       width: 44px;
@@ -393,6 +471,7 @@
       font-size: 1.1rem;
       box-shadow: 0 4px 12px rgba(245, 130, 32, 0.25);
     }
+
     .policy-card h2 {
       font-family: "Playfair Display", serif;
       font-size: 1.25rem;
@@ -400,13 +479,18 @@
       color: var(--navy);
       line-height: 1.3;
     }
+
     .policy-card p {
       color: var(--text-body);
       line-height: 1.8;
       margin-bottom: 1rem;
       font-size: 0.95rem;
     }
-    .policy-card p:last-child { margin-bottom: 0; }
+
+    .policy-card p:last-child {
+      margin-bottom: 0;
+    }
+
     .policy-card h3 {
       font-family: "DM Sans", sans-serif;
       font-size: 0.9rem;
@@ -416,6 +500,7 @@
       letter-spacing: 0.8px;
       margin: 1.25rem 0 0.5rem;
     }
+
     .policy-card ul {
       list-style: none;
       display: flex;
@@ -423,6 +508,7 @@
       gap: 0.55rem;
       margin-bottom: 1rem;
     }
+
     .policy-card ul li {
       display: flex;
       align-items: flex-start;
@@ -431,6 +517,7 @@
       color: var(--text-body);
       line-height: 1.65;
     }
+
     .policy-card ul li::before {
       content: "";
       flex-shrink: 0;
@@ -440,7 +527,11 @@
       background: var(--orange);
       margin-top: 0.55rem;
     }
-    .policy-card ul li strong { color: var(--navy); }
+
+    .policy-card ul li strong {
+      color: var(--navy);
+    }
+
     .policy-card a {
       color: var(--orange);
       text-decoration: none;
@@ -448,7 +539,10 @@
       border-bottom: 1px solid transparent;
       transition: border-color 0.2s;
     }
-    .policy-card a:hover { border-bottom-color: var(--orange); }
+
+    .policy-card a:hover {
+      border-bottom-color: var(--orange);
+    }
 
     /* Address block in contact section */
     .contact-address {
@@ -460,7 +554,14 @@
       font-style: normal;
       margin-top: 1rem;
     }
-    .contact-address strong { color: var(--navy); font-weight: 700; display: block; margin-bottom: 0.5rem; }
+
+    .contact-address strong {
+      color: var(--navy);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
     .contact-address p {
       margin-bottom: 0.4rem;
       font-size: 0.9rem;
@@ -468,8 +569,15 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .contact-address p i { color: var(--orange); flex-shrink: 0; }
-    .contact-address p:last-child { margin-bottom: 0; }
+
+    .contact-address p i {
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .contact-address p:last-child {
+      margin-bottom: 0;
+    }
 
     /* Retention table-style grid */
     .retention-grid {
@@ -478,13 +586,20 @@
       gap: 0.75rem;
       margin-top: 0.75rem;
     }
-    @media (max-width: 580px) { .retention-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 580px) {
+      .retention-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .retention-item {
       background: var(--off-white);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 0.85rem 1rem;
     }
+
     .retention-item-label {
       font-size: 0.78rem;
       font-weight: 700;
@@ -493,11 +608,15 @@
       letter-spacing: 0.6px;
       margin-bottom: 0.2rem;
     }
+
     .retention-item-value {
       font-size: 0.88rem;
       color: var(--text-body);
     }
-    .retention-item-value strong { color: var(--orange); }
+
+    .retention-item-value strong {
+      color: var(--orange);
+    }
 
     /* Rights tags */
     .rights-grid {
@@ -506,6 +625,7 @@
       gap: 0.6rem;
       margin-top: 0.75rem;
     }
+
     .right-tag {
       display: inline-flex;
       align-items: center;
@@ -517,7 +637,10 @@
       padding: 0.4rem 0.85rem;
       border-radius: 50px;
     }
-    .right-tag i { color: var(--blue-acc); }
+
+    .right-tag i {
+      color: var(--blue-acc);
+    }
 
     /* Security badges */
     .security-grid {
@@ -526,7 +649,13 @@
       gap: 0.75rem;
       margin-top: 0.75rem;
     }
-    @media (max-width: 580px) { .security-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 580px) {
+      .security-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .security-item {
       display: flex;
       align-items: flex-start;
@@ -536,12 +665,14 @@
       border-radius: var(--radius-sm);
       padding: 0.85rem;
     }
+
     .security-item i {
       flex-shrink: 0;
       font-size: 1.2rem;
       color: var(--orange);
       margin-top: 0.1rem;
     }
+
     .security-item span {
       font-size: 0.85rem;
       color: var(--text-body);
@@ -553,28 +684,41 @@
       background: var(--navy);
       color: rgba(255, 255, 255, 0.75);
     }
+
     .footer-top-bar {
       height: 4px;
       background: linear-gradient(90deg, var(--orange), var(--orange-lt), var(--blue-acc));
     }
+
     .footer-inner {
       max-width: 1140px;
       margin: 0 auto;
       padding: 3rem 1.5rem 1.5rem;
     }
+
     .footer-grid {
       display: grid;
       grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
       gap: 2rem;
       margin-bottom: 2rem;
     }
+
     @media (max-width: 900px) {
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .footer-map-col { grid-column: 1 / -1; }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-map-col {
+        grid-column: 1 / -1;
+      }
     }
+
     @media (max-width: 560px) {
-      .footer-grid { grid-template-columns: 1fr; }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     .footer-brand h5 {
       font-family: "Playfair Display", serif;
       font-size: 1.1rem;
@@ -582,7 +726,11 @@
       color: #fff;
       margin-bottom: 1rem;
     }
-    .footer-brand address { font-style: normal; }
+
+    .footer-brand address {
+      font-style: normal;
+    }
+
     .footer-brand address p {
       font-size: 0.82rem;
       margin-bottom: 0.4rem;
@@ -590,22 +738,50 @@
       align-items: flex-start;
       gap: 0.5rem;
     }
-    .footer-brand address p i { color: var(--orange); flex-shrink: 0; margin-top: 0.15rem; }
-    .footer-brand address a { color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.2s; }
-    .footer-brand address a:hover { color: var(--orange-lt); }
-    .footer-socials { display: flex; gap: 0.6rem; margin-top: 1rem; }
+
+    .footer-brand address p i {
+      color: var(--orange);
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .footer-brand address a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-brand address a:hover {
+      color: var(--orange-lt);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
     .footer-socials a {
-      width: 34px; height: 34px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: rgba(255, 255, 255, 0.6);
       font-size: 0.9rem;
       text-decoration: none;
       transition: all 0.2s;
     }
-    .footer-socials a:hover { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+    .footer-socials a:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+    }
+
     .footer-links-col h5 {
       font-size: 0.78rem;
       font-weight: 700;
@@ -614,7 +790,14 @@
       color: rgba(255, 255, 255, 0.85);
       margin-bottom: 0.9rem;
     }
-    .footer-links-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .footer-links-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
     .footer-links-col ul li a {
       display: flex;
       align-items: center;
@@ -624,8 +807,16 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-links-col ul li a i { color: var(--orange); font-size: 0.78rem; }
-    .footer-links-col ul li a:hover { color: rgba(255, 255, 255, 0.9); }
+
+    .footer-links-col ul li a i {
+      color: var(--orange);
+      font-size: 0.78rem;
+    }
+
+    .footer-links-col ul li a:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
     .footer-map-col h5 {
       font-size: 0.78rem;
       font-weight: 700;
@@ -634,17 +825,22 @@
       color: rgba(255, 255, 255, 0.85);
       margin-bottom: 0.9rem;
     }
+
     .footer-map-wrap {
       border-radius: var(--radius-sm);
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.1);
       height: 160px;
     }
+
     .footer-map-wrap iframe {
-      width: 100%; height: 100%;
-      border: 0; display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
       filter: grayscale(30%) brightness(0.85);
     }
+
     .footer-bottom {
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 1.25rem;
@@ -654,16 +850,31 @@
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-    .footer-bottom p { font-size: 0.78rem; color: rgba(255, 255, 255, 0.35); }
-    .footer-bottom-links { display: flex; gap: 1.2rem; }
+
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
     .footer-bottom-links a {
       font-size: 0.78rem;
       color: rgba(255, 255, 255, 0.35);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-bottom-links a:hover { color: var(--orange-lt); }
-    .footer-bottom-links a.active { color: var(--orange-lt); }
+
+    .footer-bottom-links a:hover {
+      color: var(--orange-lt);
+    }
+
+    .footer-bottom-links a.active {
+      color: var(--orange-lt);
+    }
   </style>
 </head>
 
@@ -706,17 +917,17 @@
       <div class="toc-card">
         <p class="toc-title"><i class="bi bi-list-ul me-1"></i>Contents</p>
         <ul class="toc-list" id="toc-list">
-          <li><a href="#s-intro"     class="active"><i class="bi bi-shield-lock"></i> 1. Introduction</a></li>
-          <li><a href="#s-collect"          ><i class="bi bi-database"></i> 2. Information We Collect</a></li>
-          <li><a href="#s-use"              ><i class="bi bi-gear"></i> 3. How We Use It</a></li>
-          <li><a href="#s-share"            ><i class="bi bi-share"></i> 4. Sharing &amp; Disclosure</a></li>
-          <li><a href="#s-security"         ><i class="bi bi-lock"></i> 5. Data Security</a></li>
-          <li><a href="#s-retention"        ><i class="bi bi-clock-history"></i> 6. Data Retention</a></li>
-          <li><a href="#s-cookies"          ><i class="bi bi-cookie"></i> 7. Cookies &amp; Tracking</a></li>
-          <li><a href="#s-rights"           ><i class="bi bi-person-check"></i> 8. Your Rights</a></li>
-          <li><a href="#s-international"    ><i class="bi bi-globe"></i> 9. International Transfers</a></li>
-          <li><a href="#s-changes"          ><i class="bi bi-pencil-square"></i> 10. Policy Changes</a></li>
-          <li><a href="#s-contact"          ><i class="bi bi-telephone"></i> 11. Contact Us</a></li>
+          <li><a href="#s-intro" class="active"><i class="bi bi-shield-lock"></i> 1. Introduction</a></li>
+          <li><a href="#s-collect"><i class="bi bi-database"></i> 2. Information We Collect</a></li>
+          <li><a href="#s-use"><i class="bi bi-gear"></i> 3. How We Use It</a></li>
+          <li><a href="#s-share"><i class="bi bi-share"></i> 4. Sharing &amp; Disclosure</a></li>
+          <li><a href="#s-security"><i class="bi bi-lock"></i> 5. Data Security</a></li>
+          <li><a href="#s-retention"><i class="bi bi-clock-history"></i> 6. Data Retention</a></li>
+          <li><a href="#s-cookies"><i class="bi bi-cookie"></i> 7. Cookies &amp; Tracking</a></li>
+          <li><a href="#s-rights"><i class="bi bi-person-check"></i> 8. Your Rights</a></li>
+          <li><a href="#s-international"><i class="bi bi-globe"></i> 9. International Transfers</a></li>
+          <li><a href="#s-changes"><i class="bi bi-pencil-square"></i> 10. Policy Changes</a></li>
+          <li><a href="#s-contact"><i class="bi bi-telephone"></i> 11. Contact Us</a></li>
         </ul>
         <div class="toc-contact">
           <p>Questions about your data? We're happy to help.</p>
@@ -739,7 +950,8 @@
           </div>
           <p>APSIS Business Consulting Ltd ("we", "our", "us") is committed to protecting your privacy. This Privacy
             Policy explains how we collect, use, disclose, and safeguard your information when you visit our website
-            <a href="https://www.apsis.co.ke">https://www.apsis.co.ke</a> or engage our professional services.</p>
+            <a href="https://www.apsis.co.ke">https://www.apsis.co.ke</a> or engage our professional services.
+          </p>
           <p>We are a registered accounting and tax consulting firm in Nairobi, Kenya, regulated by the Institute of
             Certified Public Accountants of Kenya (ICPAK). We comply with the <strong>Kenya Data Protection Act,
               2019</strong> and applicable international standards.</p>
@@ -901,7 +1113,8 @@
           </div>
           <p style="margin-top: 1.25rem;">To exercise any of these rights, contact us at
             <a href="mailto:info@apsis.co.ke">info@apsis.co.ke</a> or write to our office address. You may also
-            lodge a complaint with the <strong>Office of the Data Protection Commissioner (ODPC)</strong>.</p>
+            lodge a complaint with the <strong>Office of the Data Protection Commissioner (ODPC)</strong>.
+          </p>
           <p>Note: some rights are subject to legal retention obligations — for example, we cannot erase client tax
             records before the 7-year ICPAK/KRA retention period expires.</p>
         </article>
@@ -1012,8 +1225,7 @@
         <div class="footer-map-col">
           <h5>Our Location</h5>
           <div class="footer-map-wrap">
-            <iframe
-              src="https://www.google.com/maps?q=Crescent%20Business%20Center%20PRM6%2BX88%20Nairobi&output=embed"
+            <iframe src="https://www.google.com/maps?q=Crescent%20Business%20Center%20PRM6%2BX88%20Nairobi&output=embed"
               allowfullscreen="" loading="lazy" title="APSIS Office Location"></iframe>
           </div>
         </div>
