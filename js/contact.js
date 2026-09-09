@@ -5,6 +5,23 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    /* ── Dynamic Copyright Year ────────────────────────────── */
+    const updateCopyrightYear = () => {
+        const yearElements = document.querySelectorAll('#copyright-year, .footer-copy, .hub-footer-copy, .footer-bottom p');
+        const currentYear = new Date().getFullYear();
+        yearElements.forEach(el => {
+            const text = el.textContent.trim();
+            if (text.includes('202') || text.includes('©') || text === '') {
+                if (el.id === 'copyright-year') {
+                    el.textContent = currentYear;
+                } else if (text.includes('202')) {
+                    el.innerHTML = text.replace(/\d{4}/, currentYear);
+                }
+            }
+        });
+    };
+    updateCopyrightYear();
+
     /* ── AOS ─────────────────────────────────────────────── */
     AOS.init({
         duration: 900,
