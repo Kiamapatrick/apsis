@@ -1,0 +1,5 @@
+The system cannot deploy
+For deployment, ensure that your repository meets the following requirements:
+
+A valid .cpanel.yml file exists. For more information, read our documentation.
+No uncommitted changes exist on the checked-out branch.
