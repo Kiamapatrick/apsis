@@ -374,7 +374,7 @@ ol {
 /* ── Service Hero ── */
 .service-hero {
     background-color: var(--bg-lighter, #f7f6f2);
-    padding: 72px 0 60px;
+    padding: 100px 0 60px;
     border-bottom: 1px solid #e3dfd6;
 }
 
