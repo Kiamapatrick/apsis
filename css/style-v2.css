@@ -833,6 +833,18 @@ h5 {
     stroke: var(--orange, #f58220);
 }
 
+/* Small variant for contact form */
+.trust-icon--sm {
+    width: 24px;
+    height: 24px;
+}
+
+/* Extra small variant for social icons */
+.trust-icon--xs {
+    width: 20px;
+    height: 20px;
+}
+
 .trust-item h3 {
     margin: 0 0 0.5rem;
     font-size: 1.25rem;
@@ -892,6 +904,276 @@ h5 {
 .trust-item:nth-child(1) { --d: 0s;    --t: 0.5s; }
 .trust-item:nth-child(2) { --d: 0.2s;  --t: 0.7s; }
 .trust-item:nth-child(3) { --d: 0.4s;  --t: 0.9s; }
+
+/* ============================================================
+   Unified trust-icon animation selectors for all sections
+   ============================================================ */
+
+/* .ad section (about.html) - 3 items */
+.ad.is-armed .trust-icon .ti-main,
+.ad.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.ad.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.ad.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.ad.is-in .ad-item h3,
+.ad.is-in .ad-item p {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease var(--t, 0.3s), transform 0.7s ease var(--t, 0.3s);
+}
+.ad.is-in .ad-item p {
+    transition-delay: calc(var(--t, 0.3s) + 0.1s);
+}
+.ad-item:nth-child(1) { --d: 0s;    --t: 0.5s; }
+.ad-item:nth-child(2) { --d: 0.2s;  --t: 0.7s; }
+.ad-item:nth-child(3) { --d: 0.4s;  --t: 0.9s; }
+
+/* .vals section (about.html) - 3 items */
+.vals.is-armed .trust-icon .ti-main,
+.vals.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.vals.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.vals.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.vals.is-in .vals-top h3,
+.vals.is-in .vals-list li {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease var(--t, 0.3s), transform 0.7s ease var(--t, 0.3s);
+}
+.vals.is-in .vals-list li {
+    transition-delay: calc(var(--t, 0.3s) + 0.1s);
+}
+.vals-card:nth-child(1) { --d: 0s;    --t: 0.5s; }
+.vals-card:nth-child(2) { --d: 0.2s;  --t: 0.7s; }
+.vals-card:nth-child(3) { --d: 0.4s;  --t: 0.9s; }
+
+/* .who section (index.html) - 3 items */
+.who.is-armed .trust-icon .ti-main,
+.who.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.who.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.who.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.who.is-in .who-item h3,
+.who.is-in .who-item p {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease var(--t, 0.3s), transform 0.7s ease var(--t, 0.3s);
+}
+.who.is-in .who-item p {
+    transition-delay: calc(var(--t, 0.3s) + 0.1s);
+}
+.who-item:nth-child(1) { --d: 0s;    --t: 0.5s; }
+.who-item:nth-child(2) { --d: 0.2s;  --t: 0.7s; }
+.who-item:nth-child(3) { --d: 0.4s;  --t: 0.9s; }
+
+/* .offers section (index.html) - 11 items */
+.offers.is-armed .trust-icon .ti-main,
+.offers.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.offers.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.offers.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.offers.is-in .offer h3,
+.offers.is-in .offer p {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease var(--t, 0.3s), transform 0.7s ease var(--t, 0.3s);
+}
+.offers.is-in .offer p {
+    transition-delay: calc(var(--t, 0.3s) + 0.1s);
+}
+.offer:nth-child(1)  { --d: 0s;     --t: 0.5s; }
+.offer:nth-child(2)  { --d: 0.08s;  --t: 0.58s; }
+.offer:nth-child(3)  { --d: 0.16s;  --t: 0.66s; }
+.offer:nth-child(4)  { --d: 0.24s;  --t: 0.74s; }
+.offer:nth-child(5)  { --d: 0.32s;  --t: 0.82s; }
+.offer:nth-child(6)  { --d: 0.4s;   --t: 0.9s; }
+.offer:nth-child(7)  { --d: 0.48s;  --t: 0.98s; }
+.offer:nth-child(8)  { --d: 0.56s;  --t: 1.06s; }
+.offer:nth-child(9)  { --d: 0.64s;  --t: 1.14s; }
+.offer:nth-child(10) { --d: 0.72s;  --t: 1.22s; }
+.offer:nth-child(11) { --d: 0.8s;   --t: 1.3s; }
+
+/* .reach section (index.html) - 4 items (stagger on .reach-field) */
+.reach.is-armed .trust-icon .ti-main,
+.reach.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.reach.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.reach.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.reach.is-in .reach-field label,
+.reach.is-in .reach-field input,
+.reach.is-in .reach-field textarea {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease var(--t, 0.3s), transform 0.7s ease var(--t, 0.3s);
+}
+.reach-field:nth-child(1) { --d: 0s;    --t: 0.5s; }
+.reach-field:nth-child(2) { --d: 0.1s;  --t: 0.6s; }
+.reach-field:nth-child(3) { --d: 0.2s;  --t: 0.7s; }
+.reach-field:nth-child(4) { --d: 0.3s;  --t: 0.8s; }
+
+/* .contact section (contact.html, services.html CTAs) - 4 items (stagger on .reach-field) */
+.contact.is-armed .trust-icon .ti-main,
+.contact.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.contact.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.contact.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.contact.is-in .reach-field label,
+.contact.is-in .reach-field input,
+.contact.is-in .reach-field textarea {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease var(--t, 0.3s), transform 0.7s ease var(--t, 0.3s);
+}
+.contact .reach-field:nth-child(1) { --d: 0s;    --t: 0.5s; }
+.contact .reach-field:nth-child(2) { --d: 0.1s;  --t: 0.6s; }
+.contact .reach-field:nth-child(3) { --d: 0.2s;  --t: 0.7s; }
+.contact .reach-field:nth-child(4) { --d: 0.3s;  --t: 0.8s; }
+
+/* Trust badges - multiple instances */
+.trust-badge.is-armed .trust-icon .ti-main,
+.trust-badge.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.trust-badge.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.trust-badge.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+
+/* Takeaway boxes */
+.takeaways-box__icon.is-armed .trust-icon .ti-main,
+.takeaways-box__icon.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.takeaways-box__icon.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.takeaways-box__icon.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+
+/* Service finder (hero load) */
+.sv-find.is-armed .trust-icon .ti-main,
+.sv-find.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.sv-find.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.sv-find.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+.sv-find-list li:nth-child(1) { --d: 0s;    --t: 0.5s; }
+.sv-find-list li:nth-child(2) { --d: 0.2s;  --t: 0.7s; }
+.sv-find-list li:nth-child(3) { --d: 0.4s;  --t: 0.9s; }
+
+/* Blog/Insights sections */
+.insights.is-armed .trust-icon .ti-main,
+.insights.is-armed .trust-icon .ti-accent,
+.blog.is-armed .trust-icon .ti-main,
+.blog.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.insights.is-in .trust-icon .ti-main,
+.blog.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.insights.is-in .trust-icon .ti-accent,
+.blog.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+
+/* Social footer */
+.site-footer.is-armed .trust-icon .ti-main,
+.site-footer.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.site-footer.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.site-footer.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+
+/* Modals */
+.modal.is-armed .trust-icon .ti-main,
+.modal.is-armed .trust-icon .ti-accent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+.modal.is-in .trust-icon .ti-main {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+}
+.modal.is-in .trust-icon .ti-accent {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--d, 0s) + 0.55s);
+}
+
 .trust-dots {
     display: none;
 }
@@ -1425,35 +1707,6 @@ h5 {
     }
 }
 
-/* Icons: thin line, orange / blue / orange */
-.who-icon {
-    display: block;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 1.75rem;
-    overflow: visible;
-}
-
-.who-icon path,
-.who-icon circle {
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.who-icon .w-o {
-    stroke: var(--orange, #f58220);
-}
-
-.who-icon .w-b {
-    stroke: var(--navy, #0f2742);
-}
-
-.who-icon .w-fill {
-    fill: var(--navy, #0f2742);
-}
-
 .who-item h3 {
     margin: 0 0 0.75rem;
     font-size: 1.375rem;
@@ -1514,7 +1767,7 @@ h5 {
         padding: 1.75rem 1.5rem 1.5rem;
     }
 
-    .who-icon {
+    .trust-icon {
         width: 42px;
         height: 42px;
         margin-bottom: 1.25rem;
@@ -1522,6 +1775,19 @@ h5 {
 
     .who-item h3 {
         font-size: 1.25rem;
+    }
+
+    /* Show dots on mobile for who-panel (uses trust-dots from style-v2.css) */
+    .who .trust-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .who .trust-dots[hidden] {
+        display: none;
     }
 }
 
@@ -1634,32 +1900,6 @@ h5 {
     }
 }
 
-/* Icons: thin line, orange with blue detail */
-.offer-icon {
-    display: block;
-    width: 44px;
-    height: 44px;
-    margin-bottom: 1.5rem;
-    overflow: visible;
-}
-
-.offer-icon path,
-.offer-icon circle,
-.offer-icon rect {
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.offer-icon .o {
-    stroke: var(--orange, #f58220);
-}
-
-.offer-icon .b {
-    stroke: var(--navy, #0f2742);
-}
-
 .offer h3 {
     margin: 0 0 0.6rem;
     font-size: 1.125rem;
@@ -1727,10 +1967,36 @@ h5 {
         padding: 1.5rem 1.25rem 1.25rem;
     }
 
-    .offer-icon {
+    .trust-icon {
         width: 40px;
         height: 40px;
         margin-bottom: 1.25rem;
+    }
+
+    /* Show dots on mobile for offers-grid (uses trust-dots from style-v2.css) */
+    .offers .trust-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .offers .trust-dots[hidden] {
+        display: none;
+    }
+
+    /* Extend dot colors beyond the default 3 for offers-grid (up to 6) */
+    .offers .trust-dot:nth-child(4) {
+        background: var(--navy);
+    }
+
+    .offers .trust-dot:nth-child(5) {
+        background: var(--orange);
+    }
+
+    .offers .trust-dot:nth-child(6) {
+        background: var(--navy);
     }
 }
 
@@ -1915,25 +2181,6 @@ h5 {
     gap: 0.875rem;
     align-items: flex-start;
 }
-
-.reach-icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    margin-top: 0.1rem;
-}
-
-.reach-icon path,
-.reach-icon circle,
-.reach-icon rect {
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.reach-icon .o { stroke: var(--orange, #f58220); }
-.reach-icon .b { stroke: var(--navy, #0f2742); }
 
 .reach-label {
     display: block;

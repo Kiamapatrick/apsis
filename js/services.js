@@ -15,30 +15,44 @@
         return cards.filter(function (c) { return !c.classList.contains('svc-hidden'); });
     }
 
-    /* Each swipe "page" is one column of two stacked cards, so group by x position */
-    function columnOffsets() {
-        var xs = [];
-        visibleCards().forEach(function (c) {
-            var x = Math.round(c.offsetLeft);
-            if (xs.indexOf(x) === -1) xs.push(x);
-        });
-        return xs.sort(function (a, b) { return a - b; });
+    /* Mobile layout: 2 rows (grid-template-rows: repeat(2, auto)), grid-auto-flow: column.
+       Each swipe page = 1 column = 2 stacked cards. */
+    function getSwipePages() {
+        var vc = visibleCards();
+        if (!phone.matches || vc.length < 3) return { count: 0, positions: [] };
+
+        var pageCount = Math.ceil(vc.length / 2);
+
+        /* Calculate column width + gap from computed styles */
+        var gap = 14; /* 0.875rem = 14px at default 16px root */
+        var style = getComputedStyle(grid);
+        var padLeft = parseFloat(style.paddingLeft) || 0;
+
+        /* grid-auto-columns: 80% of viewport (container) width */
+        var colWidth = grid.clientWidth * 0.8;
+        var step = colWidth + gap;
+
+        var positions = [];
+        for (var i = 0; i < pageCount; i++) {
+            positions.push(i * step - padLeft);
+        }
+        return { count: pageCount, positions: positions };
     }
 
     function buildDots() {
         if (!dotsWrap) return;
         dotsWrap.innerHTML = '';
         dots = [];
-        var cols = phone.matches ? columnOffsets() : [];
-        dotsWrap.hidden = cols.length < 2;
-        if (cols.length < 2) return;
 
-        cols.forEach(function (x, i) {
+        var pages = getSwipePages();
+        dotsWrap.hidden = pages.count < 2;
+        if (pages.count < 2) return;
+
+        pages.positions.forEach(function (scrollLeft, i) {
             var dot = document.createElement('span');
             dot.className = 'trust-dot';
             dot.addEventListener('click', function () {
-                var pad = parseFloat(getComputedStyle(grid).paddingLeft) || 0;
-                grid.scrollTo({ left: x - pad, behavior: reduce.matches ? 'auto' : 'smooth' });
+                grid.scrollTo({ left: scrollLeft, behavior: reduce.matches ? 'auto' : 'smooth' });
             });
             dotsWrap.appendChild(dot);
             dots.push(dot);
@@ -48,17 +62,19 @@
 
     function updateDots() {
         if (!dots.length) return;
-        var cols = columnOffsets();
-        var pad = parseFloat(getComputedStyle(grid).paddingLeft) || 0;
-        var pos = grid.scrollLeft + pad;
+
+        var pages = getSwipePages();
+        if (pages.count < 2) return;
+
+        var pos = grid.scrollLeft;
         var atEnd = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 2;
         var active = 0, min = Infinity;
 
         if (atEnd) {
-            active = cols.length - 1;   /* last column can't reach the snap point, so pin it */
+            active = pages.count - 1;
         } else {
-            cols.forEach(function (x, i) {
-                var d = Math.abs(x - pos);
+            pages.positions.forEach(function (targetLeft, i) {
+                var d = Math.abs(targetLeft - pos);
                 if (d < min) { min = d; active = i; }
             });
         }
@@ -109,6 +125,16 @@
     buildDots();
     /* Fonts/images can shift widths after load */
     window.addEventListener('load', buildDots);
+})();
+
+/* Service finder (hero load) - animate on page load */
+(function () {
+    var finder = document.querySelector('.sv-find');
+    if (!finder) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    finder.classList.add('is-armed');
+    setTimeout(function () { finder.classList.add('is-in'); }, 300);
 })();
 
 /* Reveal: one soft fade-up, armed only for blocks that start below the fold (no flash on load) */

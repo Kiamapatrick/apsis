@@ -735,6 +735,15 @@
     transform: none;
 }
 
+/* FAQ icon subtle animation - matches trust-icon feel */
+.faq-accordion .accordion-button .faq-icon {
+    transition: stroke 0.3s ease, transform 0.3s ease;
+}
+.faq-accordion .accordion-button:hover .faq-icon {
+    stroke: var(--orange);
+    transform: scale(1.1);
+}
+
 .faq-accordion .accordion-body {
     max-width: 46em;
     padding: 0 0 1.6rem;

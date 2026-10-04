@@ -70,9 +70,26 @@
     io.observe(section);
 })();
 
-/* Values cards + team rows reveal (staggered fade-up) */
+/* Values section reveal with icon animation */
 (function () {
-    var els = document.querySelectorAll('.vals-card, .tm');
+    var section = document.querySelector('.vals');
+    if (!section) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+
+    section.classList.add('is-armed');
+    var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+            section.classList.add('is-in');
+            io.disconnect();
+        }
+    }, { threshold: 0.25 });
+    io.observe(section);
+})();
+
+/* Team rows reveal (staggered fade-up) */
+(function () {
+    var els = document.querySelectorAll('.tm');
     if (!els.length) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce || !('IntersectionObserver' in window)) return;

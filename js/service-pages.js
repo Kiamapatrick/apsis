@@ -30,6 +30,28 @@
     });
 })();
 
+/* Blog/Service pages: trust-badges, takeaways, modals */
+(function () {
+    var selectors = ['.trust-badge', '.takeaways-box__icon', '.modal'];
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+
+    selectors.forEach(function (sel) {
+        var els = document.querySelectorAll(sel);
+        if (!els.length) return;
+        els.forEach(function (el) { el.classList.add('is-armed'); });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-in');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        els.forEach(function (el) { io.observe(el); });
+    });
+})();
+
 /* FAQ: open the question named in the URL hash (e.g. page.html#faq3), so shared links land on the answer */
 (function () {
     var id = window.location.hash.slice(1);

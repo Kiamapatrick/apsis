@@ -634,6 +634,19 @@
     .svc-carousel .trust-dots[hidden] {
         display: none;
     }
+
+    /* Services carousel: extend dot colors beyond the default 3 (style-v2.css only styles nth-child 1-3) */
+    .svc-carousel .trust-dot:nth-child(4) {
+        background: var(--navy);
+    }
+
+    .svc-carousel .trust-dot:nth-child(5) {
+        background: var(--orange);
+    }
+
+    .svc-carousel .trust-dot:nth-child(6) {
+        background: var(--navy);
+    }
 }
 
 /* ── Core competencies (navy band) ───────────────────────── */
