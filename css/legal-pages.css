@@ -1,0 +1,395 @@
+/* ============================================================
+   APSIS Business Consulting – legal-pages.css
+   Terms of Service, Privacy Policy and other long-form documents.
+   Loaded AFTER service-pages.css, which supplies the hero (.ph-*),
+   .ph-card, .sv scaffolding and .sp-link. This file only adds the
+   document layout: contents list + numbered sections.
+   ============================================================ */
+
+/* A shorter hero than the service pages */
+.page-hero--compact {
+    min-height: clamp(420px, 56vh, 600px);
+}
+
+/* ── Layout: contents left, document right ───────────────── */
+.lg {
+    padding-top: 4.5rem;
+}
+
+.lg-layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+}
+
+.lg-aside {
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+/* ── Contents ────────────────────────────────────────────── */
+.lg-toc summary {
+    display: none;
+    list-style: none;
+}
+
+.lg-toc summary::-webkit-details-marker {
+    display: none;
+}
+
+.lg-toc-title {
+    margin: 0 0 0.9rem;
+    font-size: 0.875rem;
+    color: #6b7686;
+}
+
+.lg-toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--sv-line, #d9d4c8);
+}
+
+.lg-toc-list a {
+    display: block;
+    margin-left: -1px;
+    padding: 0.45rem 0 0.45rem 1rem;
+    border-left: 2px solid transparent;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: #4a5668;
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.lg-toc-list a:hover {
+    color: var(--text-hero);
+}
+
+.lg-toc-list a:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+}
+
+.lg-toc-list a.is-active {
+    border-left-color: var(--orange);
+    font-weight: 500;
+    color: var(--text-hero);
+}
+
+.lg-aside-help {
+    margin: 1.5rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+/* ── Document ────────────────────────────────────────────── */
+.lg-doc {
+    min-width: 0;
+}
+
+.lg-sec {
+    padding: 2.75rem 0;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
+    scroll-margin-top: 100px;
+}
+
+.lg-sec:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.lg-sec h2 {
+    margin: 0 0 1.25rem;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.3vw, 1.875rem);
+    line-height: 1.2;
+    color: var(--text-hero);
+    text-wrap: balance;
+}
+
+.lg-sec h3 {
+    margin: 1.75rem 0 0.5rem;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text-hero);
+}
+
+.lg-sec p {
+    max-width: 44em;
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3a4759;
+    text-wrap: pretty;
+}
+
+.lg-sec p:last-child {
+    margin-bottom: 0;
+}
+
+.lg-sec strong {
+    font-weight: 600;
+    color: var(--navy, #0f2742);
+}
+
+/* Lists: the brand dash, not bullets */
+.lg-list {
+    max-width: 46em;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.lg-list li {
+    position: relative;
+    margin-bottom: 0.7rem;
+    padding-left: 1.6rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #3a4759;
+}
+
+.lg-list li::before {
+    content: "";
+    position: absolute;
+    top: 0.95em;
+    left: 0;
+    width: 10px;
+    height: 1.5px;
+    background: var(--orange);
+}
+
+.lg-list--2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 2rem;
+}
+
+/* Engagement process: a sequence, so numbered */
+.lg-steps {
+    max-width: 46em;
+    margin: 1.25rem 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid var(--sv-line, #d9d4c8);
+    counter-reset: lgstep;
+}
+
+.lg-steps li {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
+    counter-increment: lgstep;
+}
+
+.lg-steps li::before {
+    content: counter(lgstep);
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--orange);
+}
+
+.lg-steps strong {
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+.lg-steps span {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+/* Label / value rows (fees, governing law) */
+.lg-facts {
+    max-width: 46em;
+    margin: 0;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
+}
+
+.lg-facts>div {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--sv-line, #d9d4c8);
+}
+
+.lg-facts dt {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #6b7686;
+}
+
+.lg-facts dd {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #3a4759;
+}
+
+.lg-after {
+    margin-top: 1.25rem;
+}
+
+/* Callout */
+.lg-note {
+    max-width: 46em;
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-left: 3px solid var(--orange);
+    border-radius: 12px;
+}
+
+.lg-note p {
+    margin: 0;
+    font-size: 0.9375rem;
+}
+
+/* Contact block */
+.lg-address {
+    margin: 1rem 0 0;
+    font-style: normal;
+}
+
+.lg-address strong {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 1.0625rem;
+}
+
+.lg-address p {
+    margin-bottom: 0.3rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .lg {
+        padding-top: 2.5rem;
+    }
+
+    .lg-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .lg-aside {
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
+
+    /* contents becomes a collapsible bar on phones */
+    .lg-toc {
+        background: #fff;
+        border: 1px solid var(--sv-line, #d9d4c8);
+        border-radius: 16px;
+    }
+
+    .lg-toc summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 48px;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-hero);
+        cursor: pointer;
+    }
+
+    .lg-toc summary::after {
+        content: "+";
+        font-size: 1.4rem;
+        line-height: 1;
+        color: var(--orange);
+    }
+
+    .lg-toc[open] summary::after,
+    .lg-toc details[open]>summary::after {
+        content: "\2212";
+    }
+
+    .lg-toc summary:focus-visible {
+        outline: 2px solid var(--orange);
+        outline-offset: 2px;
+        border-radius: 16px;
+    }
+
+    .lg-toc-title {
+        display: none;
+    }
+
+    .lg-toc-list {
+        margin: 0 1.25rem 1rem;
+    }
+
+    .lg-aside-help {
+        display: none;
+    }
+
+    .lg-sec {
+        padding: 2.25rem 0;
+        scroll-margin-top: 84px;
+    }
+}
+
+@media (max-width: 640px) {
+    .lg-facts>div {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.2rem;
+    }
+
+    .lg-list--2 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ── Print: just the document ────────────────────────────── */
+@media print {
+
+    #mainNav,
+    .preloader,
+    .page-hero .ph-visual,
+    .page-hero .ph-actions,
+    .lg-aside,
+    .site-footer {
+        display: none !important;
+    }
+
+    .page-hero {
+        min-height: 0;
+        margin-top: 0;
+        padding: 0 0 1rem;
+        background: none;
+    }
+
+    .page-hero::before {
+        display: none;
+    }
+
+    .lg-layout {
+        display: block;
+    }
+
+    .lg-sec {
+        break-inside: avoid-page;
+    }
+}

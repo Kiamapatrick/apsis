@@ -1,874 +1,1447 @@
 /* ============================================================
    APSIS Business Consulting – service-pages.css
-   Shared components for SEO service landing pages
-   Depends on: style-v2.css (tokens), about.css (team patterns)
+   Shared components for the SEO service landing pages.
+   Same design system as about.css / services.css / workwithus.css.
+   Tokens come from style-v2.css. Reuses .hero-btn-primary, .hero-link.
+
+   Contents
+     1. Page hero (+ .ph-card visual)
+     2. Section scaffolding
+     3. Components: service cards, industries, team, FAQ, CTA,
+        related resources, process steps, tip / takeaways / mid-CTA,
+        internal links
+     4. Reveal
+     5. Legacy shims (delete once every service page is migrated)
+   Add new components under section 3 as pages are migrated.
    ============================================================ */
 
 /* ============================================================
-   1. PAGE HERO — Generic service page hero
+   1. PAGE HERO
    ============================================================ */
 .page-hero {
-  position: relative;
-  min-height: 50vh;
-  margin-top: 76px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background:
-    linear-gradient(150deg, rgba(13, 33, 55, 0.93) 0%, rgba(30, 58, 86, 0.88) 60%, rgba(26, 74, 122, 0.82) 100%),
-    url('../img/about.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: clamp(520px, 70vh, 760px);
+    margin-top: 76px;
+    padding: 1rem 0;
+    overflow: hidden;
+    background-color: var(--bg-hero);
+    border-bottom: 1px solid #e3dfd6;
 }
 
-.page-hero-inner {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 5rem 1.5rem 4rem;
-  width: 100%;
+.page-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: url("../img/hero-texture-sm.webp") center / cover no-repeat;
+    filter: grayscale(1) contrast(1.05);
+    opacity: 0.08;
 }
 
-.page-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(124, 155, 193, 0.14);
-  border: 1px solid rgba(124, 155, 193, 0.35);
-  border-radius: 50px;
-  padding: 0.45rem 1.1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.5px;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeUp 0.7s ease forwards 0.3s;
+.ph-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 4rem;
 }
 
-.page-hero-badge .badge-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.25);
-  animation: dotPulse 2s infinite;
+.ph-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.6rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
 }
 
-@keyframes dotPulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.25); }
-  50% { box-shadow: 0 0 0 6px rgba(245, 130, 32, 0.1); }
+.ph-crumbs a {
+    color: var(--text-hero);
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
-.page-hero-title {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.8rem, 7vw, 5rem);
-  font-weight: 900;
-  color: #fff;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  opacity: 0;
-  animation: fadeUp 0.7s ease forwards 0.6s;
+.ph-crumbs a:hover {
+    color: var(--orange);
 }
 
-.page-hero-accent {
-  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-lt) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  forced-color-adjust: none;
+.ph-crumbs a:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
 }
 
-.page-hero-sub {
-  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-  color: rgba(255, 255, 255, 0.72);
-  max-width: 560px;
-  margin: 0 auto 2rem;
-  line-height: 1.75;
-  opacity: 0;
-  animation: fadeUp 0.7s ease forwards 0.9s;
+.ph-crumbs svg {
+    width: 10px;
+    height: 10px;
+    fill: none;
+    stroke: var(--orange);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-.page-breadcrumb {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-  opacity: 0;
-  animation: fadeUp 0.7s ease forwards 1.1s;
+.ph-title {
+    margin: 0 0 1.5rem;
+    max-width: 13em;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: 0;
+    color: var(--text-hero);
+    text-wrap: balance;
 }
 
-.page-breadcrumb a {
-  color: var(--orange-lt);
-  text-decoration: none;
-  transition: var(--transition);
+.ph-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
 }
 
-.page-breadcrumb a:hover { color: #fff; }
-
-.page-breadcrumb span { color: rgba(255, 255, 255, 0.5); }
-
-.page-breadcrumb i.bi-chevron-right {
-  color: var(--orange);
-  font-size: 0.75rem;
+.ph-line>span {
+    display: block;
 }
 
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
+.ph-title em {
+    font-style: normal;
+    padding-bottom: 0.04em;
+    background: linear-gradient(var(--orange), var(--orange)) no-repeat 0 96% / 100% 3px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.ph-sub {
+    margin: 0 0 2rem;
+    max-width: 34em;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #3a4759;
+    text-wrap: pretty;
+}
+
+.ph-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.ph-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin: 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid #d9d4c8;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #4a5668;
+}
+
+.ph-meta span+span {
+    padding-left: 1.25rem;
+    border-left: 1px solid #d9d4c8;
+}
+
+/* Hero visual: a badge-style card of key facts for the page.
+   Markup: .ph-card > .ph-card-brand, .ph-card-title, dl.ph-card-rows > div > dt + dd */
+.ph-visual {
+    justify-self: center;
+    width: min(100%, 460px);
+}
+
+.ph-card {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 2rem 2.25rem;
+    background: #fff;
+    border: 1px solid #d9d4c8;
+    border-radius: 22px;
+    box-shadow: 0 30px 50px -28px rgba(15, 39, 66, 0.35);
+}
+
+.ph-card::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: var(--orange);
+}
+
+.ph-card-brand {
+    margin: 0 0 1.25rem;
+    font-size: 0.8125rem;
+    color: #6b7686;
+}
+
+.ph-card-title {
+    margin: 0 0 1.25rem;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-hero);
+}
+
+.ph-card-rows {
+    margin: 0;
+    border-top: 1px solid #e3dfd6;
+}
+
+.ph-card-rows>div {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #e3dfd6;
+}
+
+.ph-card-rows dt {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #6b7686;
+}
+
+.ph-card-rows dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--navy, #0f2742);
+}
+
+/* Entrance (plays once on load) */
+@keyframes ph-rise {
+    from {
+        transform: translateY(105%);
+    }
+
+    to {
+        transform: none;
+    }
+}
+
+@keyframes ph-fade {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes ph-underline {
+    from {
+        background-size: 0 3px;
+    }
+
+    to {
+        background-size: 100% 3px;
+    }
+}
+
+.ph-crumbs {
+    animation: ph-fade 0.7s ease both;
+}
+
+.ph-line>span {
+    animation: ph-rise 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.ph-line:nth-child(1)>span {
+    animation-delay: 0.15s;
+}
+
+.ph-line:nth-child(2)>span {
+    animation-delay: 0.3s;
+}
+
+.ph-title em {
+    animation: ph-underline 0.9s cubic-bezier(0.65, 0, 0.35, 1) 1.1s both;
+}
+
+.ph-sub {
+    animation: ph-fade 0.8s ease 0.65s both;
+}
+
+.ph-actions {
+    animation: ph-fade 0.8s ease 0.8s both;
+}
+
+.ph-meta {
+    animation: ph-fade 0.8s ease 0.95s both;
+}
+
+.ph-card {
+    animation: ph-fade 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.5s both;
+}
+
+@media (max-width: 900px) {
+    .ph-inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 3rem;
+    }
+
+    .ph-visual {
+        width: min(100%, 480px);
+        justify-self: start;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        min-height: 0;
+        margin-top: 68px;
+        padding: 2.5rem 0 3rem;
+    }
+
+    .ph-crumbs {
+        margin-bottom: 1.5rem;
+    }
+
+    .ph-title {
+        font-size: clamp(2.25rem, 9vw, 3rem);
+    }
+
+    .ph-actions {
+        margin-bottom: 2rem;
+    }
+
+    .ph-meta span+span {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .ph-card {
+        padding: 1.5rem 1.25rem 1.75rem;
+    }
+
+    .ph-card-rows>div {
+        grid-template-columns: 4.75rem minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-hero {
+        margin-top: 60px;
+    }
 }
 
 /* ============================================================
-   2. SERVICE CARD GRID — 4-column responsive grid
+   2. SECTION SCAFFOLDING
    ============================================================ */
+.sv {
+    --sv-line: #d9d4c8;
+    --sv-role: #b85600;
+    /* darker orange: passes contrast on white at small sizes */
+    padding: 6rem 0;
+    background: var(--white, #fff);
+}
+
+.sv--soft {
+    background: var(--off-white, #f7f6f2);
+}
+
+.sv--navy {
+    background: var(--navy, #0f2742);
+    color: #fff;
+}
+
+.sv-head {
+    margin-bottom: 3rem;
+}
+
+.sv-head h2 {
+    margin: 0 0 0.9rem;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 3.6vw, 3rem);
+    line-height: 1.05;
+    color: var(--text-hero);
+    text-wrap: balance;
+}
+
+.sv-head p {
+    margin: 0;
+    max-width: 40em;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #3a4759;
+    text-wrap: pretty;
+}
+
+/* Inline text link: orange hairline, like .hero-link */
+.sp-link {
+    color: var(--text-hero);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--orange);
+    transition: color 0.2s ease;
+}
+
+.sp-link:hover {
+    color: var(--orange);
+}
+
+.sp-link:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
+}
+
+/* Heading on the left, content on the right (FAQ, long lists) */
+.sp-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 4rem;
+    align-items: start;
+}
+
+.sp-split>.sv-head {
+    position: sticky;
+    top: 110px;
+    margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .sv {
+        padding: 4rem 0;
+    }
+
+    .sv-head {
+        margin-bottom: 2rem;
+    }
+
+    .sp-split {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .sp-split>.sv-head {
+        position: static;
+    }
+}
+
+/* ============================================================
+   3. COMPONENTS
+   ============================================================ */
+
+/* ── 3a. Service cards ─────────────────────────────────────
+   .service-card-grid > .service-card-item
+     > .service-card-icon, h3|h5, p | ul, .service-card-tag
+   Modifier .service-card-grid--2 for two columns (long copy). */
 .service-card-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+}
+
+.service-card-grid--2,
+.service-card-grid.advance-rulings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.service-card-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .service-card-item {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.75rem 1.5rem;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 2rem 1.75rem 1.5rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 20px;
+    transition: border-color 0.25s ease;
 }
 
+/* orange base strip draws in on hover, like the badge band in the hero */
 .service-card-item::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--orange), var(--orange-lt));
-  transform: scaleX(0);
-  transition: var(--transition);
-}
-
-.service-card-item:hover::after { transform: scaleX(1); }
-
-.service-card-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 42px rgba(245, 130, 32, 0.13);
-  border-color: rgba(245, 130, 32, 0.2);
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.35s ease;
 }
 
 .service-card-icon {
-  font-size: 1.75rem;
-  color: var(--orange);
-  margin-bottom: 0.85rem;
-  display: inline-block;
-  transition: var(--transition);
+    margin-bottom: 1.1rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--navy, #0f2742);
 }
 
-.service-card-item:hover .service-card-icon {
-  transform: scale(1.15) rotate(8deg);
-  color: var(--navy-mid);
-}
-
-.service-card-number {
-  font-family: "Playfair Display", serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--blue-lt);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  transition: var(--transition);
-}
-
-.service-card-item:hover .service-card-number {
-  color: rgba(245, 130, 32, 0.2);
-}
-
+.service-card-item h3,
 .service-card-item h5 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 0.6rem;
+    margin: 0 0 0.6rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-hero);
 }
 
 .service-card-item p {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 1rem;
+    flex: 1;
+    margin: 0 0 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    text-wrap: pretty;
+}
+
+.service-card-item ul {
+    flex: 1;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+}
+
+.service-card-item li {
+    position: relative;
+    margin-bottom: 0.65rem;
+    padding-left: 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+.service-card-item li::before {
+    content: "";
+    position: absolute;
+    top: 0.85em;
+    left: 0;
+    width: 10px;
+    height: 1.5px;
+    background: var(--orange);
 }
 
 .service-card-tag {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  padding: 0.2rem 0.7rem;
-  border-radius: 50px;
-  background: var(--blue-lt);
-  color: var(--navy-mid);
+    align-self: stretch;
+    padding-top: 0.9rem;
+    border-top: 1px solid #e3dfd6;
+    font-size: 0.8125rem;
+    color: #6b7686;
 }
 
-/* Responsive: Service Card Grid */
-@media (max-width: 1100px) {
-  .service-card-grid { grid-template-columns: repeat(3, 1fr); }
+@media (hover: hover) {
+    .service-card-item:hover {
+        border-color: #bfb8a8;
+    }
+
+    .service-card-item:hover::after {
+        transform: scaleX(1);
+    }
 }
 
-@media (max-width: 992px) {
-  .service-card-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 576px) {
-  .service-card-grid { grid-template-columns: 1fr; }
-}
-
-/* ============================================================
-   3. INDUSTRY GRID — 4-column centered cards
-   ============================================================ */
+/* ── 3b. Industries: open hairline columns ─────────────────
+   .industry-grid > .industry-card > i.industry-icon, h3|h5, p */
 .industry-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem 1.75rem;
 }
 
 .industry-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 1.25rem;
-  text-align: center;
-  transition: var(--transition);
-}
-
-.industry-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(245, 130, 32, 0.25);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
 }
 
 .industry-icon {
-  font-size: 2rem;
-  color: var(--orange);
-  margin-bottom: 0.5rem;
-  display: block;
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--orange);
 }
 
+.industry-card h3,
 .industry-card h5 {
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
-  font-weight: 700;
-  color: var(--navy);
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-hero);
 }
 
 .industry-card p {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin: 0;
-  line-height: 1.5;
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    text-wrap: pretty;
 }
 
-/* Responsive: Industry Grid */
-@media (max-width: 992px) {
-  .industry-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 576px) {
-  .industry-grid { grid-template-columns: 1fr; }
-}
-
-/* ============================================================
-   4. TEAM MEMBER INLINE — Horizontal layout
-   ============================================================ */
+/* ── 3c. Team member: photo left, bio right (same as About) ─
+   .team-member-inline > .team-image-side > img.team-image-inline
+                       + .team-content > .team-header, .team-bio,
+                         .competencies-wrap */
 .team-member-inline {
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+}
+
+.team-image-side {
+    overflow: hidden;
+    border-radius: 12px;
 }
 
 .team-image-inline {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--orange);
-  flex-shrink: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: 50% 0%;
 }
 
-.team-name-badge {
-  position: relative;
-  display: inline-block;
-  background: var(--navy);
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 30px;
-  font-weight: 600;
-  white-space: nowrap;
-  font-size: 0.9rem;
-  margin-top: -1.5rem;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.team-content {
+    min-width: 0;
 }
 
-.team-content { flex: 1; min-width: 0; }
-
-.team-header { margin-bottom: 0.75rem; }
-.team-header h4 { font-size: 1.4rem; color: var(--navy); margin-bottom: 0.35rem; font-weight: 700; }
+.team-header h3,
+.team-header h4 {
+    margin: 0;
+    font-size: clamp(1.6rem, 2.4vw, 2rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-hero);
+}
 
 .team-role-tag {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 0.35rem 0.95rem;
-  border-radius: 50px;
+    display: block;
+    margin: 0.4rem 0 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--sv-role, #b85600);
 }
 
 .team-bio {
-  color: var(--text-muted);
-  line-height: 1.8;
-  font-size: 0.92rem;
-  margin-bottom: 1rem;
+    max-width: 46em;
+    margin: 0 0 1.75rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #3a4759;
+    text-wrap: pretty;
 }
 
-.competencies-wrap { margin-top: 0.5rem; }
+.competencies-wrap {
+    padding-top: 1.25rem;
+    border-top: 1px solid #e3dfd6;
+}
 
 .competencies-label {
-  display: block;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
 }
 
 .competencies-tags-inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 0.5rem 1.5rem;
 }
 
 .competency-tag {
-  padding: 0.35rem 0.85rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: var(--text-hero);
 }
 
-/* Alternating colors for competency tags */
-.competencies-tags-inline .competency-tag:nth-child(odd) {
-  background: var(--orange);
-  color: white;
-}
-.competencies-tags-inline .competency-tag:nth-child(even) {
-  background: var(--navy-mid);
-  color: white;
-}
-
-/* Responsive: Team Member Inline */
-@media (max-width: 768px) {
-  .team-member-inline {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-  .team-image-inline { margin: 0 auto; }
-  .team-name-badge { margin-left: 0; transform: none; margin-top: -1.5rem; }
-  .competencies-tags-inline { justify-content: center; }
+.competency-tag::before {
+    content: "";
+    flex-shrink: 0;
+    width: 10px;
+    height: 1.5px;
+    background: var(--orange);
+    transform: translateY(-0.2em);
 }
 
-/* ============================================================
-   5. FAQ ACCORDION ENHANCEMENT
-   ============================================================ */
+/* ── 3d. FAQ (Bootstrap accordion, restyled as hairline rows) ── */
+.faq-accordion {
+    --bs-accordion-bg: transparent;
+    --bs-accordion-border-width: 0;
+    --bs-accordion-btn-focus-box-shadow: none;
+    --bs-accordion-btn-bg: transparent;
+    --bs-accordion-active-bg: transparent;
+    --bs-accordion-active-color: var(--text-hero);
+    border-bottom: 1px solid var(--sv-line, #d9d4c8);
+}
+
 .faq-accordion .accordion-item {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 0;
 }
 
 .faq-accordion .accordion-button {
-  font-weight: 600;
-  background: var(--white);
-  color: var(--navy);
-  padding: 1.15rem 1.5rem;
-  font-size: 0.95rem;
+    gap: 1.5rem;
+    padding: 1.4rem 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-hero);
 }
 
-.faq-accordion .accordion-button:not(.collapsed) {
-  color: var(--orange);
-  background: var(--bg-light);
-  box-shadow: none;
+.faq-accordion .accordion-button:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
 }
 
-.faq-accordion .accordion-button:focus {
-  box-shadow: none;
-  border-color: var(--border);
-}
-
+/* plus / minus in the brand orange instead of Bootstrap's chevron */
 .faq-accordion .accordion-button::after {
-  filter: invert(20%) sepia(80%) saturate(2000%) hue-rotate(180deg);
+    flex-shrink: 0;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    background-image: none;
+    content: "+";
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--orange);
+    transform: none;
 }
 
 .faq-accordion .accordion-button:not(.collapsed)::after {
-  filter: invert(40%) sepia(90%) saturate(2000%) hue-rotate(10deg);
+    content: "\2212";
+    background-image: none;
+    transform: none;
 }
 
 .faq-accordion .accordion-body {
-  background: var(--bg-light);
-  padding: 1.25rem 1.5rem;
-  color: var(--text-main);
-  line-height: 1.8;
-  border-top: 1px solid var(--border);
+    max-width: 46em;
+    padding: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #3a4759;
+    text-wrap: pretty;
 }
 
-/* ============================================================
-   6. CTA BANNER — Gradient call-to-action section
-   ============================================================ */
-.cta-banner {
-  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  text-align: center;
-  color: white;
-  margin-top: 2rem;
+/* ── 3e. Closing call to action (replaces .cta-banner) ─────
+   section.sp-cta > .container.sp-cta-inner > div + .sp-cta-actions */
+.sp-cta {
+    padding: 5rem 0;
+    background: var(--off-white, #f7f6f2);
+    border-top: 1px solid #e3dfd6;
+    border-bottom: 1px solid #e3dfd6;
 }
 
-.cta-banner h3 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 800;
-  margin-bottom: 1rem;
-  line-height: 1.3;
+.sp-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem 3rem;
 }
 
-.cta-banner p {
-  max-width: 700px;
-  margin: 0 auto 1.5rem;
-  opacity: 0.9;
-  font-size: 1.05rem;
-  line-height: 1.7;
+.sp-cta h2 {
+    max-width: 18em;
+    margin: 0 0 0.75rem;
+    font-weight: 500;
+    font-size: clamp(1.85rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    color: var(--text-hero);
+    text-wrap: balance;
 }
 
-.cta-banner .btn-primary {
-  background: var(--orange);
-  border: none;
-  padding: 0.85rem 2rem;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  color: white;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: var(--transition);
+.sp-cta p {
+    max-width: 38em;
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #3a4759;
+    text-wrap: pretty;
 }
 
-.cta-banner .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(245, 130, 32, 0.4);
-  color: white;
+.sp-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.75rem;
 }
 
-.cta-banner .btn-outline {
-  background: transparent;
-  border: 2px solid var(--orange);
-  color: white;
-  padding: 0.85rem 2rem;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: var(--transition);
+.sp-cta--white {
+    background: #fff;
 }
 
-.cta-banner .btn-outline:hover {
-  background: var(--orange);
-  color: white;
-  transform: translateY(-2px);
+@media (max-width: 900px) {
+    .sp-cta {
+        padding: 3.5rem 0;
+    }
 }
 
-.cta-banner .btn-primary i,
-.cta-banner .btn-outline i {
-  transition: transform 0.2s ease;
+/* ── 3e-2. Prose block: a lead statement plus a quieter note ──
+   .sp-prose > p.sp-lead + p   (usually inside .sp-split next to a heading) */
+.sp-prose p {
+    max-width: 40em;
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    text-wrap: pretty;
 }
 
-.cta-banner .btn-primary:hover i,
-.cta-banner .btn-outline:hover i {
-  transform: translateX(4px);
+.sp-prose .sp-lead {
+    font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+    line-height: 1.55;
+    color: var(--text-hero);
 }
 
-/* ============================================================
-   7. RELATED RESOURCES GRID — 2-column cards
-   ============================================================ */
+.sp-prose p:last-child {
+    margin-bottom: 0;
+}
+
+/* ── 3f. Related resources ─────────────────────────────────
+   .related-grid > a.related-card > .related-icon, .related-cat,
+   .related-title, .related-meta */
 .related-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
 }
 
 .related-card {
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  transition: var(--transition);
+    display: block;
+    padding: 1.75rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 20px;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.25s ease;
 }
 
 .related-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(245, 130, 32, 0.25);
-  color: inherit;
-  text-decoration: none;
+    border-color: #bfb8a8;
+    color: inherit;
+}
+
+.related-card:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
 }
 
 .related-card .related-icon {
-  font-size: 1.5rem;
-  color: var(--orange);
-  margin-bottom: 0.75rem;
-  display: block;
+    display: block;
+    margin-bottom: 0.9rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--navy, #0f2742);
 }
 
 .related-card .related-cat {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 0.35rem;
-  display: block;
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--sv-role, #b85600);
+}
+
+.related-card .related-title,
+.related-card .related-meta {
+    display: block;
 }
 
 .related-card .related-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-hero);
 }
 
 .related-card .related-meta {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+    font-size: 0.875rem;
+    color: #6b7686;
 }
 
-@media (max-width: 576px) {
-  .related-grid { grid-template-columns: 1fr; }
-}
-
-/* ============================================================
-   8. PROCESS STEPS — Numbered step layout (reused from about.css)
-   ============================================================ */
+/* ── 3g. Process steps: a real sequence, so numbered ───────
+   .process-steps > .process-step > .step-num + .step-content (h4, p) */
 .process-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--sv-line, #d9d4c8);
 }
 
 .process-step {
-  display: flex;
-  gap: 1.25rem;
-  align-items: flex-start;
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--sv-line, #d9d4c8);
 }
 
 .step-num {
-  font-family: "Playfair Display", serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--blue-lt);
-  line-height: 1;
-  flex-shrink: 0;
-  transition: var(--transition);
+    font-family: "Playfair Display", serif;
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--orange);
 }
 
-.process-step:hover .step-num {
-  color: rgba(245, 130, 32, 0.2);
-}
-
+.step-content h3,
 .step-content h4 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 0.5rem;
+    margin: 0 0 0.4rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-hero);
 }
 
 .step-content p {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin: 0;
+    max-width: 42em;
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-muted);
 }
 
-@media (max-width: 576px) {
-  .process-step { gap: 1rem; }
-  .step-num { font-size: 2rem; }
-}
-
-/* ============================================================
-   9. TIP BOX — Callout box (reused from insights pages)
-   ============================================================ */
+/* ── 3h. Callouts: tip, takeaways, mid-page CTA ─────────── */
 .tip-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--orange);
-  border-radius: var(--radius-sm);
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0;
+    margin: 1.75rem 0;
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-left: 3px solid var(--orange);
+    border-radius: 12px;
 }
 
 .tip-box__label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 0.5rem;
-  display: block;
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--sv-role, #b85600);
 }
 
 .tip-box p {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0;
-  line-height: 1.7;
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-muted);
 }
 
-/* ============================================================
-   10. TAKEAWAYS BOX — Key takeaways callout
-   ============================================================ */
 .takeaways-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  margin: 1.5rem 0;
+    margin: 1.75rem 0;
+    padding: 1.75rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 20px;
 }
 
 .takeaways-box__header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e3dfd6;
 }
 
 .takeaways-box__icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  flex-shrink: 0;
+    display: flex;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 50%;
+    color: var(--orange);
 }
 
-.takeaways-box__icon svg { width: 20px; height: 20px; }
+.takeaways-box__icon svg {
+    width: 20px;
+    height: 20px;
+}
 
 .takeaways-box__title {
-  font-weight: 700;
-  color: var(--navy);
-  font-size: 1rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-hero);
 }
 
 .takeaways-box ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .takeaways-box li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.6;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+.takeaways-box li:last-child {
+    margin-bottom: 0;
 }
 
 .takeaways-box li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.55rem;
-  width: 6px;
-  height: 6px;
-  background: var(--orange);
-  border-radius: 50%;
+    content: "";
+    flex-shrink: 0;
+    width: 10px;
+    height: 1.5px;
+    background: var(--orange);
+    transform: translateY(-0.2em);
 }
 
-.takeaways-box li:last-child { margin-bottom: 0; }
-
-/* ============================================================
-   11. MID CTA — Mid-page call to action
-   ============================================================ */
 .mid-cta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  margin: 2rem 0;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 20px;
 }
 
-.mid-cta__text { flex: 1; min-width: 280px; }
+.mid-cta__text {
+    flex: 1;
+    min-width: 260px;
+}
 
 .mid-cta__label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 0.35rem;
-  display: block;
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--sv-role, #b85600);
 }
 
 .mid-cta__heading {
-  font-family: "Playfair Display", serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--navy);
-  margin-bottom: 0.5rem;
+    margin: 0 0 0.4rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-hero);
 }
 
 .mid-cta__sub {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin: 0;
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-muted);
 }
 
 .mid-cta .btn-primary {
-  background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-  color: white;
-  padding: 0.85rem 1.75rem;
-  font-weight: 600;
-  border-radius: 50px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: var(--transition);
-  white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.75rem;
+    background: var(--navy, #0f2742);
+    border: 1px solid var(--navy, #0f2742);
+    border-radius: var(--radius-sm, 10px);
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
 }
 
 .mid-cta .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(245, 130, 32, 0.4);
-  color: white;
+    background: #1b3a5f;
+    color: #fff;
 }
 
-@media (max-width: 576px) {
-  .mid-cta { flex-direction: column; text-align: center; }
-  .mid-cta .btn-primary { justify-content: center; }
+.mid-cta .btn-primary:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
 }
 
-/* ============================================================
-   12. INTERNAL LINKS BOX — Related services/resources
-   ============================================================ */
+/* ── 3i. Internal links box ─────────────────────────────── */
 .internal-links-box {
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  margin: 2rem 0;
+    margin: 2rem 0;
+    padding: 1.5rem 1.75rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 20px;
 }
 
 .internal-links-box__title {
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
+    margin-bottom: 0.9rem;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--text-hero);
 }
 
 .internal-links-box ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .internal-links-box li {
-  margin-bottom: 0.5rem;
+    border-top: 1px solid #e3dfd6;
 }
 
 .internal-links-box a {
-  color: var(--navy-mid);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.internal-links-box a:hover {
-  color: var(--orange);
-  text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-hero);
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .internal-links-box a::before {
-  content: '';
-  width: 16px;
-  height: 16px;
-  background: var(--orange);
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
+    content: "";
+    flex-shrink: 0;
+    width: 10px;
+    height: 1.5px;
+    background: var(--orange);
 }
 
-/* ============================================================
-   UTILITY CLASSES
-   ============================================================ */
+.internal-links-box a:hover {
+    color: var(--orange);
+}
+
+.internal-links-box a:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+}
+
+/* ── 3j. Layout modifiers + navy statement ───────────────── */
+.service-card-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.industry-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem 3rem;
+}
+
+/* related cards use spans inside the link, so make them blocks */
+.related-card .related-title,
+.related-card .related-meta {
+    display: block;
+}
+
+/* Firm-level statement on a navy band.
+   section.sv.sv--navy > .container.sp-statement > h2 + div (p, p.sp-note) */
+.sp-statement {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 4rem;
+    align-items: start;
+}
+
+.sp-statement h2 {
+    margin: 0;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 3.6vw, 3rem);
+    line-height: 1.05;
+    color: #fff;
+    text-wrap: balance;
+}
+
+.sp-statement p {
+    margin: 0 0 1.25rem;
+    max-width: 40em;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.8);
+    text-wrap: pretty;
+}
+
+.sp-statement .sp-note {
+    margin: 1.5rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 991px) {
+    .service-card-grid--3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .sp-statement {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.75rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .service-card-grid--3 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .industry-grid--2 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ── 3k. Utilities ──────────────────────────────────────── */
 .content-center {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .icon-large {
-  font-size: 3rem;
-  color: var(--orange);
-  margin-bottom: 1rem;
-  display: block;
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    color: var(--orange);
 }
 
 /* ============================================================
-   RESPONSIVE OVERRIDES
+   4. REVEAL: one soft fade-up, only for blocks still below the fold
    ============================================================ */
-@media (max-width: 992px) {
-  .page-hero { min-height: 45vh; }
-  .page-hero-inner { padding: 4rem 1.5rem 3rem; }
+[data-reveal].is-armed {
+    opacity: 0;
+    transform: translateY(14px);
 }
 
-@media (max-width: 768px) {
-  .page-hero {
-    min-height: auto;
-    margin-top: 68px;
-    padding: 3rem 0 4rem;
-  }
-  .page-hero-inner { padding: 3rem 1rem 2.5rem; }
-  .page-hero-title { font-size: clamp(2.2rem, 9vw, 3.2rem); }
-  .page-hero-sub-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+[data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* ============================================================
+   RESPONSIVE (components)
+   ============================================================ */
+@media (max-width: 1100px) {
+    .industry-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service-card-grid--3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .team-member-inline {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.75rem;
+    }
+
+    .team-image-side {
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .service-card-grid--2,
+    .service-card-grid--3,
+    .service-card-grid.advance-rulings-grid,
+    .related-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 @media (max-width: 576px) {
-  .page-hero { padding: 2.5rem 0 3.5rem; margin-top: 60px; }
-  .page-hero-inner { padding: 2.5rem 1rem 2rem; }
-  .page-hero-badge { font-size: 0.75rem; padding: 0.4rem 0.9rem; }
+    .industry-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .service-card-item {
+        padding: 1.5rem 1.25rem 1.25rem;
+        border-radius: 18px;
+    }
+
+    .faq-accordion .accordion-button {
+        padding: 1.2rem 0;
+        font-size: 1.0625rem;
+    }
+
+    .mid-cta {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .process-step {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+
+    .step-num {
+        font-size: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .page-hero *,
+    .page-hero *::before {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .service-card-item::after,
+    [data-reveal] {
+        transition: none !important;
+    }
+}
+
+/* ============================================================
+   5. LEGACY SHIMS
+   Keeps pages that have not been migrated yet looking acceptable.
+   Delete this whole block once every service page uses the new
+   hero (.ph-*), .sp-cta and .sv sections.
+   ============================================================ */
+.about-details-section {
+    padding: 6rem 0;
+    background: var(--off-white, #f7f6f2);
+}
+
+.page-hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    text-align: left;
+}
+
+.page-hero-title {
+    margin: 0 0 1rem;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+    line-height: 1.04;
+    color: var(--text-hero);
+    text-wrap: balance;
+}
+
+.page-hero-accent {
+    color: inherit;
+}
+
+.page-hero-sub {
+    max-width: 34em;
+    margin: 0 0 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #3a4759;
+}
+
+.page-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.page-breadcrumb a {
+    color: var(--text-hero);
+    text-decoration: none;
+}
+
+.page-breadcrumb a:hover {
+    color: var(--orange);
+}
+
+.page-breadcrumb i.bi-chevron-right {
+    color: var(--orange);
+    font-size: 0.75rem;
+}
+
+.cta-banner {
+    position: relative;
+    overflow: hidden;
+    margin-top: 2rem;
+    padding: 3rem 2rem;
+    background: #fff;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    border-radius: 24px;
+    text-align: center;
+}
+
+.cta-banner::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: var(--orange);
+}
+
+.cta-banner h3 {
+    margin: 0 0 0.75rem;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.2;
+    color: var(--text-hero);
+}
+
+.cta-banner p {
+    max-width: 40em;
+    margin: 0 auto 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #3a4759;
+}
+
+.cta-banner .btn-primary,
+.cta-banner .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius-sm, 10px);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.cta-banner .btn-primary {
+    background: var(--navy, #0f2742);
+    border: 1px solid var(--navy, #0f2742);
+    color: #fff;
+}
+
+.cta-banner .btn-outline {
+    background: transparent;
+    border: 1px solid var(--sv-line, #d9d4c8);
+    color: var(--text-hero);
+}
+
+.team-name-badge {
+    display: none;
 }

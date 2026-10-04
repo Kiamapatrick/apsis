@@ -1,46 +1,25 @@
 /* ============================================================
    APSIS Business Consulting – contact.js
-   Handles: AOS, navbar scroll, preloader, form submission
+   Handles: copyright year, navbar scroll, preloader, reveal, form
+   (AOS is no longer used on this page)
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ── Dynamic Copyright Year ────────────────────────────── */
-    const updateCopyrightYear = () => {
-        const yearElements = document.querySelectorAll('#copyright-year, .footer-copy, .hub-footer-copy, .footer-bottom p');
-        const currentYear = new Date().getFullYear();
-        yearElements.forEach(el => {
-            const text = el.textContent.trim();
-            if (text.includes('202') || text.includes('©') || text === '') {
-                if (el.id === 'copyright-year') {
-                    el.textContent = currentYear;
-                } else if (text.includes('202')) {
-                    el.innerHTML = text.replace(/\d{4}/, currentYear);
-                }
-            }
-        });
-    };
-    updateCopyrightYear();
-
-    /* ── AOS ─────────────────────────────────────────────── */
-    AOS.init({
-        duration: 900,
-        once: true,
-        offset: 80,
-        easing: 'ease-out-cubic',
+    /* ── Dynamic copyright year ────────────────────────────── */
+    document.querySelectorAll('.footer-bottom p').forEach(el => {
+        el.innerHTML = el.textContent.replace(/\d{4}/, new Date().getFullYear());
     });
 
-    /* ── Navbar scroll class (matches main-v2.js) ─────────── */
+    /* ── Navbar scroll class (matches main-v2.js) ──────────── */
     const mainNav = document.getElementById('mainNav');
     if (mainNav) {
-        const onScroll = () => {
-            mainNav.classList.toggle('scrolled', window.scrollY > 60);
-        };
+        const onScroll = () => mainNav.classList.toggle('scrolled', window.scrollY > 60);
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
     }
 
-    /* ── Preloader ───────────────────────────────────────── */
+    /* ── Preloader ─────────────────────────────────────────── */
     const preloader = document.getElementById('preloader');
     if (preloader) {
         window.addEventListener('load', () => {
@@ -49,73 +28,112 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ── Contact Form ────────────────────────────────────── */
-    const form = document.getElementById('contact-form');
-    if (!form) return;
+    /* ── Reveal: one soft fade-up, only for blocks below the fold ── */
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const blocks = document.querySelectorAll('[data-reveal]');
+    if (!reduce && 'IntersectionObserver' in window && blocks.length) {
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-in');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
 
-    form.addEventListener('submit', async (e) => {
+        blocks.forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight) return;
+            el.classList.add('is-armed');
+            io.observe(el);
+        });
+    }
+
+    /* ── Contact form ──────────────────────────────────────── */
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('formStatus');
+    if (!form || !status) return;
+
+    const messages = {
+        name: 'Please enter your name.',
+        email: 'Please enter a valid email address.',
+        message: 'Please tell us how we can help.'
+    };
+
+    function setError(input, text) {
+        const field = input.closest('.ct-field');
+        let err = field.querySelector('.ct-error');
+        if (text) {
+            if (!err) {
+                err = document.createElement('p');
+                err.className = 'ct-error';
+                err.id = input.id + '-error';
+                field.appendChild(err);
+            }
+            err.textContent = text;
+            field.classList.add('has-error');
+            input.setAttribute('aria-invalid', 'true');
+            input.setAttribute('aria-describedby', err.id);
+        } else {
+            if (err) err.remove();
+            field.classList.remove('has-error');
+            input.removeAttribute('aria-invalid');
+            input.removeAttribute('aria-describedby');
+        }
+    }
+
+    function validate() {
+        let firstBad = null;
+        form.querySelectorAll('[required]').forEach(input => {
+            const bad = !input.value.trim() || !input.checkValidity();
+            setError(input, bad ? messages[input.name] : '');
+            if (bad && !firstBad) firstBad = input;
+        });
+        if (firstBad) firstBad.focus();
+        return !firstBad;
+    }
+
+    /* clear an error as soon as the person fixes the field */
+    form.addEventListener('input', e => {
+        if (e.target.closest('.has-error') && e.target.checkValidity() && e.target.value.trim()) {
+            setError(e.target, '');
+        }
+    });
+
+    function setStatus(text, kind) {
+        status.textContent = text;
+        status.className = 'ct-status' + (kind ? ' is-' + kind : '');
+    }
+
+    form.addEventListener('submit', async e => {
         e.preventDefault();
+        setStatus('', '');
+        if (!validate()) return;
 
         const btn = form.querySelector('button[type="submit"]');
-        const originalHTML = btn.innerHTML;
-
-        // Loading state
+        const label = btn.textContent;
         btn.disabled = true;
-        btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Sending…`;
+        btn.textContent = 'Sending…';
 
-        // Collect form data
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(new FormData(form).entries());
 
         try {
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(data)
             });
-
             const result = await response.json();
 
-            if (result.success) {
-                showAlert('✅ Thanks for reaching out — we\'ll get back to you shortly.', 'success');
-                form.reset();
-            } else {
-                throw new Error(result.message || 'Submission failed');
-            }
+            if (!result.success) throw new Error(result.message || 'Submission failed');
+
+            setStatus('Thanks for reaching out. We\'ll get back to you shortly.', 'ok');
+            form.reset();
         } catch (err) {
             console.error('Contact form error:', err);
-            showAlert('❌ Something went wrong, please try calling us at +254 722 670 127 instead', 'danger');
+            setStatus('Something went wrong. Please call us on +254 722 670 127 instead.', 'error');
         } finally {
             btn.disabled = false;
-            btn.innerHTML = originalHTML;
+            btn.textContent = label;
         }
     });
-
-    /**
-     * Render a dismissible Bootstrap alert below the form.
-     * @param {string} message
-     * @param {'success'|'danger'} type
-     */
-    function showAlert(message, type) {
-        // Remove any existing alert
-        const existing = form.querySelector('.contact-alert');
-        if (existing) existing.remove();
-
-        const alert = document.createElement('div');
-        alert.className = `contact-alert alert alert-${type} alert-dismissible fade show mt-3`;
-        alert.setAttribute('role', 'alert');
-        alert.innerHTML = `
-      ${message}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-
-        form.appendChild(alert);
-
-        // Auto-dismiss after 6 s
-        setTimeout(() => {
-            alert.classList.remove('show');
-            alert.addEventListener('transitionend', () => alert.remove(), { once: true });
-        }, 6000);
-    }
-
 });

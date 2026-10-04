@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <meta name="color-scheme" content="light only">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
@@ -85,83 +86,56 @@
     }
   }
   </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/service.css" />
-    <style>
-        #reading-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #f58220, #ffb64c);
-            z-index: 200;
-            transition: width .1s linear;
-            border-radius: 0 2px 2px 0;
-        }
-    </style>
+    <!-- Fonts & Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/hub.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/preloader.css" />
+    <link rel="stylesheet" href="../../css/style-v2.css" />
+    <link rel="stylesheet" href="../../css/service-pages.css" />
+    <link rel="stylesheet" href="../css/content.css" />
+    <link rel="stylesheet" href="css/service.css" />
 </head>
 
 <body>
 
+    <!-- Reading progress -->
     <div id="reading-progress" aria-hidden="true"></div>
-    <div id="nav-overlay" class="nav-overlay" aria-hidden="true"></div>
 
-    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
-        <div class="mobile-nav__header">
-            <span class="mobile-nav__logo">Apsis<span> Consulting</span></span>
-            <button id="mobile-nav-close" class="mobile-nav__close" aria-label="Close menu">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <div class="mobile-nav__links">
-            <a href="../../index.html">Home</a>
-            <a href="../../services.html" class="active">Services</a>
-            <a href="../../about.html">About</a>
-            <a href="../blogs/">Insights</a>
-        </div>
-        <div class="mobile-nav__cta"><a href="../../contact.html">Talk to Us</a></div>
-    </nav>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <img src="../../img/preloader.png" alt="APSIS Logo" class="preloader-logo">
+    </div>
 
-    <!-- ── Hub Top Bar ──────────────────────────────────────── -->
-    <header class="hub-header" id="hubHeader">
-        <div class="container hub-header-inner">
-            <!-- Brand / back link -->
-            <a href="../../index.html" class="hub-brand">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
                 <img src="../../img/logo2.jpg" alt="APSIS Logo">
-                <span class="hub-brand-sep"></span>
-                <span class="hub-brand-label">
-                    <i class="bi bi-arrow-left me-1"></i>Back to APSIS
-                </span>
             </a>
-            <!-- Section tabs -->
-            <nav class="hub-tabs" aria-label="Content sections">
-                <a href="../index.html" class="hub-tab" data-section="hub">
-                    <i class="bi bi-grid-1x2"></i> <span>All Content</span>
-                </a>
-                <a href="../blogs/index.html" class="hub-tab" data-section="blogs">
-                    <i class="bi bi-journal-richtext"></i> <span>Blogs</span>
-                </a>
-                <a href="index.html" class="hub-tab hub-tab--insights-active" data-section="insights">
-                    <i class="bi bi-bar-chart-line"></i> <span>Insights</span>
-                </a>
-            </nav>
-            <!-- CTA -->
-            <a href="../../contact.html" class="hub-cta-btn">
-                <i class="bi bi-envelope me-1"></i>Contact Us
-            </a>
-            <button class="hub-hamburger" id="hubHamburger" aria-label="Toggle menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#apsisNavbar"
+                aria-controls="apsisNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="bi bi-list"></i>
             </button>
+            <div class="collapse navbar-collapse justify-content-end" id="apsisNavbar">
+                <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../services.html">Our Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../workwithus.html">Work With Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link nav-blog-btn active" href="../../content/index.html"
+                            aria-current="page"><i class="bi bi-journal-richtext"></i>Blogs &amp; Insights</a></li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <!-- HERO -->
     <section class="service-hero" aria-labelledby="page-title">
@@ -242,7 +216,7 @@
         <div class="container article-layout">
 
             <!-- TOC + Sidebar CTA -->
-            <aside class="article-toc fade-in" aria-label="Table of Contents">
+            <aside class="article-toc" aria-label="Table of Contents">
                 <h3 class="article-toc__title">On This Page</h3>
                 <ul class="article-toc__list" id="toc-list">
                     <li><a href="#what-is-kra-audit">What Is a KRA Audit?</a></li>
@@ -255,17 +229,17 @@
                 </ul>
                 <div class="toc-cta">
                     <p>Facing a KRA audit? Don't wait until the deadline passes.</p>
-                    <a href="../../contact.html">Book a Consultation</a>
+                    <a href="../../contact.html">Book a Consultation →</a>
                     <a href="https://wa.me/254722670127?text=KRA%20audit%20help" class="wa-link" target="_blank"
                         rel="noopener">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                        </svg>
-                        WhatsApp Now
-                    </a>
-                </div>
-            </aside>
+                            </svg>
+                            WhatsApp Us
+                        </a>
+                    </div>
+                </aside>
 
             <article class="article-body" aria-labelledby="page-title">
 
@@ -698,46 +672,28 @@
         </div>
     </section>
 
-    <footer class="site-footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-inner">
-                <div class="footer-logo">Apsis<span> Consulting</span></div>
-                <p class="footer-copy">&copy; 2026 APSIS Business Consulting Ltd. All rights reserved. Nairobi, Kenya.
-                </p>
-                <nav class="footer-links" aria-label="Footer navigation">
-                    <a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a
-                        href="../../contact.html">Contact</a>
-                </nav>
+    <!-- Footer -->
+    <footer class="hub-footer">
+        <div class="container hub-footer-inner">
+            <div class="hub-footer-brand">
+                <img src="../../img/logo2.jpg" alt="APSIS Logo">
+                <span>APSIS Business Consulting Ltd</span>
             </div>
+            <nav class="hub-footer-links">
+                <a href="../../index.html">Main Site</a>
+                <a href="../blogs/index.html">Blogs</a>
+                <a href="index.html">Insights</a>
+                <a href="../../privacy.html">Privacy</a>
+                <a href="../../terms.html">Terms</a>
+                <a href="../../contact.html">Contact</a>
+            </nav>
+            <p class="hub-footer-copy">&copy; 2026 APSIS Business Consulting Ltd. All rights reserved.</p>
         </div>
     </footer>
 
-    <a href="https://wa.me/254722670127?text=Hello%20Apsis%2C%20I%20need%20help%20with%20a%20KRA%20audit"
-        class="floating-consult" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-        </svg>
-    </a>
-
-    <script src="../../js/service.js"></script>
-    <script>
-        const hubHeader = document.getElementById('hubHeader');
-        if (hubHeader) {
-            window.addEventListener('scroll', () => {
-                hubHeader.classList.toggle('hub-header--scrolled', window.scrollY > 40);
-            }, { passive: true });
-        }
-
-        const hubHamburger = document.getElementById('hubHamburger');
-        const hubTabs = document.querySelector('.hub-tabs');
-        if (hubHamburger && hubTabs) {
-            hubHamburger.addEventListener('click', () => {
-                hubTabs.classList.toggle('open');
-                hubHamburger.classList.toggle('active');
-            });
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main-v2.js"></script>
+    <script src="../js/content.js"></script>
 </body>
 
 </html>

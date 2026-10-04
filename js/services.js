@@ -1,208 +1,135 @@
-/* ============================================================
-   APSIS Business Consulting – services.js
-   Handles: service card filtering, scroll animations,
-   navbar scroll state, preloader, and misc UX polish.
-   ============================================================ */
-
+/* Services: filter + phone swipe carousel (dots reuse .trust-dots / .trust-dot from style-v2.css) */
 (function () {
-    "use strict";
+    var grid = document.getElementById('svcGrid');
+    var dotsWrap = document.getElementById('svcDots');
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.svc-filter-btn'));
+    if (!grid || !btns.length) return;
 
-    /* ── Preloader ─────────────────────────────────────────── */
-    const preloader = document.getElementById("preloader");
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.svc-card'));
+    var phone = window.matchMedia('(max-width: 640px)');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var dots = [];
+    var raf = null;
 
-    function hidePreloader() {
-        if (preloader) {
-            preloader.classList.add("hidden");
-            setTimeout(() => preloader.remove(), 700);
+    function visibleCards() {
+        return cards.filter(function (c) { return !c.classList.contains('svc-hidden'); });
+    }
+
+    /* Each swipe "page" is one column of two stacked cards, so group by x position */
+    function columnOffsets() {
+        var xs = [];
+        visibleCards().forEach(function (c) {
+            var x = Math.round(c.offsetLeft);
+            if (xs.indexOf(x) === -1) xs.push(x);
+        });
+        return xs.sort(function (a, b) { return a - b; });
+    }
+
+    function buildDots() {
+        if (!dotsWrap) return;
+        dotsWrap.innerHTML = '';
+        dots = [];
+        var cols = phone.matches ? columnOffsets() : [];
+        dotsWrap.hidden = cols.length < 2;
+        if (cols.length < 2) return;
+
+        cols.forEach(function (x, i) {
+            var dot = document.createElement('span');
+            dot.className = 'trust-dot';
+            dot.addEventListener('click', function () {
+                var pad = parseFloat(getComputedStyle(grid).paddingLeft) || 0;
+                grid.scrollTo({ left: x - pad, behavior: reduce.matches ? 'auto' : 'smooth' });
+            });
+            dotsWrap.appendChild(dot);
+            dots.push(dot);
+        });
+        updateDots();
+    }
+
+    function updateDots() {
+        if (!dots.length) return;
+        var cols = columnOffsets();
+        var pad = parseFloat(getComputedStyle(grid).paddingLeft) || 0;
+        var pos = grid.scrollLeft + pad;
+        var atEnd = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 2;
+        var active = 0, min = Infinity;
+
+        if (atEnd) {
+            active = cols.length - 1;   /* last column can't reach the snap point, so pin it */
+        } else {
+            cols.forEach(function (x, i) {
+                var d = Math.abs(x - pos);
+                if (d < min) { min = d; active = i; }
+            });
         }
+        dots.forEach(function (dot, i) { dot.classList.toggle('active', i === active); });
     }
 
-    if (document.readyState === "complete") {
-        hidePreloader();
-    } else {
-        window.addEventListener("load", hidePreloader);
-        // Fallback: hide after 3 s even if load never fires
-        setTimeout(hidePreloader, 3000);
+    function applyFilter(filter, animate) {
+        btns.forEach(function (b) {
+            var on = b.dataset.filter === filter;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', String(on));
+        });
+        cards.forEach(function (c) {
+            c.classList.toggle('svc-hidden', filter !== 'all' && c.dataset.category !== filter);
+        });
+
+        grid.scrollLeft = 0;            /* new set starts at the first column */
+
+        if (animate && !reduce.matches) {
+            grid.classList.remove('is-swapping');
+            void grid.offsetWidth;      /* restart the animation */
+            grid.classList.add('is-swapping');
+        }
+        buildDots();
     }
 
-    /* ── Navbar scroll state ───────────────────────────────── */
-    const mainNav = document.getElementById("mainNav");
+    btns.forEach(function (b) {
+        b.addEventListener('click', function () { applyFilter(b.dataset.filter, true); });
+    });
 
-    function onNavScroll() {
-        if (!mainNav) return;
-        mainNav.classList.toggle("scrolled", window.scrollY > 60);
-    }
+    /* Hero finder: pick a category, filter, and scroll to the list */
+    document.querySelectorAll('[data-jump]').forEach(function (el) {
+        el.addEventListener('click', function () {
+            applyFilter(el.dataset.jump, true);
+            var target = document.getElementById('our-services');
+            if (target) target.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+        });
+    });
 
-    window.addEventListener("scroll", onNavScroll, { passive: true });
-    onNavScroll(); // apply immediately in case page is pre-scrolled
+    grid.addEventListener('scroll', function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = null; updateDots(); });
+    }, { passive: true });
 
-    /* ── Service-card filter ───────────────────────────────── */
-    const filterBtns = document.querySelectorAll(".svc-filter-btn");
-    const svcCards = document.querySelectorAll(".svc-card");
+    window.addEventListener('resize', buildDots, { passive: true });
+    if (phone.addEventListener) phone.addEventListener('change', buildDots);
 
-    /**
-     * Show/hide cards with a lightweight fade transition.
-     * Cards that don't match gain `svc-hidden` (display:none in CSS)
-     * after the fade-out; matching cards are shown before the fade-in.
-     */
-    function filterCards(filter) {
-        svcCards.forEach((card) => {
-            const cat = card.dataset.category || "all";
-            const show = filter === "all" || cat === filter;
+    buildDots();
+    /* Fonts/images can shift widths after load */
+    window.addEventListener('load', buildDots);
+})();
 
-            if (show) {
-                card.classList.remove("svc-hidden");
-                // Tiny delay so the browser registers the display change first
-                requestAnimationFrame(() => {
-                    card.style.opacity = "1";
-                    card.style.transform = "translateY(0)";
-                });
-            } else {
-                card.style.opacity = "0";
-                card.style.transform = "translateY(12px)";
-                // Hide after the CSS transition finishes (350 ms matches --transition)
-                setTimeout(() => card.classList.add("svc-hidden"), 360);
+/* Reveal: one soft fade-up, armed only for blocks that start below the fold (no flash on load) */
+(function () {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
             }
         });
-    }
+    }, { threshold: 0.12 });
 
-    filterBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            // Update active button
-            filterBtns.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            filterCards(btn.dataset.filter || "all");
-        });
+    els.forEach(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight) return;
+        el.classList.add('is-armed');
+        io.observe(el);
     });
-
-    // Seed inline styles so the transition works from the start
-    svcCards.forEach((card) => {
-        card.style.transition = "opacity 0.35s ease, transform 0.35s ease";
-        card.style.opacity = "1";
-        card.style.transform = "translateY(0)";
-    });
-
-    /* ── Intersection Observer – scroll-reveal ─────────────── */
-    /**
-     * Adds a fade-up reveal to major section elements when they
-     * enter the viewport. Works on cards, pillars, values, etc.
-     */
-    const REVEAL_SELECTOR = [
-        ".svc-card",
-        ".value-card",
-        ".pillar-card",
-        ".client-card",
-        ".comp-pillar",
-        ".section-header",
-    ].join(", ");
-
-    const revealElements = document.querySelectorAll(REVEAL_SELECTOR);
-
-    // Initial hidden state (only if JS is running)
-    revealElements.forEach((el, i) => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(28px)";
-        el.style.transition = `opacity 0.55s ease ${(i % 8) * 60}ms, transform 0.55s ease ${(i % 8) * 60}ms`;
-    });
-
-    const revealObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    el.style.opacity = "1";
-                    el.style.transform = "translateY(0)";
-                    revealObserver.unobserve(el); // animate only once
-                }
-            });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealElements.forEach((el) => revealObserver.observe(el));
-
-    /* ── Competency pillars stagger ────────────────────────── */
-    // Extra stagger for the competency pill grid
-    document.querySelectorAll(".comp-pillar").forEach((pill, i) => {
-        pill.style.transitionDelay = `${i * 80}ms`;
-    });
-
-    /* ── Smooth-scroll for in-page anchor links ────────────── */
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", (e) => {
-            const target = document.querySelector(anchor.getAttribute("href"));
-            if (!target) return;
-            e.preventDefault();
-            const offset = mainNav ? mainNav.offsetHeight + 16 : 80;
-            window.scrollTo({
-                top: target.getBoundingClientRect().top + window.scrollY - offset,
-                behavior: "smooth",
-            });
-        });
-    });
-
-    /* ── Service card tilt (subtle, desktop only) ──────────── */
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-        svcCards.forEach((card) => {
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2;
-                const cy = rect.top + rect.height / 2;
-                const dx = (e.clientX - cx) / (rect.width / 2);  // -1 … 1
-                const dy = (e.clientY - cy) / (rect.height / 2);  // -1 … 1
-                const tiltX = -dy * 5;   // max ±5 °
-                const tiltY = dx * 5;
-
-                card.style.transform = `translateY(-8px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-                card.style.transition = "transform 0.1s ease";
-            });
-
-            card.addEventListener("mouseleave", () => {
-                card.style.transform = "translateY(0) rotateX(0) rotateY(0)";
-                card.style.transition = "transform 0.45s ease, opacity 0.35s ease, box-shadow 0.35s ease";
-            });
-        });
-    }
-
-    /* ── Active nav link highlight ─────────────────────────── */
-    // Mark the "Our Services" link active (already set via class in HTML,
-    // but re-apply in case another script clears it).
-    const servicesLink = document.querySelector('.nav-link[href="services.html"]');
-    if (servicesLink) servicesLink.classList.add("active");
-
-    /* ── Section-tag counter animation ────────────────────── */
-    // Animates numbers like "11 services" if you add a [data-count] attribute.
-    // Harmless no-op if no such elements exist.
-    function animateCount(el) {
-        const target = parseInt(el.dataset.count, 10);
-        const duration = 1200;
-        const start = performance.now();
-
-        function step(now) {
-            const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // cubic ease-out
-            el.textContent = Math.round(eased * target);
-            if (progress < 1) requestAnimationFrame(step);
-        }
-
-        requestAnimationFrame(step);
-    }
-
-    const countEls = document.querySelectorAll("[data-count]");
-    if (countEls.length) {
-        const countObserver = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        animateCount(entry.target);
-                        countObserver.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.6 }
-        );
-        countEls.forEach((el) => countObserver.observe(el));
-    }
-
 })();

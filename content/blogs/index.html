@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <meta name="color-scheme" content="light only">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
@@ -62,7 +63,7 @@
     gtag('config', 'G-0XYDE82RS6');
   </script>
 
-  <!-- JSON-LD: WebSite + BreadcrumbList -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -104,36 +105,16 @@
       "@type": "ItemList",
       "name": "Latest Apsis Insights",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "url": "https://www.apsis.co.ke/content/blogs/kra-filing-deadline-kenya.html",
-          "name": "I Missed My KRA Filing Deadline — What Happens Next?"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "url": "https://www.apsis.co.ke/content/blogs/kra-tax-demand-notice-kenya.html",
-          "name": "KRA Says I Owe Tax But I Don't Understand Why — What Should I Do?"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "url": "https://www.apsis.co.ke/content/blogs/business-taxes-in-kenya.html",
-          "name": "What Taxes Does a Business in Kenya Actually Need to Pay?"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "url": "https://www.apsis.co.ke/content/blogs/hire-accountant-vs-diy-kenya.html",
-          "name": "Should I Hire an Accountant or Do My Taxes Myself in Kenya?"
-        }
+        { "@type": "ListItem", "position": 1, "url": "https://www.apsis.co.ke/content/blogs/kra-filing-deadline-kenya.html", "name": "I Missed My KRA Filing Deadline — What Happens Next?" },
+        { "@type": "ListItem", "position": 2, "url": "https://www.apsis.co.ke/content/blogs/kra-tax-demand-notice-kenya.html", "name": "KRA Says I Owe Tax But I Don't Understand Why — What Should I Do?" },
+        { "@type": "ListItem", "position": 3, "url": "https://www.apsis.co.ke/content/blogs/business-taxes-in-kenya.html", "name": "What Taxes Does a Business in Kenya Actually Need to Pay?" },
+        { "@type": "ListItem", "position": 4, "url": "https://www.apsis.co.ke/content/blogs/hire-accountant-vs-diy-kenya.html", "name": "Should I Hire an Accountant or Do My Taxes Myself in Kenya?" }
       ]
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://www.apsis.co.ke/" },
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.apsis.co.ke/" },
         { "@type": "ListItem", "position": 2, "name": "Blogs", "item": "https://www.apsis.co.ke/content/blogs/" }
       ]
     }
@@ -141,422 +122,243 @@
 }
 </script>
 
-  <!-- Preconnect for Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- ═══ Fonts & Performance ════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="../css/hub.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- ═══ Stylesheets ════════════════════════════════════════ -->
+  <link rel="stylesheet" href="../../css/preloader.css" />
+  <link rel="stylesheet" href="../../css/style-v2.css" />
+  <link rel="stylesheet" href="../../css/service-pages.css" />
+  <link rel="stylesheet" href="../css/content.css" />
 </head>
 
 <body>
 
-  <!-- Mobile Nav Overlay -->
-  <div id="nav-overlay" class="nav-overlay" aria-hidden="true"></div>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <img src="../../img/preloader.png" alt="APSIS Logo" class="preloader-logo">
+  </div>
 
-  <!-- Mobile Drawer -->
-  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
-    <div class="mobile-nav__header">
-      <span class="mobile-nav__logo">Apsis<span> Consulting</span></span>
-      <button id="mobile-nav-close" class="mobile-nav__close" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-          stroke-linejoin="round" aria-hidden="true">
-          <path d="M18 6L6 18M6 6l12 12" />
-        </svg>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="../../index.html">
+        <img src="../../img/logo2.jpg" alt="APSIS Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#apsisNavbar"
+        aria-controls="apsisNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
       </button>
-    </div>
-    <div class="mobile-nav__links">
-      <a href="../../index.html">Home</a>
-      <a href="../../services.html">Services</a>
-      <a href="../../about.html">About</a>
-      <a href="../insights/index.html" class="active">Insights</a>
-    </div>
-    <div class="mobile-nav__cta">
-      <a href="../../contact.html">Talk to Us</a>
+      <div class="collapse navbar-collapse justify-content-end" id="apsisNavbar">
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="../../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../services.html">Our Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../workwithus.html">Work With Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../contact.html">Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link nav-blog-btn active" href="../../content/index.html"
+              aria-current="page"><i class="bi bi-journal-richtext"></i>Blogs &amp; Insights</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       SITE HEADER
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <!-- ── Hub Top Bar ──────────────────────────────────────── -->
-  <header class="hub-header" id="hubHeader">
-    <div class="container hub-header-inner">
-      <!-- Brand / back link -->
-      <a href="../../index.html" class="hub-brand">
-        <img src="../../img/logo2.jpg" alt="APSIS Logo">
-        <span class="hub-brand-sep"></span>
-        <span class="hub-brand-label">
-          <i class="bi bi-arrow-left me-1"></i>Back to APSIS
-        </span>
-      </a>
-      <!-- Section tabs -->
-      <nav class="hub-tabs" aria-label="Content sections">
-        <a href="../index.html" class="hub-tab" data-section="hub">
-          <i class="bi bi-grid-1x2"></i> <span>All Content</span>
-        </a>
-        <a href="index.html" class="hub-tab hub-tab--blogs-active" data-section="blogs">
-          <i class="bi bi-journal-richtext"></i> <span>Blogs</span>
-        </a>
-        <a href="../insights/index.html" class="hub-tab" data-section="insights">
-          <i class="bi bi-bar-chart-line"></i> <span>Insights</span>
-        </a>
-      </nav>
-      <!-- CTA -->
-      <a href="../../contact.html" class="hub-cta-btn">
-        <i class="bi bi-envelope me-1"></i>Contact Us
-      </a>
-      <button class="hub-hamburger" id="hubHamburger" aria-label="Toggle menu">
-        <i class="bi bi-list"></i>
-      </button>
-    </div>
-  </header>
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="page-hero" aria-labelledby="hero-title">
+    <div class="container ph-inner">
+      <div class="ph-copy">
+        <nav class="ph-crumbs" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a>
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+          </svg>
+          <a href="../index.html">Content</a>
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+          </svg>
+          <span aria-current="page">Blogs</span>
+        </nav>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       HERO SECTION
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-bg" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80"
-        alt="Business consulting, tax analysis and financial strategy" loading="eager" width="1600" height="600" />
-    </div>
-    <div class="container">
-      <div class="hero-inner">
-
-        <div class="hero-eyebrow" aria-label="Section type">
-          Insights &amp; Resources
-        </div>
-
-        <h1 class="hero-title" id="hero-title">
-          Apsis <span class="title-accent">Blogs</span><br>
-          &amp; Insights
+        <h1 class="ph-title" id="hero-title">
+          <span class="ph-line"><span>Apsis <em>Blogs</em></span></span>
+          <span class="ph-line"><span>&amp; Insights</span></span>
         </h1>
 
-        <p class="hero-subtitle">
+        <p class="ph-sub">
           Clear, practical guidance on tax, compliance and business strategy in Kenya.
           Written by specialists, for business owners who value clarity.
         </p>
 
-        <div class="hero-divider" aria-hidden="true"></div>
+        <div class="ph-actions">
+          <a href="#blog-section-title" class="hero-btn-primary">Browse Articles</a>
+          <a href="../insights/index.html" class="hero-link">View Insights →</a>
+        </div>
+      </div>
 
+      <div class="ph-visual">
+        <div class="ph-photo">
+          <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80"
+            alt="Apsis Business Blogs & Tax Articles" loading="eager" width="800" height="500">
+        </div>
       </div>
     </div>
   </section>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       CATEGORY FILTER BAR
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <div class="filters-section" aria-label="Filter articles by category">
+  <!-- ── Filter Bar ─────────────────────────────────────── -->
+  <div class="sv" style="padding: 0;">
     <div class="container">
-      <div class="filters-inner">
-
-        <span class="filters-label" aria-hidden="true">Filter:</span>
-
-        <button class="filter-pill active" data-filter="all" aria-pressed="true"
-          aria-label="Show all articles">All</button>
-        <button class="filter-pill" data-filter="tax-advisory" aria-pressed="false"
-          aria-label="Filter by Tax Advisory">Tax Advisory</button>
-        <button class="filter-pill" data-filter="compliance" aria-pressed="false"
-          aria-label="Filter by Compliance">Compliance</button>
-        <button class="filter-pill" data-filter="business-setup" aria-pressed="false"
-          aria-label="Filter by Business Setup">Business Setup</button>
-        <button class="filter-pill" data-filter="accounting" aria-pressed="false"
-          aria-label="Filter by Accounting">Accounting</button>
-
+      <div class="ct-filters" aria-label="Filter articles by category">
+        <span class="ct-filters-label">Filter:</span>
+        <button class="ct-pill active" data-filter="all" aria-pressed="true">All</button>
+        <button class="ct-pill" data-filter="tax-advisory" aria-pressed="false">Tax Advisory</button>
+        <button class="ct-pill" data-filter="compliance" aria-pressed="false">Compliance</button>
+        <button class="ct-pill" data-filter="business-setup" aria-pressed="false">Business Setup</button>
+        <button class="ct-pill" data-filter="accounting" aria-pressed="false">Accounting</button>
       </div>
     </div>
   </div>
 
-
-  <!-- ────────────────────────────────────────────────────────────────── 
-       BLOG GRID
-       ──────────────────────────────────────────────────────────────────  -->
-  <section class="blog-section section" aria-labelledby="blog-section-title">
+  <!-- ── Blog Grid ──────────────────────────────────────── -->
+  <section class="sv" aria-labelledby="blog-section-title">
     <div class="container">
-
-      <!-- Section heading -->
-      <div class="section-header fade-in">
-        <span class="section-label">Latest Articles</span>
-        <h2 class="section-title" id="blog-section-title">
-          Practical answers to<br>
-          <span>real business questions</span>
-        </h2>
+      <div class="sv-head">
+        <h2 id="blog-section-title">Practical answers to real business questions</h2>
       </div>
 
-      <!-- Grid (ul for semantics) -->
-      <ul class="blog-grid" role="list">
+      <ul class="ct-blog-grid" role="list">
 
-        <!-- ─── CARD 1 — Featured ─── -->
+        <!-- Card 1 -->
         <li>
-          <a href="kra-filing-deadline-kenya.html" class="blog-card fade-in" data-category="Tax Advisory"
-            aria-label="Read: I Missed My KRA Filing Deadline — What Happens Next?">
-
-            <div class="card-image-wrap">
-              <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80"
-                alt="Desk calendar and planner tracking KRA tax filing deadlines" loading="eager" width="800"
-                height="480" />
+          <a href="kra-filing-deadline-kenya.html" class="ct-blog-card" data-category="tax-advisory" data-reveal>
+            <div class="ct-blog-card-img">
+              <img
+                src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80"
+                alt="Desk calendar tracking KRA tax filing deadlines" loading="eager" width="800" height="480" />
             </div>
-
-            <div class="card-body">
-              <span class="card-category" aria-label="Category: Tax Advisory">Tax Advisory</span>
-
-              <h3 class="card-title">
-                I Missed My KRA Filing Deadline — What Happens Next?
-              </h3>
-
-              <p class="card-excerpt">
-                Missing a KRA deadline doesn't have to mean disaster. Here's exactly what penalties apply, your
-                immediate options, and how to get back in good standing fast.
-              </p>
-
-              <div class="card-meta">
-                <div class="card-meta-info">
-                  <time datetime="2026-03-01">Mar 2026</time>
-                  <span class="meta-dot" aria-hidden="true"></span>
-                  <span>5 min read</span>
-                </div>
-                <span class="card-read-link" aria-hidden="true">
-                  Read
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
+            <div class="ct-blog-card-body">
+              <span class="ct-blog-card-cat">Tax Advisory</span>
+              <h3>I Missed My KRA Filing Deadline — What Happens Next?</h3>
+              <p>Missing a KRA deadline doesn't have to mean disaster. Here's exactly what penalties apply and how to
+                get back in good standing fast.</p>
+              <div class="ct-blog-card-meta">
+                <span><time datetime="2026-03-01">Mar 2026</time> · 5 min read</span>
+                <span class="ct-blog-card-read">Read →</span>
               </div>
             </div>
-
           </a>
         </li>
 
-        <!-- ─── CARD 2 ─── -->
+        <!-- Card 2 -->
         <li>
-          <a href="kra-tax-demand-notice-kenya.html" class="blog-card fade-in" data-category="Compliance"
-            aria-label="Read: KRA Says I Owe Tax But I Don't Understand Why — What Should I Do?">
-
-            <div class="card-image-wrap">
-              <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
-                alt="Business professional reviewing a tax demand notice and financial assessment" loading="lazy"
-                width="800" height="480" />
+          <a href="kra-tax-demand-notice-kenya.html" class="ct-blog-card" data-category="compliance" data-reveal>
+            <div class="ct-blog-card-img">
+              <img
+                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
+                alt="Business professional reviewing a tax demand notice" loading="lazy" width="800" height="480" />
             </div>
-
-            <div class="card-body">
-              <span class="card-category" aria-label="Category: Compliance">Compliance</span>
-
-              <h3 class="card-title">
-                KRA Says I Owe Tax But I Don't Understand Why — What Should I Do?
-              </h3>
-
-              <p class="card-excerpt">
-                Receiving an unexpected KRA demand can be alarming. Learn how to read the notice, verify whether the
-                assessment is correct, and your rights when you disagree.
-              </p>
-
-              <div class="card-meta">
-                <div class="card-meta-info">
-                  <time datetime="2026-03-01">Mar 2026</time>
-                  <span class="meta-dot" aria-hidden="true"></span>
-                  <span>6 min read</span>
-                </div>
-                <span class="card-read-link" aria-hidden="true">
-                  Read
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
+            <div class="ct-blog-card-body">
+              <span class="ct-blog-card-cat">Compliance</span>
+              <h3>KRA Says I Owe Tax But I Don't Understand Why — What Should I Do?</h3>
+              <p>Learn how to read KRA demand notices, verify whether the assessment is correct, and your rights when
+                you disagree.</p>
+              <div class="ct-blog-card-meta">
+                <span><time datetime="2026-03-01">Mar 2026</time> · 6 min read</span>
+                <span class="ct-blog-card-read">Read →</span>
               </div>
             </div>
-
           </a>
         </li>
 
-        <!-- ─── CARD 3 ─── -->
+        <!-- Card 3 -->
         <li>
-          <a href="business-taxes-in-kenya.html" class="blog-card fade-in" data-category="Tax Advisory"
-            aria-label="Read: What Taxes Does a Business in Kenya Actually Need to Pay?">
-
-            <div class="card-image-wrap">
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+          <a href="business-taxes-in-kenya.html" class="ct-blog-card" data-category="tax-advisory" data-reveal>
+            <div class="ct-blog-card-img">
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
                 alt="Financial analytics and business tax breakdown charts" loading="lazy" width="800" height="480" />
             </div>
-
-            <div class="card-body">
-              <span class="card-category" aria-label="Category: Tax Advisory">Tax Advisory</span>
-
-              <h3 class="card-title">
-                What Taxes Does a Business in Kenya Actually Need to Pay?
-              </h3>
-
-              <p class="card-excerpt">
-                Corporate tax, VAT, PAYE, withholding tax — the list can seem endless. This plain-language guide breaks
-                down exactly which taxes apply to your business and when.
-              </p>
-
-              <div class="card-meta">
-                <div class="card-meta-info">
-                  <time datetime="2026-02-01">Feb 2026</time>
-                  <span class="meta-dot" aria-hidden="true"></span>
-                  <span>7 min read</span>
-                </div>
-                <span class="card-read-link" aria-hidden="true">
-                  Read
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
+            <div class="ct-blog-card-body">
+              <span class="ct-blog-card-cat">Tax Advisory</span>
+              <h3>What Taxes Does a Business in Kenya Actually Need to Pay?</h3>
+              <p>Corporate tax, VAT, PAYE, withholding tax — a plain-language guide to exactly which taxes apply to
+                your business and when.</p>
+              <div class="ct-blog-card-meta">
+                <span><time datetime="2026-02-01">Feb 2026</time> · 7 min read</span>
+                <span class="ct-blog-card-read">Read →</span>
               </div>
             </div>
-
           </a>
         </li>
 
-        <!-- ─── CARD 4 ─── -->
+        <!-- Card 4 -->
         <li>
-          <a href="hire-accountant-vs-diy-kenya.html" class="blog-card fade-in" data-category="Accounting"
-            aria-label="Read: Should I Hire an Accountant or Do My Taxes Myself in Kenya?">
-
-            <div class="card-image-wrap">
+          <a href="hire-accountant-vs-diy-kenya.html" class="ct-blog-card" data-category="accounting" data-reveal>
+            <div class="ct-blog-card-img">
               <img
-                src="https://images.unsplash.com/photo-1709880945165-d2208c6ad2ec?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Business consultation with a professional tax accountant in Kenya" loading="lazy" width="800"
+                src="https://images.unsplash.com/photo-1709880945165-d2208c6ad2ec?q=80&w=870&auto=format&fit=crop"
+                alt="Business consultation with a professional tax accountant" loading="lazy" width="800"
                 height="480" />
             </div>
-
-            <div class="card-body">
-              <span class="card-category" aria-label="Category: Accounting">Accounting</span>
-
-              <h3 class="card-title">
-                Should I Hire an Accountant or Do My Taxes Myself in Kenya?
-              </h3>
-
-              <p class="card-excerpt">
-                KRA's iTax portal makes self-filing possible, but is it wise? We look at the real cost of DIY tax versus
-                professional help — and which is right for your situation.
-              </p>
-
-              <div class="card-meta">
-                <div class="card-meta-info">
-                  <time datetime="2026-02-01">Feb 2026</time>
-                  <span class="meta-dot" aria-hidden="true"></span>
-                  <span>5 min read</span>
-                </div>
-                <span class="card-read-link" aria-hidden="true">
-                  Read
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
+            <div class="ct-blog-card-body">
+              <span class="ct-blog-card-cat">Accounting</span>
+              <h3>Should I Hire an Accountant or Do My Taxes Myself in Kenya?</h3>
+              <p>KRA's iTax portal makes self-filing possible, but is it wise? We look at the real cost of DIY tax
+                versus professional help.</p>
+              <div class="ct-blog-card-meta">
+                <span><time datetime="2026-02-01">Feb 2026</time> · 5 min read</span>
+                <span class="ct-blog-card-read">Read →</span>
               </div>
             </div>
-
           </a>
         </li>
 
-      </ul><!-- /.blog-grid -->
-
+      </ul>
     </div>
   </section>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       CALL TO ACTION
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="cta-section" aria-labelledby="cta-title">
-    <div class="container">
-      <div class="cta-inner fade-in">
-
-        <span class="cta-eyebrow">Get Expert Help</span>
-
-        <h2 class="cta-title" id="cta-title">
-          Need help with your tax<br>or business matters?
-        </h2>
-
-        <p class="cta-subtitle">
-          Our team of licensed tax advisors and accountants in Nairobi is ready to help
-          you stay compliant, resolve disputes, and grow your business with confidence.
-        </p>
-
-        <a href="../../contact.html" class="btn-cta" aria-label="Contact a consultant at Apsis">
-          Talk to a Consultant
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
-
-        <p class="cta-trust">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
-          Confidential consultation. No obligation.
-        </p>
-
+  <!-- ── CTA ────────────────────────────────────────────── -->
+  <section class="sp-cta" data-reveal>
+    <div class="container sp-cta-inner">
+      <div>
+        <h2>Need help with your tax or business matters?</h2>
+        <p>Our team of licensed tax advisors and accountants in Nairobi is ready to help you stay compliant, resolve
+          disputes, and grow your business with confidence.</p>
+      </div>
+      <div class="sp-cta-actions">
+        <a href="../../contact.html" class="hero-btn-primary">Talk to a Consultant</a>
       </div>
     </div>
   </section>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       SITE FOOTER
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-inner">
-
-        <div class="footer-logo">
-          Apsis<span> Consulting</span>
-        </div>
-
-        <p class="footer-copy">
-          &copy; 2026 APSIS Business Consulting Ltd. All rights reserved. Nairobi, Kenya.
-        </p>
-
-        <nav class="footer-links" aria-label="Footer navigation">
-          <a href="../../privacy.html">Privacy</a>
-          <a href="../../terms.html">Terms</a>
-          <a href="../../contact.html">Contact</a>
-        </nav>
-
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="hub-footer">
+    <div class="container hub-footer-inner">
+      <div class="hub-footer-brand">
+        <img src="../../img/logo2.jpg" alt="APSIS Logo">
+        <span>APSIS Business Consulting Ltd</span>
       </div>
+      <nav class="hub-footer-links">
+        <a href="../../index.html">Main Site</a>
+        <a href="index.html">Blogs</a>
+        <a href="../insights/index.html">Insights</a>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+        <a href="../../contact.html">Contact</a>
+      </nav>
+      <p class="hub-footer-copy">&copy; 2026 APSIS Business Consulting Ltd. All rights reserved.</p>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/main-v2.js"></script>
+  <script src="../js/content.js"></script>
 
-  <!-- JavaScript -->
-  <!-- Floating Consult Button -->
-  <a href="#final-cta" class="floating-consult" aria-label="Book a tax consultation">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-    </svg>
-  </a>
-
-  <script src="js/main.js"></script>
-
-  <script>
-    const hubHeader = document.getElementById('hubHeader');
-    if (hubHeader) {
-      window.addEventListener('scroll', () => {
-        hubHeader.classList.toggle('hub-header--scrolled', window.scrollY > 40);
-      }, { passive: true });
-    }
-
-    const hubHamburger = document.getElementById('hubHamburger');
-    const hubTabs = document.querySelector('.hub-tabs');
-    if (hubHamburger && hubTabs) {
-      hubHamburger.addEventListener('click', () => {
-        hubTabs.classList.toggle('open');
-        hubHamburger.classList.toggle('active');
-      });
-    }
-  </script>
 </body>
 
 </html>

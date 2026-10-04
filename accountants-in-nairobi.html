@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -155,7 +155,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -185,318 +185,381 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="apsisNavbar">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i
-                                class="bi bi-house-door me-1"></i>Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html"><i
-                                class="bi bi-info-circle me-1"></i>About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="services.html"><i
-                                class="bi bi-briefcase me-1"></i>Our Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="workwithus.html"><i
-                                class="bi bi-people me-1"></i>Work With Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html"><i
-                                class="bi bi-envelope me-1"></i>Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Our Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="workwithus.html">Work With Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
                     <li class="nav-item"><a class="nav-link nav-blog-btn" href="content/index.html"><i
-                                class="bi bi-journal-richtext me-1"></i>Blogs & Insights</a></li>
+                                class="bi bi-journal-richtext"></i>Blogs &amp; Insights</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <div class="page-hero-inner">
-            <div class="page-hero-badge">
-                <span class="badge-dot"></span>
-                <span>Nairobi's Trusted Tax & Accounting Firm</span>
-            </div>
-            <h1 class="page-hero-title">Accountants in <span class="page-hero-accent">Nairobi</span></h1>
-            <p class="page-hero-sub">Professional bookkeeping, financial reporting, and regulatory compliance for
-                businesses across Kenya.</p>
-            <nav class="page-breadcrumb" aria-label="breadcrumb">
-                <a href="index.html"><i class="bi bi-house-door me-1"></i>Home</a>
-                <i class="bi bi-chevron-right mx-2"></i>
-                <span>Accountants in Nairobi</span>
-            </nav>
-        </div>
-    </section>
+    <!-- ── Page hero ─────────────────────────────────────── -->
+    <section class="page-hero" aria-labelledby="ph-title">
+        <div class="container ph-inner">
 
-    <!-- Main Content -->
-    <main class="about-details-section" style="padding-top: 60px;">
-        <div class="container">
-            <div class="section-header text-center">
-                <span class="section-tag">What We Do</span>
-                <h2 class="section-heading">Accounting Services Tailored to Your Business</h2>
-                <div class="heading-rule"></div>
-                <p class="section-desc">
-                    APSIS Business Consulting Ltd delivers accounting services that go beyond compliance. We maintain
-                    your financial records with precision, prepare reports that inform decision-making, and ensure
-                    regulatory adherence — so you can focus on growing your business. Learn 
-                    <a href="content/blogs/business-taxes-in-kenya.html" style="color: var(--orange); font-weight: 600;">which taxes apply to your business in Kenya →</a>
+            <div class="ph-copy">
+                <nav class="ph-crumbs" aria-label="Breadcrumb">
+                    <a href="index.html">Home</a>
+                    <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+                    </svg>
+                    <a href="services.html">Our services</a>
+                    <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+                    </svg>
+                    <span aria-current="page">Accountants in Nairobi</span>
+                </nav>
+
+                <h1 class="ph-title" id="ph-title">
+                    <span class="ph-line"><span>Accountants in Nairobi</span></span>
+                    <span class="ph-line"><span>with books that are <em>audit-ready.</em></span></span>
+                </h1>
+
+                <p class="ph-sub">Professional bookkeeping, financial reporting, and regulatory compliance for
+                    businesses across Kenya.</p>
+
+                <div class="ph-actions">
+                    <a href="contact.html" class="hero-btn-primary">Talk to us</a>
+                    <a href="tel:+254722670127" class="hero-link">Call +254 722 670 127</a>
+                </div>
+
+                <p class="ph-meta">
+                    <span>Westlands, Nairobi</span>
+                    <span>Serving businesses since 2020</span>
+                    <span>Tax, accounting and advisory</span>
                 </p>
             </div>
 
-            <!-- Section 1: Core Accounting Services -->
-            <section class="mb-5">
-                <h3 class="h4 mb-3">Core Accounting Services</h3>
-                <div class="service-card-grid">
-                    <div class="service-card-item">
-                        <div class="service-card-icon"><i class="bi bi-journal-bookmark"></i></div>
-                        <h5>Bookkeeping & Financial Record Management</h5>
-                        <p class="mb-0">We maintain detailed, audit-ready financial records for your business — from
-                            daily transaction recording to ledger reconciliation. Our bookkeeping ensures transparency,
-                            accuracy, and a complete audit trail for every transaction, giving you confidence in your
-                            numbers.</p>
-                        <span class="service-card-tag">Bookkeeping</span>
-                    </div>
-                    <div class="service-card-item">
-                        <div class="service-card-icon"><i class="bi bi-graph-up-arrow"></i></div>
-                        <h5>Financial Analysis & Reporting</h5>
-                        <p class="mb-0">Beyond recording numbers, we deliver analytical insights into your business
-                            performance. Our financial analysis empowers data-driven decision-making and strategic
-                            planning, helping you understand profitability drivers, cash flow patterns, and growth
-                            opportunities.</p>
-                        <span class="service-card-tag">Analysis</span>
-                    </div>
-                    <div class="service-card-item">
-                        <div class="service-card-icon"><i class="bi bi-shield-check"></i></div>
-                        <h5>Regulatory Compliance</h5>
-                        <p class="mb-0">We help companies adhere to Kenyan tax laws and accounting standards, preventing
-                            compliance issues before they arise. From statutory reporting requirements to KRA filing
-                            obligations, we ensure your business stays on the right side of regulation.</p>
-                        <span class="service-card-tag">Compliance</span>
-                    </div>
-                    <div class="service-card-item">
-                        <div class="service-card-icon"><i class="bi bi-calculator"></i></div>
-                        <h5>Financial Statement Preparation</h5>
-                        <p class="mb-0">We prepare compliant financial statements in accordance with IFRS and Kenyan
-                            reporting standards — including statements of financial position, comprehensive income, cash
-                            flows, and changes in equity — ready for audit, board review, or regulatory submission.</p>
-                        <span class="service-card-tag">Reporting</span>
-                    </div>
+            <!-- Visual slot (shared .ph-card): swap the rows on each service page -->
+            <div class="ph-visual">
+                <div class="ph-card">
+                    <p class="ph-card-brand">APSIS Business Consulting Ltd</p>
+                    <p class="ph-card-title">Your accounting, covered</p>
+                    <dl class="ph-card-rows">
+                        <div>
+                            <dt>Records</dt>
+                            <dd>Daily bookkeeping with a full audit trail</dd>
+                        </div>
+                        <div>
+                            <dt>Reports</dt>
+                            <dd>Monthly or quarterly management accounts</dd>
+                        </div>
+                        <div>
+                            <dt>Standards</dt>
+                            <dd>IFRS, Kenyan reporting standards and IPSAS</dd>
+                        </div>
+                        <div>
+                            <dt>Filing</dt>
+                            <dd>Statutory returns and KRA obligations</dd>
+                        </div>
+                    </dl>
                 </div>
-            </section>
+            </div>
 
-            <!-- Section 2: Industries Served -->
-            <section class="mb-5">
-                <h3 class="h4 mb-3">Industries We Serve</h3>
-                <p class="mb-4">Our accounting expertise spans multiple sectors, each with unique regulatory and
-                    reporting requirements. We apply deep sector knowledge to deliver relevant, compliant financial
-                    management:</p>
-                <div class="industry-grid">
-                    <div class="industry-card">
-                        <i class="bi bi-building-gear industry-icon"></i>
-                        <h5>Manufacturing</h5>
-                        <p>Cost accounting, inventory valuation, production overhead allocation</p>
-                    </div>
-                    <div class="industry-card">
-                        <i class="bi bi-shop industry-icon"></i>
-                        <h5>Retail & Wholesale</h5>
-                        <p>POS reconciliation, inventory turnover, multi-location reporting</p>
-                    </div>
-                    <div class="industry-card">
-                        <i class="bi bi-people industry-icon"></i>
-                        <h5>NGOs & Non-Profits</h5>
-                        <p>Donor reporting, grant compliance, fund accounting, statutory returns</p>
-                    </div>
-                    <div class="industry-card">
-                        <i class="bi bi-building industry-icon"></i>
-                        <h5>Public Sector</h5>
-                        <p>IPSAS compliance, budget execution reporting, audit readiness</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 3: Meet Your Accountant -->
-            <section class="mb-5">
-                <div class="team-member-inline">
-                    <div class="team-image-side">
-                        <img src="img/stephen.jpg" alt="Stephen Chege" class="team-image-inline">
-                        <div class="team-name-badge">Stephen Chege</div>
-                    </div>
-                    <div class="team-content">
-                        <div class="team-header">
-                            <h4>Stephen Chege</h4>
-                            <span class="team-role-tag">Compliance & Business Advisory</span>
-                        </div>
-                        <p class="team-bio">
-                            Stephen brings over 15 years of compliance and business advisory experience to APSIS's
-                            Nairobi clients, with a focus on internal audit and organizational development.
-                            <a href="about.html" style="color: var(--orange); font-weight: 600;">Read his full
-                                background on our About page →</a>
-                        </p>
-                        <div class="competencies-wrap">
-                            <span class="competencies-label">Core Competencies</span>
-                            <div class="competencies-tags-inline">
-                                <span class="competency-tag">Compliance</span>
-                                <span class="competency-tag">Internal Audit</span>
-                                <span class="competency-tag">Business Advisory</span>
-                                <span class="competency-tag">Organizational Development</span>
-                                <span class="competency-tag">Financial Services</span>
-                                <span class="competency-tag">Risk Management</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 4: FAQ -->
-            <section class="mb-5" id="faq">
-                <h3 class="h4 mb-4">Frequently Asked Questions</h3>
-                <div class="accordion faq-accordion" id="faqAccordion">
-                    <div class="accordion-item">
-                        <h4 class="accordion-header" id="faq1-heading">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                                Do I need an accountant for a small business in Kenya?
-                            </button>
-                        </h4>
-                        <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading"
-                            data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Yes. Even small businesses in Kenya benefit from professional accounting support. A
-                                qualified accountant ensures your records are accurate from day one, helps you
-                                understand which taxes apply (VAT, PAYE, income tax, turnover tax), and prevents costly
-                                filing errors. Many small business owners assume they can manage on iTax alone — only to
-                                discover penalties or missed deductions later. Read our guide on 
-                                <a href="content/blogs/hire-accountant-vs-diy-kenya.html" style="color: var(--orange); font-weight: 600;">hiring an accountant vs DIY tax filing in Kenya →</a> 
-                                Early professional guidance costs far
-                                less than retroactive corrections.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h4 class="accordion-header" id="faq2-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                                What's the difference between bookkeeping and accounting?
-                            </button>
-                        </h4>
-                        <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading"
-                            data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Bookkeeping is the systematic recording of daily financial transactions — sales,
-                                purchases, receipts, payments. Accounting takes those records and interprets them:
-                                preparing financial statements, analysing performance, ensuring regulatory compliance,
-                                and advising on tax strategy. Bookkeeping builds the foundation; accounting builds the
-                                insight. APSIS provides both, so your records are accurate and your decisions are
-                                informed.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h4 class="accordion-header" id="faq3-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                                How often should financial statements be prepared?
-                            </button>
-                        </h4>
-                        <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading"
-                            data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                At minimum, annual financial statements are required for statutory compliance and tax
-                                filing. However, growing businesses should review monthly or quarterly management
-                                accounts — profit and loss, cash flow, balance sheet — to track performance, identify
-                                trends, and make timely decisions. APSIS can set up a reporting cadence that matches
-                                your business stage and stakeholder needs.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h4 class="accordion-header" id="faq4-heading">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                                Can you help with accounting software setup and training?
-                            </button>
-                        </h4>
-                        <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading"
-                            data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Absolutely. We assist with selecting, implementing, and training your team on accounting
-                                platforms — whether QuickBooks, Sage, Xero, or custom ERP systems. Proper setup from the
-                                start prevents data integrity issues that compound over time. Our team also supports
-                                migration from manual or legacy systems to cloud-based solutions.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 5: CTA -->
-            <section class="cta-banner">
-                <h3>Ready to Put Your Accounting in Expert Hands?</h3>
-                <p>Partner with accountants who understand your industry, your compliance obligations, and your growth
-                    ambitions. Stephen Chege and the APSIS team are ready to help.</p>
-                <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="contact.html" class="btn-primary">Contact Us <i class="bi bi-arrow-right"></i></a>
-                    <a href="tel:+254722670127" class="btn-outline"><i class="bi bi-telephone-fill"></i> Call +254 722
-                        670 127</a>
-                </div>
-            </section>
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-top-bar"></div>
+    <!-- ── Core accounting services ──────────────────────── -->
+    <section id="services" class="sv sv--soft" aria-labelledby="svc-title">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h5>APSIS Business Consulting Ltd</h5>
-                    <address>
-                        <p><i class="bi bi-geo-alt-fill"></i> Noventra Suite, 3rd Floor,<br>Crescent Business
-                            Centre,<br>Westlands, <strong>Nairobi, Kenya</strong></p>
-                        <p><i class="bi bi-telephone-fill"></i> <a href="tel:+254722670127">+254 722 670 127</a></p>
-                        <p><i class="bi bi-envelope-fill"></i> <a href="mailto:info@apsis.co.ke">info@apsis.co.ke</a>
-                        </p>
-                        <p><i class="bi bi-globe2"></i> <a href="https://www.apsis.co.ke"
-                                target="_blank">www.apsis.co.ke</a></p>
-                    </address>
-                    <div class="footer-socials">
-                        <a href="https://www.linkedin.com/company/apsis-business-consulting-ltd/" target="_blank"
-                            rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="https://x.com/ApsisBusinessKE" target="_blank" rel="noopener noreferrer"
-                            aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+
+            <header class="sv-head" data-reveal>
+                <h2 id="svc-title">Accounting services tailored to your business</h2>
+                <p>APSIS Business Consulting Ltd delivers accounting that goes beyond compliance. We maintain your
+                    financial records with precision, prepare reports that inform decisions, and ensure regulatory
+                    adherence, so you can focus on growing your business. Learn <a class="sp-link"
+                        href="content/blogs/business-taxes-in-kenya.html">which taxes apply to your business in
+                        Kenya</a>.</p>
+            </header>
+
+            <div class="service-card-grid service-card-grid--2">
+
+                <article class="service-card-item">
+                    <div class="service-card-icon"><i class="bi bi-journal-bookmark" aria-hidden="true"></i></div>
+                    <h3>Bookkeeping &amp; financial record management</h3>
+                    <p>We maintain detailed, audit-ready financial records for your business, from daily transaction
+                        recording to ledger reconciliation. Our bookkeeping ensures transparency, accuracy and a
+                        complete audit trail for every transaction, giving you confidence in your numbers.</p>
+                    <span class="service-card-tag">Bookkeeping</span>
+                </article>
+
+                <article class="service-card-item">
+                    <div class="service-card-icon"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></div>
+                    <h3>Financial analysis &amp; reporting</h3>
+                    <p>Beyond recording numbers, we deliver analytical insight into your business performance. Our
+                        financial analysis supports data-driven decisions and strategic planning, and helps you
+                        understand profitability drivers, cash flow patterns and growth opportunities.</p>
+                    <span class="service-card-tag">Analysis</span>
+                </article>
+
+                <article class="service-card-item">
+                    <div class="service-card-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></div>
+                    <h3>Regulatory compliance</h3>
+                    <p>We help companies adhere to Kenyan tax laws and accounting standards, preventing compliance
+                        issues before they arise. From statutory reporting requirements to KRA filing obligations, we
+                        keep your business on the right side of regulation.</p>
+                    <span class="service-card-tag">Compliance</span>
+                </article>
+
+                <article class="service-card-item">
+                    <div class="service-card-icon"><i class="bi bi-calculator" aria-hidden="true"></i></div>
+                    <h3>Financial statement preparation</h3>
+                    <p>We prepare compliant financial statements in accordance with IFRS and Kenyan reporting standards,
+                        including statements of financial position, comprehensive income, cash flows and changes in
+                        equity. They are ready for audit, board review or regulatory submission.</p>
+                    <span class="service-card-tag">Reporting</span>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Industries ────────────────────────────────────── -->
+    <section id="industries" class="sv" aria-labelledby="ind-title">
+        <div class="container">
+
+            <header class="sv-head" data-reveal>
+                <h2 id="ind-title">Industries we serve</h2>
+                <p>Our accounting expertise spans several sectors, each with its own regulatory and reporting
+                    requirements. We apply deep sector knowledge to deliver relevant, compliant financial management.
+                </p>
+            </header>
+
+            <div class="industry-grid" data-reveal>
+                <div class="industry-card">
+                    <i class="bi bi-building-gear industry-icon" aria-hidden="true"></i>
+                    <h3>Manufacturing</h3>
+                    <p>Cost accounting, inventory valuation, production overhead allocation</p>
+                </div>
+                <div class="industry-card">
+                    <i class="bi bi-shop industry-icon" aria-hidden="true"></i>
+                    <h3>Retail &amp; wholesale</h3>
+                    <p>POS reconciliation, inventory turnover, multi-location reporting</p>
+                </div>
+                <div class="industry-card">
+                    <i class="bi bi-people industry-icon" aria-hidden="true"></i>
+                    <h3>NGOs &amp; non-profits</h3>
+                    <p>Donor reporting, grant compliance, fund accounting, statutory returns</p>
+                </div>
+                <div class="industry-card">
+                    <i class="bi bi-building industry-icon" aria-hidden="true"></i>
+                    <h3>Public sector</h3>
+                    <p>IPSAS compliance, budget execution reporting, audit readiness</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Meet your accountant ──────────────────────────── -->
+    <section id="your-accountant" class="sv sv--soft" aria-labelledby="acc-title">
+        <div class="container">
+
+            <header class="sv-head" data-reveal>
+                <h2 id="acc-title">Meet your accountant</h2>
+            </header>
+
+            <div class="team-member-inline" data-reveal>
+                <div class="team-image-side">
+                    <img src="img/stephen.jpg" alt="Stephen Chege" class="team-image-inline" width="600" height="600"
+                        loading="lazy">
+                </div>
+                <div class="team-content">
+                    <div class="team-header">
+                        <h3>Stephen Chege</h3>
+                        <span class="team-role-tag">Compliance &amp; Business Advisory</span>
                     </div>
-                </div>
-                <div class="footer-links-col">
-                    <h5>Quick Links</h5>
-                    <ul>
-                        <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
-                        <li><a href="about.html"><i class="bi bi-info-circle"></i> About Us</a></li>
-                        <li><a href="services.html"><i class="bi bi-briefcase"></i> Our Services</a></li>
-                        <li><a href="workwithus.html"><i class="bi bi-people"></i> Work With Us</a></li>
-                        <li><a href="contact.html"><i class="bi bi-envelope"></i> Contact Us</a></li>
-                        <li><a href="content/index.html"><i class="bi bi-journal-richtext"></i> Blogs & Insights</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-links-col">
-                    <h5>Our Services</h5>
-                    <ul>
-                        <li><a href="accountants-in-nairobi.html"><i class="bi bi-calculator"></i> Accountants in
-                                Nairobi</a></li>
-                        <li><a href="/content/insights/kra-tax-consultant-kenya.html"><i class="bi bi-cash-coin"></i>
-                                Tax Advisors</a></li>
-                        <li><a href="financial-advisor.html"><i class="bi bi-graph-up-arrow"></i> Financial Advisor</a>
-                        </li>
-                        <li><a href="/content/insights/Payroll-tax-services-kenya.html"><i class="bi bi-people"></i>
-                                Payroll Services Kenya</a></li>
-                        <li><a href="vat-compliance-kenya.html"><i class="bi bi-receipt"></i> VAT Compliance Kenya</a>
-                        </li>
-                        <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax
-                                Advisory</a></li>
-                    </ul>
-                </div>
-                <div class="footer-map-col">
-                    <h5>Our Location</h5>
-                    <div class="footer-map-wrap">
-                        <iframe
-                            src="https://www.google.com/maps?q=Crescent%20Business%20Center%20PRM6%2BX88%20Nairobi&output=embed"
-                            allowfullscreen="" loading="lazy"></iframe>
+                    <p class="team-bio">Stephen brings over 15 years of compliance and business advisory experience to
+                        APSIS's Nairobi clients, with a focus on internal audit and organizational development. <a
+                            class="sp-link" href="about.html">Read his full background on our About page</a>.</p>
+                    <div class="competencies-wrap">
+                        <span class="competencies-label">Core competencies</span>
+                        <div class="competencies-tags-inline">
+                            <span class="competency-tag">Compliance</span>
+                            <span class="competency-tag">Internal Audit</span>
+                            <span class="competency-tag">Business Advisory</span>
+                            <span class="competency-tag">Organizational Development</span>
+                            <span class="competency-tag">Financial Services</span>
+                            <span class="competency-tag">Risk Management</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────── -->
+    <section id="faq" class="sv" aria-labelledby="faq-title">
+        <div class="container sp-split">
+
+            <header class="sv-head" data-reveal>
+                <h2 id="faq-title">Frequently asked questions</h2>
+                <p>Straight answers to what small business owners ask us most.</p>
+            </header>
+
+            <div class="accordion faq-accordion" id="faqAccordion" data-reveal>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faq1-heading">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1"
+                            aria-expanded="true" aria-controls="faq1">
+                            Do I need an accountant for a small business in Kenya?
+                        </button>
+                    </h3>
+                    <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes. Even small businesses in Kenya benefit from professional accounting support. A
+                            qualified accountant ensures your records are accurate from day one, helps you understand
+                            which taxes apply (VAT, PAYE, income tax, turnover tax), and prevents costly filing errors.
+                            Many small business owners assume they can manage on iTax alone — only to discover penalties
+                            or missed deductions later. Early professional guidance costs far less than retroactive
+                            corrections. Read our guide on <a class="sp-link"
+                                href="content/blogs/hire-accountant-vs-diy-kenya.html">hiring an accountant vs DIY tax
+                                filing in Kenya</a>.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faq2-heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                            What's the difference between bookkeeping and accounting?
+                        </button>
+                    </h3>
+                    <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Bookkeeping is the systematic recording of daily financial transactions — sales, purchases,
+                            receipts, payments. Accounting takes those records and interprets them: preparing financial
+                            statements, analysing performance, ensuring regulatory compliance, and advising on tax
+                            strategy. Bookkeeping builds the foundation; accounting builds the insight. APSIS provides
+                            both, so your records are accurate and your decisions are informed.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faq3-heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                            How often should financial statements be prepared?
+                        </button>
+                    </h3>
+                    <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            At minimum, annual financial statements are required for statutory compliance and tax
+                            filing. However, growing businesses should review monthly or quarterly management accounts —
+                            profit and loss, cash flow, balance sheet — to track performance, identify trends, and make
+                            timely decisions. APSIS can set up a reporting cadence that matches your business stage and
+                            stakeholder needs.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faq4-heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                            Can you help with accounting software setup and training?
+                        </button>
+                    </h3>
+                    <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Absolutely. We assist with selecting, implementing, and training your team on accounting
+                            platforms — whether QuickBooks, Sage, Xero, or custom ERP systems. Proper setup from the
+                            start prevents data integrity issues that compound over time. Our team also supports
+                            migration from manual or legacy systems to cloud-based solutions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Closing call to action (shared .sp-cta) ───────── -->
+    <section class="sp-cta" aria-labelledby="cta-title">
+        <div class="container sp-cta-inner" data-reveal>
+            <div>
+                <h2 id="cta-title">Ready to put your accounting in expert hands?</h2>
+                <p>Partner with accountants who understand your industry, your compliance obligations and your growth
+                    ambitions. Stephen Chege and the APSIS team are ready to help.</p>
+            </div>
+            <div class="sp-cta-actions">
+                <a href="contact.html" class="hero-btn-primary">Contact us</a>
+                <a href="tel:+254722670127" class="hero-link">Call +254 722 670 127</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (identical to about.html / index.html) -->
+    <footer class="site-footer">
+        <div class="container">
+
+            <div class="sf-grid">
+
+                <div class="sf-brand">
+                    <p class="sf-name">APSIS Business Consulting Ltd</p>
+                    <p class="sf-tagline">Tax and accounting for businesses, working across Africa since 2020.</p>
+
+                    <address class="sf-contact">
+                        <p>Noventra Suite, 3rd Floor, Crescent Business Centre, Westlands, Nairobi, Kenya</p>
+                        <p><a href="tel:+254722670127">+254 722 670 127</a></p>
+                        <p><a href="mailto:info@apsis.co.ke">info@apsis.co.ke</a></p>
+                    </address>
+
+                    <div class="sf-socials">
+                        <a href="https://www.linkedin.com/company/apsis-business-consulting-ltd/" target="_blank"
+                            rel="noopener noreferrer" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11.5H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.85h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4V9.75Z" />
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.25-1.5 1.55-1.5h1.65V3.4c-.3-.05-1.25-.1-2.35-.1-2.4 0-4.05 1.45-4.05 4.15V9.8H7.6V13h2.7v8h3.2Z" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/ApsisBusinessKE" target="_blank" rel="noopener noreferrer"
+                            aria-label="X (Twitter)">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3Zm-1.08 16.15h1.7L7.4 4.75H5.58l11.09 14.4Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <nav class="sf-col" aria-label="Company">
+                    <h2 class="sf-head">Company</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="workwithus.html">Work With Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="content/index.html">Blogs &amp; Insights</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="sf-col" aria-label="Services">
+                    <h2 class="sf-head">Services</h2>
+                    <ul>
+                        <li><a href="accountants-in-nairobi.html">Accountants in Nairobi</a></li>
+                        <li><a href="/content/insights/kra-tax-consultant-kenya.html">Tax Advisors</a></li>
+                        <li><a href="financial-advisor.html">Financial Advisor</a></li>
+                        <li><a href="/content/insights/Payroll-tax-services-kenya.html">Payroll Services Kenya</a></li>
+                        <li><a href="vat-compliance-kenya.html">VAT Compliance Kenya</a></li>
+                        <li><a href="import-export-tax-advisory.html">Import/Export Tax Advisory</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+
             <div class="footer-bottom">
                 <p>&copy; 2026 APSIS Business Consulting Ltd. All rights reserved.</p>
                 <div class="footer-bottom-links">
@@ -504,11 +567,13 @@
                     <a href="terms.html">Terms of Service</a>
                 </div>
             </div>
+
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main-v2.js"></script>
+    <script src="js/service-pages.js"></script>
 </body>
 
 </html>

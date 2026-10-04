@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -58,1111 +58,235 @@
     gtag('config', 'G-0XYDE82RS6');
   </script>
 
-  <!-- ═══ Fonts ════════════════════════════════════════════ -->
+  <!-- ═══ Fonts & Performance ════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-  <style>
-    /* ── Reset ──────────────────────────────────────────────── */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* ── Design Tokens ──────────────────────────────────────── */
-    :root {
-      --navy: #0d2137;
-      --navy-mid: #1e3a56;
-      --navy-lt: #2c5278;
-      --orange: #f58220;
-      --orange-lt: #ff9f4a;
-      --orange-pale: #fff4e8;
-      --blue-acc: #7c9bc1;
-      --blue-lt: #dce9f8;
-      --white: #ffffff;
-      --off-white: #f7f9fc;
-      --text-main: #1a2535;
-      --text-body: #4a5568;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --radius-sm: 10px;
-      --radius-md: 16px;
-      --shadow-sm: 0 2px 12px rgba(13, 33, 55, 0.07);
-      --shadow-md: 0 8px 32px rgba(13, 33, 55, 0.10);
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    html,
-    body {
-      font-family: "DM Sans", sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--text-main);
-      background: var(--off-white);
-      overflow-x: hidden;
-    }
-
-    /* ── Navbar ─────────────────────────────────────────────── */
-    .site-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      background: rgba(13, 33, 55, 0.96);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(124, 155, 193, 0.15);
-      padding: 0 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
-    .nav-brand img {
-      height: 34px;
-      width: auto;
-      border-radius: 6px;
-    }
-
-    .nav-brand-text {
-      font-family: "Playfair Display", serif;
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: #fff;
-    }
-
-    .nav-brand-text span {
-      color: var(--orange);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      padding: 0.4rem 0.75rem;
-      border-radius: 8px;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .nav-links a.nav-cta {
-      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-      color: #fff;
-      padding: 0.45rem 1.1rem;
-      border-radius: 50px;
-      font-weight: 600;
-    }
-
-    .nav-links a.nav-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(245, 130, 32, 0.35);
-      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-    }
-
-    /* ── Hero ───────────────────────────────────────────────── */
-    .policy-hero {
-      background:
-        linear-gradient(150deg, rgba(13, 33, 55, 0.97) 0%, rgba(30, 58, 86, 0.93) 55%, rgba(26, 74, 122, 0.88) 100%),
-        url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop') center / cover no-repeat;
-      padding: 7rem 2rem 4rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .policy-hero::before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: var(--off-white);
-      clip-path: ellipse(55% 100% at 50% 100%);
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(245, 130, 32, 0.12);
-      border: 1px solid rgba(245, 130, 32, 0.3);
-      color: var(--orange-lt);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
-      margin-bottom: 1.2rem;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--orange);
-    }
-
-    .policy-hero h1 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-    }
-
-    .policy-hero h1 span {
-      color: var(--orange);
-    }
-
-    .policy-hero-sub {
-      font-size: 1.05rem;
-      color: rgba(255, 255, 255, 0.65);
-      max-width: 500px;
-      margin: 0 auto 1.25rem;
-    }
-
-    .policy-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.45);
-      margin-bottom: 1.2rem;
-    }
-
-    .breadcrumb-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    .breadcrumb-row a {
-      color: rgba(255, 255, 255, 0.55);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .breadcrumb-row a:hover {
-      color: var(--orange-lt);
-    }
-
-    .breadcrumb-row i {
-      font-size: 0.65rem;
-    }
-
-    /* ── Page Layout ─────────────────────────────────────────── */
-    .page-body {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    @media (max-width: 900px) {
-      .page-body {
-        grid-template-columns: 1fr;
-      }
-
-      .toc-sidebar {
-        display: none;
-      }
-    }
-
-    /* ── TOC Sidebar ─────────────────────────────────────────── */
-    .toc-sidebar {
-      position: sticky;
-      top: 80px;
-    }
-
-    .toc-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .toc-title {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .toc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .toc-list a {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-size: 0.79rem;
-      font-weight: 500;
-      color: var(--text-body);
-      text-decoration: none;
-      padding: 0.32rem 0.5rem;
-      border-radius: 8px;
-      transition: all 0.2s;
-      line-height: 1.4;
-    }
-
-    .toc-list a i {
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-      color: var(--blue-acc);
-      font-size: 0.82rem;
-    }
-
-    .toc-list a:hover {
-      color: var(--navy);
-      background: var(--off-white);
-    }
-
-    .toc-list a.active {
-      color: var(--orange);
-      background: var(--orange-pale);
-      font-weight: 600;
-    }
-
-    .toc-list a.active i {
-      color: var(--orange);
-    }
-
-    .toc-contact {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-      border-radius: var(--radius-sm);
-      text-align: center;
-    }
-
-    .toc-contact p {
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 0.6rem;
-      line-height: 1.5;
-    }
-
-    .toc-contact a.contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: var(--orange);
-      color: #fff;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.45rem 0.9rem;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .toc-contact a.contact-btn:hover {
-      background: var(--orange-lt);
-      transform: translateY(-1px);
-    }
-
-    /* ── Policy Cards ────────────────────────────────────────── */
-    .policy-sections {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .policy-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 2rem 2.2rem;
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.25s;
-      scroll-margin-top: 88px;
-    }
-
-    .policy-card:hover {
-      box-shadow: var(--shadow-md);
-    }
-
-    .policy-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid var(--off-white);
-    }
-
-    .policy-icon {
-      flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 12px rgba(245, 130, 32, 0.25);
-    }
-
-    .policy-icon.navy-icon {
-      background: linear-gradient(135deg, var(--navy), var(--navy-lt));
-      box-shadow: 0 4px 12px rgba(13, 33, 55, 0.2);
-    }
-
-    .policy-card h2 {
-      font-family: "Playfair Display", serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1.3;
-    }
-
-    .policy-card p {
-      color: var(--text-body);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-
-    .policy-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .policy-card h3 {
-      font-family: "DM Sans", sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--navy-mid);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin: 1.25rem 0 0.5rem;
-    }
-
-    .policy-card ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      margin-bottom: 1rem;
-    }
-
-    .policy-card ul li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
-      font-size: 0.93rem;
-      color: var(--text-body);
-      line-height: 1.65;
-    }
-
-    .policy-card ul li::before {
-      content: "";
-      flex-shrink: 0;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-      margin-top: 0.55rem;
-    }
-
-    .policy-card ul li strong {
-      color: var(--navy);
-    }
-
-    .policy-card a {
-      color: var(--orange);
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-
-    .policy-card a:hover {
-      border-bottom-color: var(--orange);
-    }
-
-    /* ── Engagement Process Steps ────────────────────────────── */
-    .engagement-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin: 1rem 0;
-      position: relative;
-    }
-
-    .engagement-steps::before {
-      content: "";
-      position: absolute;
-      left: 20px;
-      top: 24px;
-      bottom: 24px;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--orange), var(--blue-lt));
-      border-radius: 2px;
-    }
-
-    .step-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 0.75rem 0;
-    }
-
-    .step-num {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(245, 130, 32, 0.3);
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-body {
-      flex: 1;
-      padding-top: 0.6rem;
-    }
-
-    .step-body strong {
-      color: var(--navy);
-      display: block;
-      font-size: 0.92rem;
-      margin-bottom: 0.1rem;
-    }
-
-    .step-body span {
-      font-size: 0.87rem;
-      color: var(--text-body);
-    }
-
-    /* ── Fees Grid ───────────────────────────────────────────── */
-    .fees-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-    }
-
-    @media (max-width: 580px) {
-      .fees-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .fee-item {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--orange);
-      border-radius: var(--radius-sm);
-      padding: 0.85rem 1rem;
-    }
-
-    .fee-item-label {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--orange);
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      margin-bottom: 0.2rem;
-    }
-
-    .fee-item-value {
-      font-size: 0.88rem;
-      color: var(--text-body);
-      line-height: 1.5;
-    }
-
-    .fee-item-value strong {
-      color: var(--navy);
-    }
-
-    /* ── Standards Badges ────────────────────────────────────── */
-    .standards-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 0.75rem;
-    }
-
-    .standard-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: var(--blue-lt);
-      color: var(--navy-mid);
-      font-size: 0.79rem;
-      font-weight: 700;
-      padding: 0.4rem 0.9rem;
-      border-radius: 50px;
-      border: 1px solid rgba(124, 155, 193, 0.35);
-    }
-
-    .standard-badge i {
-      color: var(--blue-acc);
-      font-size: 0.8rem;
-    }
-
-    /* ── Highlight box (disclaimer / governing law) ──────────── */
-    .highlight-box {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--navy-mid);
-      border-radius: var(--radius-sm);
-      padding: 1.1rem 1.3rem;
-      margin-top: 1rem;
-    }
-
-    .highlight-box.orange {
-      border-left-color: var(--orange);
-    }
-
-    .highlight-box p {
-      font-size: 0.9rem;
-      color: var(--text-body);
-      margin-bottom: 0;
-    }
-
-    .highlight-box strong {
-      color: var(--navy);
-    }
-
-    /* ── Governing Law grid ─────────────────────────────────── */
-    .law-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-    }
-
-    @media (max-width: 640px) {
-      .law-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .law-item {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .law-item i {
-      font-size: 1.4rem;
-      color: var(--orange);
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-
-    .law-item strong {
-      display: block;
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: rgba(255, 255, 255, 0.55);
-      margin-bottom: 0.2rem;
-    }
-
-    .law-item span {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    /* ── Contact address ─────────────────────────────────────── */
-    .contact-address {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--orange);
-      border-radius: var(--radius-sm);
-      padding: 1.25rem 1.5rem;
-      font-style: normal;
-      margin-top: 1rem;
-    }
-
-    .contact-address strong {
-      color: var(--navy);
-      font-weight: 700;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-address p {
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .contact-address p i {
-      color: var(--orange);
-      flex-shrink: 0;
-    }
-
-    .contact-address p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* ── Footer ─────────────────────────────────────────────── */
-    .site-footer {
-      background: var(--navy);
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    .footer-top-bar {
-      height: 4px;
-      background: linear-gradient(90deg, var(--orange), var(--orange-lt), var(--blue-acc));
-    }
-
-    .footer-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 1.5rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    @media (max-width: 900px) {
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .footer-map-col {
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .footer-brand h5 {
-      font-family: "Playfair Display", serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-
-    .footer-brand address {
-      font-style: normal;
-    }
-
-    .footer-brand address p {
-      font-size: 0.82rem;
-      margin-bottom: 0.4rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-
-    .footer-brand address p i {
-      color: var(--orange);
-      flex-shrink: 0;
-      margin-top: 0.15rem;
-    }
-
-    .footer-brand address a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-brand address a:hover {
-      color: var(--orange-lt);
-    }
-
-    .footer-socials {
-      display: flex;
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-
-    .footer-socials a {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .footer-socials a:hover {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: #fff;
-    }
-
-    .footer-links-col h5 {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 0.9rem;
-    }
-
-    .footer-links-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .footer-links-col ul li a {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.55);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links-col ul li a i {
-      color: var(--orange);
-      font-size: 0.78rem;
-    }
-
-    .footer-links-col ul li a:hover {
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .footer-map-col h5 {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 0.9rem;
-    }
-
-    .footer-map-wrap {
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      height: 160px;
-    }
-
-    .footer-map-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      filter: grayscale(30%) brightness(0.85);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .footer-bottom p {
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.35);
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      gap: 1.2rem;
-    }
-
-    .footer-bottom-links a {
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.35);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-bottom-links a:hover {
-      color: var(--orange-lt);
-    }
-
-    .footer-bottom-links a.active {
-      color: var(--orange-lt);
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- ═══ Stylesheets ════════════════════════════════════════ -->
+  <link rel="stylesheet" href="css/preloader.css" />
+  <link rel="stylesheet" href="css/style-v2.css" />
+  <link rel="stylesheet" href="css/service-pages.css" />
+  <link rel="stylesheet" href="css/legal-pages.css" />
 </head>
 
 <body>
 
-  <!-- ── Navbar ──────────────────────────────────────────── -->
-  <nav class="site-nav" aria-label="Site navigation">
-    <a class="nav-brand" href="index.html">
-      <img src="img/logo2.jpg" alt="APSIS Logo">
-      <span class="nav-brand-text">APSIS<span> Consulting</span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
-      <li><a href="about.html"><i class="bi bi-info-circle"></i> About Us</a></li>
-      <li><a href="services.html"><i class="bi bi-briefcase"></i> Services</a></li>
-      <li><a href="workwithus.html"><i class="bi bi-people"></i> Work With Us</a></li>
-      <li><a href="content/index.html"><i class="bi bi-journal-richtext"></i> Blogs &amp; Insights</a></li>
-      <li><a href="contact.html" class="nav-cta"><i class="bi bi-envelope"></i> Contact Us</a></li>
-    </ul>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <img src="img/preloader.png" alt="APSIS Logo" class="preloader-logo">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logo2.jpg" alt="APSIS Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#apsisNavbar"
+        aria-controls="apsisNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="apsisNavbar">
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Our Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="workwithus.html">Work With Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link nav-blog-btn" href="content/index.html"><i
+                class="bi bi-journal-richtext"></i>Blogs &amp; Insights</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
 
-  <!-- ── Hero ───────────────────────────────────────────── -->
-  <header class="policy-hero">
-    <div class="hero-badge"><span class="badge-dot"></span> Legal &amp; Compliance</div>
-    <h1>Terms of <span>Service</span></h1>
-    <p class="policy-hero-sub">Terms and conditions governing our professional services and website use</p>
-    <p class="policy-meta"><i class="bi bi-calendar3"></i> Last updated: <span id="policy-date"></span></p>
-    <nav class="breadcrumb-row" aria-label="breadcrumb">
-      <a href="index.html"><i class="bi bi-house-door"></i> Home</a>
-      <i class="bi bi-chevron-right"></i>
-      <span>Terms of Service</span>
-    </nav>
-  </header>
+  <!-- ── Page hero ─────────────────────────────────────── -->
+  <section class="page-hero page-hero--compact" aria-labelledby="ph-title">
+    <div class="container ph-inner">
 
-  <!-- ── Page Body ───────────────────────────────────────── -->
-  <div class="page-body">
+      <div class="ph-copy">
+        <nav class="ph-crumbs" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+          </svg>
+          <span aria-current="page">Terms of service</span>
+        </nav>
 
-    <!-- ── Sticky TOC ───────────────────────────────────── -->
-    <aside class="toc-sidebar" aria-label="Table of contents">
-      <div class="toc-card">
-        <p class="toc-title"><i class="bi bi-list-ul me-1"></i> Contents</p>
-        <ul class="toc-list" id="toc-list">
-          <li><a href="#s-acceptance" class="active"><i class="bi bi-file-earmark-text"></i> 1. Acceptance of Terms</a>
-          </li>
-          <li><a href="#s-services"><i class="bi bi-briefcase"></i> 2. Professional Services</a></li>
-          <li><a href="#s-fees"><i class="bi bi-cash-stack"></i> 3. Fees &amp; Payment</a></li>
-          <li><a href="#s-client"><i class="bi bi-shield-check"></i> 4. Client Responsibilities</a></li>
-          <li><a href="#s-confidentiality"><i class="bi bi-lock"></i> 5. Confidentiality</a></li>
-          <li><a href="#s-liability"><i class="bi bi-exclamation-triangle"></i> 6. Limitation of Liability</a></li>
-          <li><a href="#s-indemnification"><i class="bi bi-arrow-left-right"></i> 7. Indemnification</a></li>
-          <li><a href="#s-termination"><i class="bi bi-x-circle"></i> 8. Termination</a></li>
-          <li><a href="#s-website"><i class="bi bi-globe"></i> 9. Website Use</a></li>
-          <li><a href="#s-ip"><i class="bi bi-pencil"></i> 10. Intellectual Property</a></li>
-          <li><a href="#s-governing"><i class="bi bi-flag"></i> 11. Governing Law</a></li>
-          <li><a href="#s-force"><i class="bi bi-cloud-lightning"></i> 12. Force Majeure</a></li>
-          <li><a href="#s-amendments"><i class="bi bi-pencil-square"></i> 13. Amendments</a></li>
-          <li><a href="#s-contact"><i class="bi bi-telephone"></i> 14. Contact</a></li>
-        </ul>
-        <div class="toc-contact">
-          <p>Questions about these terms? Get in touch.</p>
-          <a href="contact.html" class="contact-btn">
-            <i class="bi bi-chat-dots-fill"></i> Talk to Us
-          </a>
+        <h1 class="ph-title" id="ph-title">
+          <span class="ph-line"><span>Terms of service</span></span>
+          <span class="ph-line"><span>for our work and <em>this website.</em></span></span>
+        </h1>
+
+        <p class="ph-sub">Terms and conditions governing our professional services and website use.</p>
+
+        <p class="ph-meta">
+          <span>Last updated: 1 September 2026</span>
+          <span>Governed by the laws of Kenya</span>
+        </p>
+      </div>
+
+      <div class="ph-visual">
+        <div class="ph-card">
+          <p class="ph-card-brand">APSIS Business Consulting Ltd</p>
+          <p class="ph-card-title">Terms at a glance</p>
+          <dl class="ph-card-rows">
+            <div>
+              <dt>Start</dt>
+              <dd>Signed engagement letter and a 50% deposit</dd>
+            </div>
+            <div>
+              <dt>Confidentiality</dt>
+              <dd>Client information stays confidential</dd>
+            </div>
+            <div>
+              <dt>Late payment</dt>
+              <dd>1.5% per month on overdue amounts</dd>
+            </div>
+            <div>
+              <dt>Disputes</dt>
+              <dd>Negotiation first, then NCIA mediation</dd>
+            </div>
+          </dl>
         </div>
       </div>
-    </aside>
 
-    <!-- ── Sections ─────────────────────────────────────── -->
-    <main>
-      <div class="policy-sections">
+    </div>
+  </section>
 
-        <!-- 1. Acceptance -->
-        <article class="policy-card" id="s-acceptance">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
-            <h2>1. Acceptance of Terms</h2>
-          </div>
-          <p>By accessing or using the website <a href="https://www.apsis.co.ke">https://www.apsis.co.ke</a>
-            ("Website") or engaging APSIS Business Consulting Ltd ("APSIS", "we", "our", "us") for professional
-            services, you ("Client", "you") agree to be bound by these Terms of Service ("Terms"). If you do not
-            agree, please do not use our Website or services.</p>
-          <p>These Terms, together with any engagement letter, proposal, or service agreement signed by both
-            parties, constitute the entire agreement between you and APSIS.</p>
-        </article>
+  <!-- ── Document ──────────────────────────────────────── -->
+  <div class="sv lg">
+    <div class="container lg-layout">
 
-        <!-- 2. Professional Services -->
-        <article class="policy-card" id="s-services">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-briefcase-fill"></i></div>
-            <h2>2. Professional Services</h2>
-          </div>
+      <!-- Table of contents -->
+      <aside class="lg-aside">
+        <nav class="lg-toc" aria-label="Table of contents">
+          <details id="tocDetails" open>
+            <summary>Contents</summary>
+            <p class="lg-toc-title">Contents</p>
+            <ul class="lg-toc-list" id="toc-list">
+              <li><a href="#s-acceptance">1. Acceptance of Terms</a></li>
+              <li><a href="#s-services">2. Professional Services</a></li>
+              <li><a href="#s-fees">3. Fees &amp; Payment</a></li>
+              <li><a href="#s-client">4. Client Responsibilities</a></li>
+              <li><a href="#s-confidentiality">5. Confidentiality</a></li>
+              <li><a href="#s-liability">6. Limitation of Liability</a></li>
+              <li><a href="#s-indemnification">7. Indemnification</a></li>
+              <li><a href="#s-termination">8. Termination</a></li>
+              <li><a href="#s-website">9. Website Use</a></li>
+              <li><a href="#s-ip">10. Intellectual Property</a></li>
+              <li><a href="#s-governing">11. Governing Law</a></li>
+              <li><a href="#s-force">12. Force Majeure</a></li>
+              <li><a href="#s-amendments">13. Amendments</a></li>
+              <li><a href="#s-contact">14. Contact</a></li>
+            </ul>
+          </details>
+        </nav>
+        <p class="lg-aside-help">Questions about these terms? <a class="sp-link" href="contact.html">Talk to us</a>.</p>
+      </aside>
+
+      <!-- Sections -->
+      <main class="lg-doc">
+
+        <!-- 1 -->
+        <section class="lg-sec" id="s-acceptance">
+          <h2>1. Acceptance of Terms</h2>
+          <p>By accessing or using the website <a class="sp-link"
+              href="https://www.apsis.co.ke">https://www.apsis.co.ke</a> ("Website") or engaging APSIS Business
+            Consulting Ltd ("APSIS", "we", "our", "us") for professional services, you ("Client", "you") agree to be
+            bound by these Terms of Service ("Terms"). If you do not agree, please do not use our Website or services.
+          </p>
+          <p>These Terms, together with any engagement letter, proposal, or service agreement signed by both parties,
+            constitute the entire agreement between you and APSIS.</p>
+        </section>
+
+        <!-- 2 -->
+        <section class="lg-sec" id="s-services">
+          <h2>2. Professional Services</h2>
           <h3>2.1 Scope of Services</h3>
-          <p>APSIS provides tax advisory, tax compliance, bookkeeping, payroll, audit support, financial
-            consulting, and related professional services as described in our service proposals, engagement letters,
-            or the "Our Services" section of our Website.</p>
+          <p>APSIS provides tax advisory, tax compliance, bookkeeping, payroll, audit support, financial consulting, and
+            related professional services as described in our service proposals, engagement letters, or the "Our
+            Services" section of our Website.</p>
           <h3>2.2 Engagement Process</h3>
           <p>All professional engagements follow our standard process:</p>
-          <div class="engagement-steps">
-            <div class="step-item">
-              <div class="step-num">1</div>
-              <div class="step-body">
-                <strong>Initial Consultation</strong>
-                <span>Free, no-obligation discussion of your needs and objectives</span>
+          <ol class="lg-steps">
+            <li>
+              <div><strong>Initial Consultation</strong><span>Free, no-obligation discussion of your needs and
+                  objectives</span></div>
+            </li>
+            <li>
+              <div><strong>Scope &amp; Proposal</strong><span>Written proposal detailing deliverables, timeline, and
+                  fees</span></div>
+            </li>
+            <li>
+              <div><strong>Agreement</strong><span>Signed engagement letter and 50% deposit to commence work</span>
               </div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">2</div>
-              <div class="step-body">
-                <strong>Scope &amp; Proposal</strong>
-                <span>Written proposal detailing deliverables, timeline, and fees</span>
+            </li>
+            <li>
+              <div><strong>Delivery</strong><span>Milestone-based work with regular progress check-ins</span></div>
+            </li>
+            <li>
+              <div><strong>Completion</strong><span>Final deliverables handed over and balance payment processed</span>
               </div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">3</div>
-              <div class="step-body">
-                <strong>Agreement</strong>
-                <span>Signed engagement letter and 50% deposit to commence work</span>
-              </div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">4</div>
-              <div class="step-body">
-                <strong>Delivery</strong>
-                <span>Milestone-based work with regular progress check-ins</span>
-              </div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">5</div>
-              <div class="step-body">
-                <strong>Completion</strong>
-                <span>Final deliverables handed over and balance payment processed</span>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ol>
           <h3>2.3 Professional Standards</h3>
           <p>All services are performed in accordance with:</p>
-          <div class="standards-row">
-            <span class="standard-badge"><i class="bi bi-check-circle-fill"></i> ISA (International Standards on
-              Auditing)</span>
-            <span class="standard-badge"><i class="bi bi-check-circle-fill"></i> IFRS</span>
-            <span class="standard-badge"><i class="bi bi-check-circle-fill"></i> Kenya Tax Legislation</span>
-            <span class="standard-badge"><i class="bi bi-check-circle-fill"></i> ICPAK Code of Ethics</span>
-          </div>
-        </article>
+          <ul class="lg-list lg-list--2">
+            <li>ISA (International Standards on Auditing)</li>
+            <li>IFRS</li>
+            <li>Kenya Tax Legislation</li>
+            <li>ICPAK Code of Ethics</li>
+          </ul>
+        </section>
 
-        <!-- 3. Fees & Payment -->
-        <article class="policy-card" id="s-fees">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-cash-stack"></i></div>
-            <h2>3. Fees &amp; Payment</h2>
-          </div>
-          <div class="fees-grid">
-            <div class="fee-item">
-              <div class="fee-item-label">Fee Basis</div>
-              <div class="fee-item-value">Based on scope, complexity, skill level required, and time estimate</div>
+        <!-- 3 -->
+        <section class="lg-sec" id="s-fees">
+          <h2>3. Fees &amp; Payment</h2>
+          <dl class="lg-facts">
+            <div>
+              <dt>Fee basis</dt>
+              <dd>Based on scope, complexity, skill level required, and time estimate</dd>
             </div>
-            <div class="fee-item">
-              <div class="fee-item-label">Proforma Invoice</div>
-              <div class="fee-item-value">Issued upon agreement signing, detailing all charges before work begins</div>
+            <div>
+              <dt>Proforma invoice</dt>
+              <dd>Issued upon agreement signing, detailing all charges before work begins</dd>
             </div>
-            <div class="fee-item">
-              <div class="fee-item-label">Deposit</div>
-              <div class="fee-item-value"><strong>50%</strong> payable upon signing; balance due on completion</div>
+            <div>
+              <dt>Deposit</dt>
+              <dd><strong>50%</strong> payable upon signing; balance due on completion</dd>
             </div>
-            <div class="fee-item">
-              <div class="fee-item-label">Payment Methods</div>
-              <div class="fee-item-value">Bank transfer, M-Pesa, card — details provided on invoice</div>
+            <div>
+              <dt>Payment methods</dt>
+              <dd>Bank transfer, M-Pesa, card — details provided on invoice</dd>
             </div>
-            <div class="fee-item">
-              <div class="fee-item-label">Late Payment</div>
-              <div class="fee-item-value"><strong>1.5% per month</strong> on overdue amounts; work may be suspended
-              </div>
+            <div>
+              <dt>Late payment</dt>
+              <dd><strong>1.5% per month</strong> on overdue amounts; work may be suspended</dd>
             </div>
-            <div class="fee-item">
-              <div class="fee-item-label">Expenses</div>
-              <div class="fee-item-value">Travel, filing fees, third-party costs billed at cost + 10%</div>
+            <div>
+              <dt>Expenses</dt>
+              <dd>Travel, filing fees, third-party costs billed at cost + 10%</dd>
             </div>
-            <div class="fee-item">
-              <div class="fee-item-label">Currency</div>
-              <div class="fee-item-value">All fees in <strong>Kenyan Shillings (KES)</strong> unless otherwise agreed in
-                writing</div>
+            <div>
+              <dt>Currency</dt>
+              <dd>All fees in <strong>Kenyan Shillings (KES)</strong> unless otherwise agreed in writing</dd>
             </div>
-          </div>
-        </article>
+          </dl>
+        </section>
 
-        <!-- 4. Client Responsibilities -->
-        <article class="policy-card" id="s-client">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-person-check-fill"></i></div>
-            <h2>4. Client Responsibilities</h2>
-          </div>
+        <!-- 4 -->
+        <section class="lg-sec" id="s-client">
+          <h2>4. Client Responsibilities</h2>
           <p>The quality of our work depends on the accuracy and timeliness of information you provide. The Client
             agrees to:</p>
-          <ul>
+          <ul class="lg-list">
             <li>Provide complete, accurate, and timely information and documents</li>
             <li>Grant access to relevant systems (KRA iTax, eTIMS, banking platforms, payroll software)</li>
             <li>Designate a primary contact for communications and approvals</li>
@@ -1170,279 +294,229 @@
             <li>Comply with all statutory obligations (filing deadlines, record-keeping requirements)</li>
             <li>Inform APSIS promptly of material changes in business structure, ownership, or operations</li>
           </ul>
-        </article>
+        </section>
 
-        <!-- 5. Confidentiality -->
-        <article class="policy-card" id="s-confidentiality">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-lock-fill"></i></div>
-            <h2>5. Confidentiality</h2>
-          </div>
-          <p>APSIS treats all Client information as <strong>strictly confidential</strong>. We will not disclose
-            any information to third parties without your written consent, except:</p>
-          <ul>
+        <!-- 5 -->
+        <section class="lg-sec" id="s-confidentiality">
+          <h2>5. Confidentiality</h2>
+          <p>APSIS treats all Client information as <strong>strictly confidential</strong>. We will not disclose any
+            information to third parties without your written consent, except:</p>
+          <ul class="lg-list">
             <li>As required by law, court order, or regulatory authority (KRA, ICPAK, etc.)</li>
             <li>To our staff, contractors, or service providers on a need-to-know basis under confidentiality
               obligations</li>
             <li>Where disclosure is necessary to perform the engagement</li>
           </ul>
-          <div class="highlight-box">
+          <div class="lg-note">
             <p><strong>Note:</strong> Confidentiality obligations survive the termination of the engagement
               indefinitely.</p>
           </div>
-        </article>
+        </section>
 
-        <!-- 6. Limitation of Liability -->
-        <article class="policy-card" id="s-liability">
-          <div class="policy-card-header">
-            <div class="policy-icon navy-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
-            <h2>6. Limitation of Liability</h2>
-          </div>
-          <ul>
-            <li>APSIS's total liability for any claim arising from an engagement shall not exceed the <strong>total
-                fees paid by the Client for that engagement in the preceding 12 months</strong></li>
-            <li>APSIS is not liable for indirect, consequential, or punitive damages, including lost profits, data
-              loss, or business interruption</li>
-            <li>APSIS is not responsible for penalties or interest arising from Client delays, incomplete
-              information, or Client decisions made contrary to our advice</li>
+        <!-- 6 -->
+        <section class="lg-sec" id="s-liability">
+          <h2>6. Limitation of Liability</h2>
+          <ul class="lg-list">
+            <li>APSIS's total liability for any claim arising from an engagement shall not exceed the <strong>total fees
+                paid by the Client for that engagement in the preceding 12 months</strong></li>
+            <li>APSIS is not liable for indirect, consequential, or punitive damages, including lost profits, data loss,
+              or business interruption</li>
+            <li>APSIS is not responsible for penalties or interest arising from Client delays, incomplete information,
+              or Client decisions made contrary to our advice</li>
             <li>This limitation applies regardless of legal theory — contract, tort, negligence, or statute</li>
           </ul>
-        </article>
+        </section>
 
-        <!-- 7. Indemnification -->
-        <article class="policy-card" id="s-indemnification">
-          <div class="policy-card-header">
-            <div class="policy-icon navy-icon"><i class="bi bi-arrow-left-right"></i></div>
-            <h2>7. Indemnification</h2>
-          </div>
-          <p>The Client agrees to indemnify and hold harmless APSIS, its directors, officers, employees, and
-            agents from any claims, losses, damages, or expenses (including legal fees) arising from:</p>
-          <ul>
+        <!-- 7 -->
+        <section class="lg-sec" id="s-indemnification">
+          <h2>7. Indemnification</h2>
+          <p>The Client agrees to indemnify and hold harmless APSIS, its directors, officers, employees, and agents from
+            any claims, losses, damages, or expenses (including legal fees) arising from:</p>
+          <ul class="lg-list">
             <li>Client's breach of these Terms or the engagement letter</li>
             <li>Inaccurate, incomplete, or misleading information provided by the Client</li>
             <li>Client's failure to comply with statutory obligations</li>
             <li>Third-party claims related to the Client's business operations</li>
           </ul>
-        </article>
+        </section>
 
-        <!-- 8. Termination -->
-        <article class="policy-card" id="s-termination">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-x-circle-fill"></i></div>
-            <h2>8. Termination</h2>
-          </div>
-          <ul>
+        <!-- 8 -->
+        <section class="lg-sec" id="s-termination">
+          <h2>8. Termination</h2>
+          <ul class="lg-list">
             <li><strong>By Client:</strong> Written notice at any time; fees for work performed to date are due and
               payable immediately</li>
-            <li><strong>By APSIS:</strong> Written notice if Client breaches these Terms, fails to pay, or engages
-              in conduct that impairs our professional independence</li>
+            <li><strong>By APSIS:</strong> Written notice if Client breaches these Terms, fails to pay, or engages in
+              conduct that impairs our professional independence</li>
             <li><strong>Effect:</strong> Upon termination, APSIS will provide all Client documents and work papers
               within <strong>10 business days</strong> of receipt of full payment</li>
           </ul>
-        </article>
+        </section>
 
-        <!-- 9. Website Use -->
-        <article class="policy-card" id="s-website">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-globe2"></i></div>
-            <h2>9. Website Use</h2>
-          </div>
-          <ul>
-            <li>Website content is for <strong>general information only</strong> — it does not constitute
-              professional advice</li>
+        <!-- 9 -->
+        <section class="lg-sec" id="s-website">
+          <h2>9. Website Use</h2>
+          <ul class="lg-list">
+            <li>Website content is for <strong>general information only</strong> — it does not constitute professional
+              advice</li>
             <li>No accountant-client relationship is created by Website use alone</li>
             <li>You may not scrape, crawl, or systematically extract content without written permission</li>
             <li>We may modify, suspend, or discontinue the Website at any time without notice</li>
             <li>Links to third-party sites are for convenience only; we are not responsible for their content or
               practices</li>
           </ul>
-        </article>
+        </section>
 
-        <!-- 10. Intellectual Property -->
-        <article class="policy-card" id="s-ip">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-pencil-fill"></i></div>
-            <h2>10. Intellectual Property</h2>
+        <!-- 10 -->
+        <section class="lg-sec" id="s-ip">
+          <h2>10. Intellectual Property</h2>
+          <p>All content on the Website — text, graphics, logos, code, and design — is owned by APSIS or licensed to us.
+            You may not reproduce, distribute, or create derivative works without prior written permission.</p>
+          <div class="lg-note">
+            <p><strong>Engagement deliverables</strong> (reports, financial models, spreadsheets, analysis) are licensed
+              to the Client for internal business use only. They may not be distributed, published, or used for external
+              purposes without written consent from APSIS.</p>
           </div>
-          <p>All content on the Website — text, graphics, logos, code, and design — is owned by APSIS or
-            licensed to us. You may not reproduce, distribute, or create derivative works without prior written
-            permission.</p>
-          <div class="highlight-box orange">
-            <p><strong>Engagement deliverables</strong> (reports, financial models, spreadsheets, analysis) are
-              licensed to the Client for internal business use only. They may not be distributed, published, or
-              used for external purposes without written consent from APSIS.</p>
-          </div>
-        </article>
+        </section>
 
-        <!-- 11. Governing Law -->
-        <article class="policy-card" id="s-governing">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-flag-fill"></i></div>
-            <h2>11. Governing Law &amp; Dispute Resolution</h2>
-          </div>
-          <div class="law-grid">
-            <div class="law-item">
-              <i class="bi bi-journal-bookmark"></i>
-              <strong>Governing Law</strong>
-              <span>Laws of the Republic of Kenya</span>
+        <!-- 11 -->
+        <section class="lg-sec" id="s-governing">
+          <h2>11. Governing Law &amp; Dispute Resolution</h2>
+          <dl class="lg-facts">
+            <div>
+              <dt>Governing law</dt>
+              <dd>Laws of the Republic of Kenya</dd>
             </div>
-            <div class="law-item">
-              <i class="bi bi-building"></i>
-              <strong>Jurisdiction</strong>
-              <span>Courts of Nairobi, Kenya</span>
+            <div>
+              <dt>Jurisdiction</dt>
+              <dd>Courts of Nairobi, Kenya</dd>
             </div>
-            <div class="law-item">
-              <i class="bi bi-people-fill"></i>
-              <strong>Dispute Resolution</strong>
-              <span>Good-faith negotiation, then NCIA mediation before litigation</span>
+            <div>
+              <dt>Dispute resolution</dt>
+              <dd>Good-faith negotiation, then NCIA mediation before litigation</dd>
             </div>
-          </div>
-          <p style="margin-top: 1.1rem; font-size: 0.88rem;">Unresolved disputes shall be referred to mediation
-            under the <strong>Nairobi Centre for International Arbitration (NCIA)</strong> rules before any
-            litigation is commenced.</p>
-        </article>
+          </dl>
+          <p class="lg-after">Unresolved disputes shall be referred to mediation under the <strong>Nairobi Centre for
+              International Arbitration (NCIA)</strong> rules before any litigation is commenced.</p>
+        </section>
 
-        <!-- 12. Force Majeure -->
-        <article class="policy-card" id="s-force">
-          <div class="policy-card-header">
-            <div class="policy-icon navy-icon"><i class="bi bi-cloud-lightning-fill"></i></div>
-            <h2>12. Force Majeure</h2>
-          </div>
+        <!-- 12 -->
+        <section class="lg-sec" id="s-force">
+          <h2>12. Force Majeure</h2>
           <p>Neither party is liable for failure or delay in performance due to events beyond reasonable control,
             including: natural disasters, pandemics, government actions, strikes, cyberattacks, or infrastructure
             failures.</p>
-          <p>The affected party shall notify the other as soon as reasonably practicable and use all reasonable
-            efforts to resume performance at the earliest opportunity.</p>
-        </article>
+          <p>The affected party shall notify the other as soon as reasonably practicable and use all reasonable efforts
+            to resume performance at the earliest opportunity.</p>
+        </section>
 
-        <!-- 13. Amendments -->
-        <article class="policy-card" id="s-amendments">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-pencil-square"></i></div>
-            <h2>13. Amendments</h2>
-          </div>
-          <p><strong>Engagement Terms:</strong> Changes to specific engagement letters or proposals require a
-            written amendment signed by both parties.</p>
-          <p><strong>Website Terms:</strong> These Terms may be updated unilaterally by APSIS with notice posted
-            on this page. Continued use of our Website after posting of changes constitutes your acceptance of the
-            revised Terms.</p>
-        </article>
+        <!-- 13 -->
+        <section class="lg-sec" id="s-amendments">
+          <h2>13. Amendments</h2>
+          <p><strong>Engagement Terms:</strong> Changes to specific engagement letters or proposals require a written
+            amendment signed by both parties.</p>
+          <p><strong>Website Terms:</strong> These Terms may be updated unilaterally by APSIS with notice posted on this
+            page. Continued use of our Website after posting of changes constitutes your acceptance of the revised
+            Terms.</p>
+        </section>
 
-        <!-- 14. Contact -->
-        <article class="policy-card" id="s-contact">
-          <div class="policy-card-header">
-            <div class="policy-icon"><i class="bi bi-telephone-fill"></i></div>
-            <h2>14. Contact</h2>
-          </div>
+        <!-- 14 -->
+        <section class="lg-sec" id="s-contact">
+          <h2>14. Contact</h2>
           <p>For questions about these Terms or any aspect of our professional services:</p>
-          <address class="contact-address">
+          <address class="lg-address">
             <strong>APSIS Business Consulting Ltd</strong>
-            <p><i class="bi bi-geo-alt-fill"></i> Noventra Suite, 3rd Floor, Crescent Business Centre, Westlands,
-              Nairobi, Kenya</p>
-            <p><i class="bi bi-envelope-fill"></i>
-              <a href="mailto:info@apsis.co.ke">info@apsis.co.ke</a>
-            </p>
-            <p><i class="bi bi-telephone-fill"></i>
-              <a href="tel:+254722670127">+254 722 670 127</a>
-            </p>
-            <p><i class="bi bi-globe2"></i>
-              <a href="https://www.apsis.co.ke" target="_blank" rel="noopener noreferrer">www.apsis.co.ke</a>
-            </p>
-          </address>
-        </article>
-
-      </div>
-    </main>
-  </div>
-
-  <!-- ── Footer ───────────────────────────────────────────── -->
-  <footer class="site-footer">
-    <div class="footer-top-bar"></div>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h5>APSIS Business Consulting Ltd</h5>
-          <address>
-            <p><i class="bi bi-geo-alt-fill"></i> Noventra Suite, 3rd Floor,<br>Crescent Business Centre,<br>
-              Westlands, <strong>Nairobi, Kenya</strong></p>
-            <p><i class="bi bi-telephone-fill"></i> <a href="tel:+254722670127">+254 722 670 127</a></p>
-            <p><i class="bi bi-envelope-fill"></i> <a href="mailto:info@apsis.co.ke">info@apsis.co.ke</a></p>
-            <p><i class="bi bi-globe2"></i> <a href="https://www.apsis.co.ke" target="_blank"
+            <p>Noventra Suite, 3rd Floor, Crescent Business Centre, Westlands, Nairobi, Kenya</p>
+            <p><a class="sp-link" href="mailto:info@apsis.co.ke">info@apsis.co.ke</a></p>
+            <p><a class="sp-link" href="tel:+254722670127">+254 722 670 127</a></p>
+            <p><a class="sp-link" href="https://www.apsis.co.ke" target="_blank"
                 rel="noopener noreferrer">www.apsis.co.ke</a></p>
           </address>
-          <div class="footer-socials">
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer (identical to about.html / index.html) -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="sf-grid">
+
+        <div class="sf-brand">
+          <p class="sf-name">APSIS Business Consulting Ltd</p>
+          <p class="sf-tagline">Tax and accounting for businesses, working across Africa since 2020.</p>
+
+          <address class="sf-contact">
+            <p>Noventra Suite, 3rd Floor, Crescent Business Centre, Westlands, Nairobi, Kenya</p>
+            <p><a href="tel:+254722670127">+254 722 670 127</a></p>
+            <p><a href="mailto:info@apsis.co.ke">info@apsis.co.ke</a></p>
+          </address>
+
+          <div class="sf-socials">
             <a href="https://www.linkedin.com/company/apsis-business-consulting-ltd/" target="_blank"
-              rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="https://x.com/ApsisBusinessKE" target="_blank" rel="noopener noreferrer"
-              aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+              rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11.5H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.85h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4V9.75Z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.25-1.5 1.55-1.5h1.65V3.4c-.3-.05-1.25-.1-2.35-.1-2.4 0-4.05 1.45-4.05 4.15V9.8H7.6V13h2.7v8h3.2Z" />
+              </svg>
+            </a>
+            <a href="https://x.com/ApsisBusinessKE" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3Zm-1.08 16.15h1.7L7.4 4.75H5.58l11.09 14.4Z" />
+              </svg>
+            </a>
           </div>
         </div>
-        <div class="footer-links-col">
-          <h5>Quick Links</h5>
+
+        <nav class="sf-col" aria-label="Company">
+          <h2 class="sf-head">Company</h2>
           <ul>
-            <li><a href="index.html"><i class="bi bi-house-door"></i> Home</a></li>
-            <li><a href="about.html"><i class="bi bi-info-circle"></i> About Us</a></li>
-            <li><a href="services.html"><i class="bi bi-briefcase"></i> Our Services</a></li>
-            <li><a href="workwithus.html"><i class="bi bi-people"></i> Work With Us</a></li>
-            <li><a href="contact.html"><i class="bi bi-envelope"></i> Contact Us</a></li>
-            <li><a href="content/index.html"><i class="bi bi-journal-richtext"></i> Blogs &amp; Insights</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Our Services</a></li>
+            <li><a href="workwithus.html">Work With Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="content/index.html">Blogs &amp; Insights</a></li>
           </ul>
-        </div>
-        <div class="footer-links-col">
-          <h5>Our Services</h5>
+        </nav>
+
+        <nav class="sf-col" aria-label="Services">
+          <h2 class="sf-head">Services</h2>
           <ul>
-            <li><a href="accountants-in-nairobi.html"><i class="bi bi-calculator"></i> Accountants in Nairobi</a>
-            </li>
-            <li><a href="/content/insights/kra-tax-consultant-kenya.html"><i class="bi bi-cash-coin"></i> Tax
-                Advisors</a></li>
-            <li><a href="financial-advisor.html"><i class="bi bi-graph-up-arrow"></i> Financial Advisor</a></li>
-            <li><a href="/content/insights/Payroll-tax-services-kenya.html"><i class="bi bi-people"></i> Payroll
-                Services</a></li>
-            <li><a href="vat-compliance-kenya.html"><i class="bi bi-receipt"></i> VAT Compliance</a></li>
-            <li><a href="import-export-tax-advisory.html"><i class="bi bi-globe"></i> Import/Export Tax</a></li>
+            <li><a href="accountants-in-nairobi.html">Accountants in Nairobi</a></li>
+            <li><a href="/content/insights/kra-tax-consultant-kenya.html">Tax Advisors</a></li>
+            <li><a href="financial-advisor.html">Financial Advisor</a></li>
+            <li><a href="/content/insights/Payroll-tax-services-kenya.html">Payroll Services Kenya</a></li>
+            <li><a href="vat-compliance-kenya.html">VAT Compliance Kenya</a></li>
+            <li><a href="import-export-tax-advisory.html">Import/Export Tax Advisory</a></li>
           </ul>
-        </div>
-        <div class="footer-map-col">
-          <h5>Our Location</h5>
-          <div class="footer-map-wrap">
-            <iframe src="https://www.google.com/maps?q=Crescent%20Business%20Center%20PRM6%2BX88%20Nairobi&output=embed"
-              allowfullscreen="" loading="lazy" title="APSIS Office Location"></iframe>
-          </div>
-        </div>
+        </nav>
+
       </div>
+
       <div class="footer-bottom">
-        <p>&copy; <span id="copyright-year"></span> APSIS Business Consulting Ltd. All rights reserved.</p>
+        <p>&copy; 2026 APSIS Business Consulting Ltd. All rights reserved.</p>
         <div class="footer-bottom-links">
           <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html" class="active">Terms of Service</a>
+          <a href="terms.html">Terms of Service</a>
         </div>
       </div>
+
     </div>
   </footer>
 
-  <script>
-    document.getElementById('copyright-year').textContent = new Date().getFullYear();
-    document.getElementById('policy-date').textContent = '1 September 2026';
-
-    // Sticky TOC: highlight active section on scroll
-    (function () {
-      const links = document.querySelectorAll('#toc-list a');
-      const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
-
-      function updateActive() {
-        const scrollY = window.scrollY + 100;
-        let current = sections[0];
-        sections.forEach(s => { if (s && s.offsetTop <= scrollY) current = s; });
-        links.forEach(l => {
-          l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
-        });
-      }
-      window.addEventListener('scroll', updateActive, { passive: true });
-      updateActive();
-    })();
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main-v2.js"></script>
+  <script src="js/legal-pages.js"></script>
 </body>
 
 </html>
