@@ -1479,52 +1479,6 @@ ol {
 
 }
 
-/* ── Footer ── */
-.site-footer {
-    background: var(--navy-deep);
-    padding: 32px 0;
-}
-
-.footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.footer-logo {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--text-white);
-}
-
-.footer-logo span {
-    color: var(--orange-primary);
-}
-
-.footer-copy {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.38);
-}
-
-.footer-links {
-    display: flex;
-    gap: 20px;
-}
-
-.footer-links a {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.48);
-    font-weight: 500;
-    transition: color var(--transition);
-}
-
-.footer-links a:hover {
-    color: rgba(255, 255, 255, 0.85);
-}
-
 /* ── Contact Form ── */
 .contact-form-section {
     background: var(--bg-white);
