@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home2/wainaina/public_html/
-    - /usr/bin/rsync -av --exclude='.git' --exclude='.cpanel.yml' --exclude='*.md' ./ $DEPLOYPATH
+    - /usr/bin/rsync -av --exclude='.git' --exclude='.cpanel.yml' --exclude='.vscode' --exclude='*.md' ./ $DEPLOYPATH
