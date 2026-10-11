@@ -4,7 +4,13 @@
 
    Install: put this file in /js/ and add before </body> on each page:
      <script src="/js/chat-widget.js" defer></script>
-   To update an answer, edit the matching entry in KB. */
+   To update an answer, edit the matching entry in KB.
+
+   Apsi's face: animated SVG robot with five moods (happy, sad, angry, thinking,
+   sleepy), eyes that follow the cursor, head tilt, blinking, and reactions to
+   what visitors say. Each KB entry can set a `mood`; visitor tone (worried,
+   happy, rude) can override it. Test a mood from the browser console with:
+     ApsisChat.setMood("angry")   */
 (function (root) {
   "use strict";
 
@@ -17,7 +23,9 @@
   var CAUTION = "Rates and rules change, so please confirm current figures with KRA or the APSIS team.";
 
   /* Each entry: id, q (sample question, also used for suggestion chips),
-     k (keywords; multi-word phrases score higher), a (answer), link, caution */
+     k (keywords; multi-word phrases score higher), s (strong, topic-specific words),
+     g (generic words that only count next to a strong word), x (words that belong
+     to another topic), a (answer), link, caution, mood, then */
   var KB = [
     {
       id: "services",
@@ -246,6 +254,78 @@
       a: "Yes. Services are delivered remotely, with in-person meetings when needed, and clients are in several Kenyan towns. Information is kept confidential under professional ethical standards.",
       link: "/content/insights/kra-tax-consultant-kenya.html", linkText: "KRA tax consultant services"
     },
+
+    /* ---- Conversation hooks: emotion, urgency, trust, and personality ---- */
+    {
+      id: "worried",
+      q: "I'm worried about KRA penalties",
+      s: ["worried", "scared", "afraid", "panic", "overwhelmed", "anxious", "nervous", "stressed", "desperate"],
+      k: ["worry", "stress", "in trouble"],
+      mood: "sad",
+      a: "That sounds stressful, and you're not alone. Most KRA problems can be fixed, and acting early stops penalties and interest from growing. A good first step is to check what iTax shows as outstanding, then get professional advice before paying, objecting or filing. The APSIS team can review your position: call or WhatsApp +254 722 670 127.",
+      link: "/contact.html", linkText: "Contact the team", caution: true
+    },
+    {
+      id: "frustrated",
+      q: "KRA is so frustrating",
+      s: ["frustrated", "frustrating", "frustration", "annoying", "annoyed", "nightmare", "headache", "ridiculous"],
+      mood: "angry",
+      a: "I'm on your side here. Tax admin can be a real headache. The good news is that most issues come down to a few things: a missing return, an unmatched payment, or an uncredited withholding tax certificate. Tell me what's happening (a notice, a deadline, a VAT problem) and I'll point you to the right steps.",
+      hidden: true
+    },
+    {
+      id: "urgent",
+      q: "It's urgent, who can I talk to?",
+      s: ["urgent", "urgently", "asap", "emergency", "immediately"],
+      mood: "happy",
+      a: "For anything urgent, calling or WhatsApp is fastest:\n" + CONTACT + "\n\nEnquiries sent through the site are answered within one business day.",
+      link: "/contact.html", linkText: "Contact page"
+    },
+    {
+      id: "why-apsis",
+      q: "Why choose APSIS?",
+      s: ["choose"],
+      k: ["why apsis", "trust", "reliable", "experienced", "experience", "different", "better"],
+      mood: "happy",
+      a: "A few reasons, per the APSIS website:\n" +
+        "- Serving businesses since 2020 across manufacturing, retail, NGOs and the public sector\n" +
+        "- A CPA-K qualified team with 13 to 15+ years of experience each\n" +
+        "- A free, no-obligation first consultation and an itemised proforma invoice\n" +
+        "- Remote delivery, with in-person meetings when needed",
+      link: "/about.html", linkText: "About APSIS"
+    },
+    {
+      id: "privacy",
+      q: "Do you save my chat?",
+      k: ["save chat", "store chat", "my data", "recorded", "tracking", "chat saved", "log chat", "data privacy"],
+      mood: "thinking",
+      a: "I run entirely in your browser. I don't send your messages anywhere, and the conversation disappears when you close or reload the page. Please don't type sensitive details such as PINs or passwords here.",
+      hidden: true
+    },
+    {
+      id: "creator",
+      q: "Who built you?",
+      s: ["built", "creator", "programmed", "developer"],
+      mood: "happy",
+      a: "I'm a simple FAQ assistant built for the APSIS website. Everything I say comes from the APSIS site pages, and I run free in your browser with no backend behind me.",
+      hidden: true
+    },
+    {
+      id: "joke",
+      q: "Tell me a joke",
+      s: ["joke", "funny", "laugh", "riddle"],
+      mood: "happy",
+      a: "Why did the accountant bring a ladder to work? To reach the high-level reports. Okay, I'll stay in my lane. Ask me about tax instead!",
+      hidden: true
+    },
+    {
+      id: "awake",
+      q: "Are you there?",
+      k: ["awake", "asleep", "wake"],
+      mood: "happy",
+      a: "I'm here! Just resting my eyes for a second. What can I help you with?",
+      hidden: true
+    },
     {
       id: "greeting",
       q: "Hello",
@@ -256,8 +336,15 @@
     {
       id: "thanks",
       q: "Thank you",
-      k: ["thanks", "thank", "thx", "asante", "cheers", "appreciate"],
+      k: ["thanks", "thank", "thx", "asante", "cheers", "appreciate", "great", "awesome", "amazing", "brilliant", "impressive", "cool", "nice"],
       a: "Karibu! If you'd like to speak to the team, call or WhatsApp +254 722 670 127 or email info@apsis.co.ke.",
+      hidden: true
+    },
+    {
+      id: "rude",
+      q: "You are stupid",
+      k: ["insult"],
+      a: "Ouch, that stings a little! I'm a simple FAQ bot doing my best, so let's keep it friendly. If I couldn't help, our team certainly can: call or WhatsApp +254 722 670 127.",
       hidden: true
     },
     {
@@ -298,7 +385,9 @@
 
   // Phrases made only of common words (who are you, how are you...) that keyword matching would skip
   var PATTERNS = [
+    [/\b(you|u|ur|you're|youre)\b.{0,20}\b(stupid|idiot|dumb|useless|rubbish|worthless|garbage|moron)\b|\b(stupid|useless|dumb|rubbish) (bot|robot|chatbot)\b|\b(shut up|hate you)\b/, "rude"],
     [/\b(who|what) are you\b|\bare you (a |an )?(robot|bot|human|real|person|ai|machine|chatbot)\b|\byour name\b|\bwho am i (talking|chatting)\b/, "identity"],
+    [/\bare you (still )?(there|awake|asleep|sleeping|alive)\b|\bwake up\b|\banyone (there|home)\b/, "awake"],
     [/\bhow are you\b|\bhow('s| is) it going\b|\bhow do you do\b/, "smalltalk"],
     [/^\s*(what (can|do) you (do|know|help( me)?( with)?)|how can you help( me)?|what can i ask( you)?|help)\s*[?!.]*\s*$/, "help"]
   ];
@@ -332,7 +421,7 @@
     e._phrases = [];
     (e.s || []).forEach(function (kw) { tokens(kw).forEach(function (t) { e._strong[t] = true; }); });
     (e.x || []).forEach(function (kw) { tokens(kw).forEach(function (t) { e._excl[t] = true; }); });
-    e.k.forEach(function (kw) {
+    (e.k || []).forEach(function (kw) {
       var t = tokens(kw);
       if (!t.length) return;
       if (t.length === 1) e._single[t[0]] = true;
@@ -380,45 +469,141 @@
 
   function byId(id) { return KB.filter(function (e) { return e.id === id; })[0]; }
 
+  /* ---------- Moods ----------
+     Every entry gets a mood. Default is happy; these entries differ. */
+  var MOOD = {
+    "missed-deadline": "sad", "demand-notice": "sad", "vat-penalty": "sad",
+    audit: "thinking", "advance-ruling": "thinking", "health-check": "thinking",
+    rude: "angry"
+  };
+  KB.forEach(function (e) { e.mood = e.mood || MOOD[e.id] || "happy"; });
+  byId("farewell").then = { mood: "sleepy", after: 5000 };   // drifts off after a goodbye
+
+  // Visitor tone: react to how someone sounds, not only to what they ask
+  var NEG = /\b(worried|worry|scared|afraid|stress(ed)?|panic\w*|overwhelm\w*|anxious|nervous|desperate|upset|frustrat\w*|annoy\w*|nightmare)\b/;
+  var POS = /\b(love|loved|great|awesome|amazing|wonderful|perfect|brilliant|helpful|fantastic|excellent)\b/;
+  function tone(q) {
+    q = String(q).toLowerCase();
+    return NEG.test(q) ? "neg" : POS.test(q) ? "pos" : null;
+  }
+
   // Expose the engine for testing (Node) and stop if there is no page
-  var api = { KB: KB, answer: answer, tokens: tokens };
+  var api = { KB: KB, answer: answer, tokens: tokens, tone: tone };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   if (typeof document === "undefined") return;
 
-  /* ---------- UI ---------- */
-  var ROBOT =
-    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+  /* ---------- Face ---------- */
+  var reduceMotion = !!(root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  var FACE =
+    '<svg class="apsis-face" viewBox="0 0 48 48" aria-hidden="true" focusable="false" data-mood="happy">' +
+    '<g class="zz"><text x="36" y="11">z</text><text x="40.5" y="7">Z</text></g>' +
+    '<g class="dots"><circle cx="39" cy="8" r="1.3"/><circle cx="42" cy="5.5" r="1.3"/><circle cx="45" cy="3" r="1.3"/></g>' +
+    '<g class="head">' +
     '<line x1="24" y1="4" x2="24" y2="11" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>' +
-    '<circle cx="24" cy="4" r="2.8" fill="#5fd0ff"/>' +
+    '<circle class="bulb" cx="24" cy="4" r="2.8"/>' +
     '<rect x="3" y="21" width="5" height="11" rx="2.5" fill="#fff"/>' +
     '<rect x="40" y="21" width="5" height="11" rx="2.5" fill="#fff"/>' +
-    '<rect x="8" y="11" width="32" height="28" rx="10" fill="#fff"/>' +
+    '<rect class="shell" x="8" y="11" width="32" height="28" rx="10" fill="#fff"/>' +
     '<rect x="12" y="16" width="24" height="18" rx="7" fill="#0d2137"/>' +
-    '<circle class="apsis-eye" cx="19" cy="24" r="3.2" fill="#5fd0ff"/>' +
-    '<circle class="apsis-eye" cx="29" cy="24" r="3.2" fill="#5fd0ff"/>' +
-    '<path d="M20 30 q4 3.2 8 0" stroke="#5fd0ff" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+    '<circle class="blush" cx="14.8" cy="28.8" r="1.7"/><circle class="blush" cx="33.2" cy="28.8" r="1.7"/>' +
+    '<line class="brow bl" x1="15.5" y1="18.7" x2="22.5" y2="18.7"/>' +
+    '<line class="brow br" x1="25.5" y1="18.7" x2="32.5" y2="18.7"/>' +
+    '<g class="eyes">' +
+    '<g class="blinker"><circle class="eye" cx="19" cy="24" r="3.2"/><circle class="eye" cx="29" cy="24" r="3.2"/></g>' +
+    '<rect class="lid" x="15.2" y="20.4" width="7.6" height="0" fill="#0d2137"/>' +
+    '<rect class="lid" x="25.2" y="20.4" width="7.6" height="0" fill="#0d2137"/>' +
+    '</g>' +
+    '<path class="mouth m-happy" d="M18.5 29 Q24 34.5 29.5 29"/>' +
+    '<path class="mouth m-sad" d="M19 32 Q24 28.4 29 32"/>' +
+    '<path class="mouth m-angry" d="M19 31 L21.5 29.6 L24 31 L26.5 29.6 L29 31"/>' +
+    '<path class="mouth m-think" d="M20 30.6 Q22 29 24 30.6 T28 30.6"/>' +
+    '<ellipse class="mouth m-sleepy" cx="24" cy="30.8" rx="1.9" ry="2.2"/>' +
+    '<path class="tear" d="M31.6 27.4 Q30.2 29.4 31.6 30.4 Q33 29.4 31.6 27.4Z"/>' +
+    '</g>' +
     '<rect x="16" y="41" width="16" height="4.5" rx="2.25" fill="#fff" opacity=".85"/>' +
     '</svg>';
 
+  // Per-mood pose: eyelid closure (0-1), head tilt in degrees, head drop
+  var POSE = {
+    happy: { lid: 0, tilt: 0, drop: 0 },
+    sad: { lid: 0.28, tilt: -7, drop: 0.8 },
+    angry: { lid: 0.3, tilt: 3, drop: 0 },
+    thinking: { lid: 0.05, tilt: 7, drop: 0 },
+    sleepy: { lid: 0.62, tilt: 9, drop: 1.6 }
+  };
+
   var css = [
     "#apsis-chat,#apsis-chat-btn,#apsis-teaser{--a-navy:#0d2137;--a-navy2:#17426f;--a-cyan:#5fd0ff;font-family:inherit}",
-    "#apsis-chat-btn{position:fixed;right:20px;bottom:20px;width:62px;height:62px;border-radius:50%;border:0;padding:0;background:linear-gradient(145deg,var(--a-navy2),var(--a-navy));cursor:pointer;box-shadow:0 6px 20px rgba(13,33,55,.45);z-index:9998;display:flex;align-items:center;justify-content:center;transition:transform .2s}",
+    "#apsis-chat-btn{position:fixed;right:20px;bottom:20px;width:64px;height:64px;border-radius:50%;border:0;padding:0;background:linear-gradient(145deg,var(--a-navy2),var(--a-navy));cursor:pointer;box-shadow:0 6px 20px rgba(13,33,55,.45);z-index:9998;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .35s}",
     "#apsis-chat-btn:hover{transform:scale(1.07)}",
-    "#apsis-chat-btn svg{width:36px;height:36px}",
+    "#apsis-chat-btn svg{width:42px;height:42px}",
+    "#apsis-chat-btn[data-mood=happy]{box-shadow:0 6px 22px rgba(95,208,255,.45)}",
+    "#apsis-chat-btn[data-mood=sad]{box-shadow:0 6px 22px rgba(127,168,255,.5)}",
+    "#apsis-chat-btn[data-mood=angry]{box-shadow:0 6px 22px rgba(255,107,95,.55)}",
+    "#apsis-chat-btn[data-mood=thinking]{box-shadow:0 6px 22px rgba(255,209,102,.5)}",
     "#apsis-chat-btn::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--a-cyan);opacity:0;animation:apsis-pulse 3s ease-out 2s 3}",
-    ".apsis-eye{transform-box:fill-box;transform-origin:center;animation:apsis-blink 5s infinite}",
-    "@keyframes apsis-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}",
     "@keyframes apsis-pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.55);opacity:0}}",
     "@keyframes apsis-pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}",
     "@keyframes apsis-dot{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-4px);opacity:1}}",
+
+    /* face */
+    ".apsis-face{color:#5fd0ff;transition:color .3s;overflow:visible}",
+    ".apsis-face[data-mood=sad]{color:#7fa8ff}",
+    ".apsis-face[data-mood=angry]{color:#ff6b5f}",
+    ".apsis-face[data-mood=thinking]{color:#ffd166}",
+    ".apsis-face[data-mood=sleepy]{color:#8fb4d9}",
+    ".apsis-face .eye,.apsis-face .bulb{fill:currentColor}",
+    ".apsis-face .shell{transition:fill .35s}",
+    ".apsis-face[data-mood=sad] .shell{fill:#e4eefc}",
+    ".apsis-face[data-mood=angry] .shell{fill:#ffe3df}",
+    ".apsis-face[data-mood=sleepy] .shell{fill:#eef2f7}",
+    ".apsis-face .blinker{transform-box:fill-box;transform-origin:center}",
+    ".apsis-face .blinker.blink{animation:apsis-blinkk .18s ease-in-out}",
+    ".apsis-face .blinker.blink.slow{animation-duration:.7s}",
+    "@keyframes apsis-blinkk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.08)}}",
+    ".apsis-face .mouth{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .25s}",
+    ".apsis-face[data-mood=happy] .m-happy,.apsis-face[data-mood=sad] .m-sad,.apsis-face[data-mood=angry] .m-angry,.apsis-face[data-mood=thinking] .m-think,.apsis-face[data-mood=sleepy] .m-sleepy{opacity:1}",
+    ".apsis-face .brow{stroke:currentColor;stroke-width:1.8;stroke-linecap:round;opacity:0;transform-box:fill-box;transform-origin:center;transition:transform .35s,opacity .3s}",
+    ".apsis-face[data-mood=angry] .bl{opacity:1;transform:rotate(18deg)}",
+    ".apsis-face[data-mood=angry] .br{opacity:1;transform:rotate(-18deg)}",
+    ".apsis-face[data-mood=sad] .bl{opacity:1;transform:rotate(-16deg)}",
+    ".apsis-face[data-mood=sad] .br{opacity:1;transform:rotate(16deg)}",
+    ".apsis-face[data-mood=thinking] .br{opacity:1;transform:translateY(-1.6px) rotate(-6deg)}",
+    ".apsis-face .blush{fill:#ff9fb0;opacity:0;transition:opacity .3s}",
+    ".apsis-face[data-mood=happy] .blush{opacity:.5}",
+    ".apsis-face .bulb{animation:apsis-glow 2.6s ease-in-out infinite}",
+    ".apsis-face[data-mood=thinking] .bulb{animation-duration:.7s}",
+    ".apsis-face[data-mood=sleepy] .bulb{animation:none;opacity:.35}",
+    "@keyframes apsis-glow{0%,100%{opacity:.65}50%{opacity:1}}",
+    ".apsis-face .zz text{font:700 6px Arial,sans-serif;fill:#fff;opacity:0}",
+    ".apsis-face[data-mood=sleepy] .zz text{animation:apsis-z 2.4s ease-out infinite}",
+    ".apsis-face[data-mood=sleepy] .zz text:nth-child(2){animation-delay:1.2s}",
+    "@keyframes apsis-z{0%{opacity:0;transform:translate(0,2px)}30%{opacity:.9}100%{opacity:0;transform:translate(4px,-5px)}}",
+    ".apsis-face .dots circle{fill:#fff;opacity:0}",
+    ".apsis-face[data-mood=thinking] .dots circle{animation:apsis-dots 1.2s ease-in-out infinite}",
+    ".apsis-face[data-mood=thinking] .dots circle:nth-child(2){animation-delay:.2s}",
+    ".apsis-face[data-mood=thinking] .dots circle:nth-child(3){animation-delay:.4s}",
+    "@keyframes apsis-dots{0%,100%{opacity:.2}50%{opacity:1}}",
+    ".apsis-face .tear{fill:#8ecbff;opacity:0}",
+    ".apsis-face[data-mood=sad] .tear{animation:apsis-tear 2.6s ease-in infinite}",
+    "@keyframes apsis-tear{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(4px)}}",
+    ".apsis-face[data-mood=sleepy] .m-sleepy{transform-box:fill-box;transform-origin:center;animation:apsis-breathe 3s ease-in-out infinite}",
+    "@keyframes apsis-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}",
+    ".apsis-face.fx-bounce{animation:apsis-bounce .55s ease}",
+    ".apsis-face.fx-shake{animation:apsis-shake .42s ease}",
+    "@keyframes apsis-bounce{0%,100%{transform:translateY(0)}35%{transform:translateY(-4px)}65%{transform:translateY(0)}80%{transform:translateY(-1.5px)}}",
+    "@keyframes apsis-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-2.5px)}40%{transform:translateX(2.5px)}60%{transform:translateX(-2px)}80%{transform:translateX(1.5px)}}",
+
+    /* teaser + panel */
     "#apsis-teaser{position:fixed;right:20px;bottom:94px;max-width:240px;background:#fff;color:#1a1a1a;border-radius:14px 14px 4px 14px;box-shadow:0 6px 24px rgba(0,0,0,.2);padding:11px 30px 11px 13px;font-size:14px;line-height:1.4;cursor:pointer;z-index:9997;display:none;animation:apsis-pop .35s ease}",
     "#apsis-teaser.show{display:block}",
     "#apsis-teaser button{position:absolute;top:3px;right:6px;border:0;background:none;font-size:18px;color:#778;cursor:pointer;line-height:1}",
     "#apsis-chat{position:fixed;right:20px;bottom:96px;width:360px;max-width:calc(100vw - 24px);height:520px;max-height:calc(100vh - 120px);background:#fff;border-radius:18px;box-shadow:0 12px 40px rgba(13,33,55,.35);display:none;flex-direction:column;overflow:hidden;z-index:9999}",
     "#apsis-chat.open{display:flex;animation:apsis-pop .25s ease}",
     "#apsis-chat header{background:linear-gradient(135deg,var(--a-navy2),var(--a-navy));color:#fff;padding:12px 14px;display:flex;align-items:center;gap:11px}",
-    ".apsis-av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex:none}",
-    ".apsis-av svg{width:26px;height:26px}",
+    ".apsis-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex:none}",
+    ".apsis-av svg{width:32px;height:32px}",
     ".apsis-ht{flex:1;min-width:0;line-height:1.25}",
     ".apsis-ht strong{display:block;font-size:15px}",
     ".apsis-ht span{font-size:12px;opacity:.85;display:flex;align-items:center;gap:5px}",
@@ -443,7 +628,7 @@
     "#apsis-form button:hover{background:var(--a-navy2)}",
     "#apsis-chat button:focus-visible,#apsis-chat-btn:focus-visible,#apsis-input:focus-visible{outline:2px solid var(--a-cyan);outline-offset:-2px}",
     "@media (max-width:480px){#apsis-chat{right:12px;left:12px;width:auto;bottom:90px;height:min(560px,calc(100vh - 110px))}#apsis-teaser{right:12px}}",
-    "@media (prefers-reduced-motion:reduce){#apsis-chat-btn::after,.apsis-eye,.apsis-m,#apsis-chat.open,#apsis-teaser{animation:none}.apsis-typing i{animation:none;opacity:.7}}"
+    "@media (prefers-reduced-motion:reduce){#apsis-chat-btn::after,.apsis-m,#apsis-chat.open,#apsis-teaser{animation:none}.apsis-typing i{animation:none;opacity:.7}.apsis-face,.apsis-face *{animation:none!important;transition:none!important}.apsis-face[data-mood=sleepy] .zz text,.apsis-face[data-mood=thinking] .dots circle,.apsis-face[data-mood=sad] .tear{opacity:.9}}"
   ].join("\n");
 
   var style = document.createElement("style");
@@ -454,7 +639,6 @@
   btn.id = "apsis-chat-btn";
   btn.type = "button";
   btn.setAttribute("aria-label", "Chat with Apsi, the APSIS virtual assistant");
-  btn.innerHTML = ROBOT;
 
   var teaser = document.createElement("div");
   teaser.id = "apsis-teaser";
@@ -465,7 +649,7 @@
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-label", "Chat with Apsi");
   panel.innerHTML =
-    '<header><div class="apsis-av">' + ROBOT + '</div>' +
+    '<header><div class="apsis-av"></div>' +
     '<div class="apsis-ht"><strong>Apsi</strong><span>APSIS virtual assistant</span></div>' +
     '<button type="button" aria-label="Close chat">&times;</button></header>' +
     '<div id="apsis-msgs" aria-live="polite"></div>' +
@@ -481,7 +665,182 @@
   var input = panel.querySelector("#apsis-input");
   var busy = false;
   var leadN = 0;
+  var rudeN = 0;
 
+  /* ---------- Face controller ---------- */
+  var faces = [];
+  var mood = "happy";
+  var sleepSource = null;          // "idle" wakes on any movement; "bye" only when the visitor engages
+  var mx = null, my = null, lastMove = 0;
+  var lastActive = performance.now();
+  var typing_ = false, typingT = null, settleT = null;
+  var wander = { x: 0, y: 0, next: 0 };
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  function mountFace(host, isHeader) {
+    host.innerHTML = FACE;
+    var svg = host.firstChild;
+    var f = {
+      host: host, svg: svg, isHeader: isHeader,
+      head: svg.querySelector(".head"),
+      eyes: svg.querySelector(".eyes"),
+      blinker: svg.querySelector(".blinker"),
+      lids: svg.querySelectorAll(".lid"),
+      gx: 0, gy: 0, tilt: 0, drop: 0, lid: 0, widen: 1,
+      sE: "", sH: "", sL: ""
+    };
+    f.blinker.addEventListener("animationend", function () { f.blinker.classList.remove("blink", "slow"); });
+    faces.push(f);
+    scheduleBlink(f);
+    return f;
+  }
+
+  function fx(f, cls) {
+    if (reduceMotion) return;
+    f.svg.classList.remove("fx-bounce", "fx-shake");
+    void f.svg.getBoundingClientRect();
+    f.svg.classList.add(cls);
+  }
+
+  function blink(f, slow) {
+    if (reduceMotion) return;
+    var b = f.blinker;
+    b.classList.remove("blink", "slow");
+    void b.getBoundingClientRect();
+    b.classList.add("blink");
+    if (slow) b.classList.add("slow");
+  }
+
+  function scheduleBlink(f) {
+    var sleepy = mood === "sleepy";
+    setTimeout(function () {
+      var s = mood === "sleepy";
+      blink(f, s);
+      if (!s && Math.random() < 0.2) setTimeout(function () { blink(f, false); }, 260);
+      scheduleBlink(f);
+    }, sleepy ? rnd(1500, 3300) : rnd(2200, 5700));
+  }
+
+  function setMood(m, source) {
+    if (!POSE[m]) m = "happy";
+    var changed = m !== mood;
+    mood = m;
+    sleepSource = m === "sleepy" ? (source || "idle") : null;
+    faces.forEach(function (f) {
+      f.svg.setAttribute("data-mood", m);
+      if (changed) {
+        if (m === "angry") fx(f, "fx-shake");
+        else if (m === "happy") fx(f, "fx-bounce");
+      }
+    });
+    btn.setAttribute("data-mood", m);
+  }
+
+  function wake() { if (mood === "sleepy") setMood("happy"); }
+
+  // Called on any visitor activity. kind "direct" = they engaged with Apsi itself.
+  function activity(kind) {
+    lastActive = performance.now();
+    if (mood === "sleepy" && (sleepSource === "idle" || kind === "direct")) wake();
+  }
+
+  function frame(t) {
+    if (!reduceMotion && t > wander.next) {
+      wander.x = rnd(-1.6, 1.6);
+      wander.y = rnd(-1, 1);
+      wander.next = t + rnd(2200, 5200);
+    }
+    var P = POSE[mood];
+    var panelOpen = panel.classList.contains("open");
+
+    faces.forEach(function (f) {
+      if (f.isHeader && !panelOpen) return;
+      var tgx = 0, tgy = 0, tilt = P.tilt, widen = 1;
+
+      if (!reduceMotion) {
+        var r = f.host.getBoundingClientRect();
+        var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        var haveCursor = mx !== null && (t - lastMove) < 6000;
+
+        if (mood === "thinking") {            // glances up and around while "thinking"
+          tgx = Math.sin(t / 650) * 2.2; tgy = -1.5;
+        } else if (mood === "sleepy") {       // eyes drift lazily
+          tgx = Math.sin(t / 2200) * 0.6; tgy = 1.3;
+        } else if (typing_ && f.isHeader) {   // looks down at the visitor's message box
+          tgx = 0; tgy = 1.7;
+        } else if (haveCursor) {              // follows the cursor
+          var dx = mx - cx, dy = my - cy;
+          var d = Math.hypot(dx, dy) || 1;
+          var n = Math.min(1, d / 200);
+          tgx = dx / d * n * 2.6;
+          tgy = dy / d * n * 1.7;
+          tilt += clamp(dx / 320, -1, 1) * 5;  // head leans toward the cursor
+          if (!f.isHeader && d < 90) widen = 1.18; // eyes widen when the cursor is close
+        } else {                              // cursor idle or away: look around
+          tgx = wander.x; tgy = wander.y;
+        }
+      }
+
+      var k = 0.14;
+      f.gx += (tgx - f.gx) * k;
+      f.gy += (tgy - f.gy) * k;
+      f.tilt += (tilt - f.tilt) * 0.1;
+      f.drop += (P.drop - f.drop) * 0.1;
+      f.lid += (P.lid - f.lid) * 0.15;
+      f.widen += (widen - f.widen) * 0.2;
+
+      var sE = "translate(" + f.gx.toFixed(2) + " " + f.gy.toFixed(2) + ") translate(24 24) scale(" + f.widen.toFixed(3) + ") translate(-24 -24)";
+      if (sE !== f.sE) { f.eyes.setAttribute("transform", sE); f.sE = sE; }
+      var sH = "translate(0 " + f.drop.toFixed(2) + ") rotate(" + f.tilt.toFixed(2) + " 24 40)";
+      if (sH !== f.sH) { f.head.setAttribute("transform", sH); f.sH = sH; }
+      var sL = (f.lid * 7.2).toFixed(2);
+      if (sL !== f.sL) { f.lids[0].setAttribute("height", sL); f.lids[1].setAttribute("height", sL); f.sL = sL; }
+    });
+    root.requestAnimationFrame(frame);
+  }
+
+  var btnFace = mountFace(btn, false);
+  var headFace = mountFace(panel.querySelector(".apsis-av"), true);
+  btn.setAttribute("data-mood", "happy");
+
+  document.addEventListener("mousemove", function (e) {
+    mx = e.clientX; my = e.clientY; lastMove = performance.now();
+    activity("move");
+  }, { passive: true });
+  document.documentElement.addEventListener("mouseleave", function () { mx = null; });
+  ["keydown", "scroll", "touchstart", "pointerdown"].forEach(function (ev) {
+    document.addEventListener(ev, function () { activity("move"); }, { passive: true, capture: true });
+  });
+  btn.addEventListener("pointerenter", function () {
+    activity("direct");
+    if (mood === "happy") fx(btnFace, "fx-bounce");
+  });
+  panel.addEventListener("pointerdown", function () { activity("direct"); });
+  panel.addEventListener("keydown", function () { activity("direct"); });
+
+  input.addEventListener("input", function () {
+    activity("direct");
+    typing_ = true;
+    clearTimeout(typingT);
+    typingT = setTimeout(function () { typing_ = false; }, 1400);
+  });
+
+  // Falls asleep after a while with no activity
+  setInterval(function () {
+    if (mood !== "sleepy" && !busy && performance.now() - lastActive > 40000) setMood("sleepy", "idle");
+  }, 2000);
+
+  // Wakes up with a stretch on page load
+  if (!reduceMotion) {
+    setMood("sleepy", "idle");
+    setTimeout(function () { if (mood === "sleepy" && sleepSource === "idle") setMood("happy"); }, 1300);
+  }
+  if (!reduceMotion) root.requestAnimationFrame(frame);
+  else frame(0);
+
+  /* ---------- Chat UI ---------- */
   function scroll() { msgs.scrollTop = msgs.scrollHeight; }
 
   function timeGreeting() {
@@ -552,31 +911,49 @@
   }
 
   function reply(query) {
-    var res = answer(query);
+    var res = answer(query), t = tone(query);
     if (!res) {
       return {
+        mood: "sad",
         text: "Hmm, I'm not sure I have that one. I'm a simple FAQ assistant, so for anything specific our team is your best bet:\n\n" +
           CONTACT + "\n\nOr pick a topic:",
         chips: SUGGESTIONS.map(byId)
       };
     }
-    var e = res.entry, text = e.a;
+    var e = res.entry, text = e.a, m = e.mood;
     if (e.id === "greeting") {
       var sw = /\b(jambo|habari|sasa|mambo|hujambo)\b/i.test(query);
       text = (sw ? "Jambo! " : timeGreeting() + "! ") +
         "I'm Apsi, the virtual assistant for APSIS Business Consulting. Karibu! Ask me about our services, KRA and VAT basics, payroll deadlines or how to work with us.";
-      return { text: text, chips: SUGGESTIONS.map(byId) };
+      return { mood: m, text: text, chips: SUGGESTIONS.map(byId) };
+    }
+    if (e.id === "rude") {
+      rudeN++;
+      if (rudeN > 1) {
+        text = "Alright, I'll keep my cool. I know I'm only a simple bot, but I do want to help. Our team is on +254 722 670 127 if you'd rather speak to a person.";
+        m = "sad";
+      }
     }
     if (e.id === "help" || e.id === "identity" || e.id === "smalltalk") {
-      return { text: text, chips: SUGGESTIONS.map(byId) };
+      return { mood: m, text: text, chips: SUGGESTIONS.map(byId) };
     }
-    return { text: lead(e) + text, link: e.link, linkText: e.linkText, caution: e.caution, chips: res.related };
+    var prefix = lead(e);
+    if (t === "neg" && !/^(worried|frustrated|rude)$/.test(e.id)) {
+      prefix = "Sorry you're dealing with that. ";
+      m = "sad";
+    } else if (t === "pos" && e.id !== "rude") {
+      m = "happy";
+    }
+    return { mood: m, then: e.then, text: prefix + text, link: e.link, linkText: e.linkText, caution: e.caution, chips: res.related };
   }
 
   function ask(text) {
     if (busy) return;
     busy = true;
+    lastActive = performance.now();
+    clearTimeout(settleT);
     addUser(text);
+    setMood("thinking");
     var t = typing();
     var r = reply(text);
     var delay = Math.min(900, 380 + r.text.length * 3);
@@ -584,6 +961,12 @@
       if (t.parentNode) t.parentNode.removeChild(t);
       addBot(r.text, { link: r.link, linkText: r.linkText, caution: r.caution });
       addChips(r.chips || []);
+      setMood(r.mood || "happy");
+      if (r.then) {
+        setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
+      } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
+        settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
+      }
       busy = false;
     }, delay);
   }
@@ -613,13 +996,20 @@
     var text = input.value.trim();
     if (!text) return;
     input.value = "";
+    typing_ = false;
     ask(text);
   });
 
   // Friendly nudge once per visit, a few seconds after the page loads
   if (!stored("apsis-teaser")) {
     setTimeout(function () {
-      if (!panel.classList.contains("open")) teaser.classList.add("show");
+      if (!panel.classList.contains("open")) {
+        teaser.classList.add("show");
+        if (mood === "happy") fx(btnFace, "fx-bounce");
+      }
     }, 4500);
   }
+
+  // Small public handle for testing moods from the console: ApsisChat.setMood("angry")
+  root.ApsisChat = { setMood: setMood };
 })(typeof window !== "undefined" ? window : this);
