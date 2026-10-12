@@ -893,7 +893,17 @@
     "#apsis-form button{border:0;background:var(--a-navy);color:#fff;padding:0 18px;cursor:pointer;font-weight:600;font-family:inherit}",
     "#apsis-form button:hover{background:var(--a-navy2)}",
     "#apsis-chat button:focus-visible,#apsis-chat-btn:focus-visible,#apsis-input:focus-visible{outline:2px solid var(--a-cyan);outline-offset:-2px}",
-    "@media (max-width:480px){#apsis-chat{right:12px;left:12px;width:auto;bottom:90px;height:min(560px,calc(100vh - 110px))}#apsis-teaser{right:12px}}",
+    "@media (max-width:480px),(max-height:520px){" +
+    "#apsis-chat{left:0;right:0;width:100%;max-width:100%;border-radius:0;top:var(--apsis-top,0px);bottom:auto;height:var(--apsis-h,100dvh);max-height:none}" +
+    "#apsis-chat.open ~ #apsis-chat-btn,#apsis-chat-btn.apsis-hide{display:none}" +
+    "#apsis-chat header{padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px}" +
+    "#apsis-chat header button{font-size:30px;padding:6px 12px}" +
+    "#apsis-msgs{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}" +
+    "#apsis-input{font-size:16px}" +
+    "#apsis-form{padding-bottom:env(safe-area-inset-bottom,0px)}" +
+    "#apsis-form button{padding:0 22px}" +
+    "#apsis-teaser{right:12px;bottom:92px;max-width:calc(100vw - 90px)}" +
+    "}",
     "@media (prefers-reduced-motion:reduce){#apsis-chat-btn::after,.apsis-m,#apsis-chat.open,#apsis-teaser{animation:none}.apsis-typing i{animation:none;opacity:.7}.apsis-face,.apsis-face *{animation:none!important;transition:none!important}.apsis-face[data-mood=sleepy] .zz text,.apsis-face[data-mood=thinking] .dots circle,.apsis-face[data-mood=sad] .tear{opacity:.9}}"
   ].join("\n");
 
@@ -1070,6 +1080,18 @@
   var btnFace = mountFace(btn, false);
   var headFace = mountFace(panel.querySelector(".apsis-av"), true);
   btn.setAttribute("data-mood", "happy");
+  // Keep the panel inside the visible area (address bar, keyboard) on phones
+  if (root.visualViewport) {
+    var vv = root.visualViewport;
+    var fit = function () {
+      panel.style.setProperty("--apsis-h", vv.height + "px");
+      panel.style.setProperty("--apsis-top", vv.offsetTop + "px");
+      if (panel.classList.contains("open")) scroll();
+    };
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    fit();
+  }
 
   document.addEventListener("mousemove", function (e) {
     mx = e.clientX; my = e.clientY; lastMove = performance.now();
@@ -1256,6 +1278,7 @@
 
   function toggle(open) {
     panel.classList.toggle("open", open);
+    btn.classList.toggle("apsis-hide", open);
     if (open) { hideTeaser(); setTimeout(function () { input.focus(); }, 0); }
   }
 
