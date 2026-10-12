@@ -1269,7 +1269,6 @@
   }
 
   addBot(timeGreeting() + "! I'm Apsi, the virtual assistant for APSIS Business Consulting. Karibu! Ask me about our services, KRA and VAT basics, payroll deadlines or how to work with us.");
-  addChips(SUGGESTIONS.map(byId));
 
   function store(key, val) { try { sessionStorage.setItem(key, val); } catch (e) { /* storage may be blocked */ } }
   function stored(key) { try { return sessionStorage.getItem(key); } catch (e) { return null; } }
@@ -1279,7 +1278,11 @@
   function toggle(open) {
     panel.classList.toggle("open", open);
     btn.classList.toggle("apsis-hide", open);
-    if (open) { hideTeaser(); setTimeout(function () { input.focus(); }, 0); }
+    if (root.matchMedia("(max-width:480px)").matches) document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      hideTeaser();
+      if (!root.matchMedia("(pointer:coarse)").matches) setTimeout(function () { input.focus(); }, 0);
+    }
   }
 
   btn.addEventListener("click", function () { toggle(!panel.classList.contains("open")); });
