@@ -25,7 +25,8 @@
   /* Each entry: id, q (sample question, also used for suggestion chips),
      k (keywords; multi-word phrases score higher), s (strong, topic-specific words),
      g (generic words that only count next to a strong word), x (words that belong
-     to another topic), a (answer), link, caution, mood, then */
+     to another topic), a (answer), link, more (extra links as [url, text] pairs),
+     caution, mood, then, fn (builds the answer live, e.g. opening hours or the time) */
   var KB = [
     {
       id: "services",
@@ -255,6 +256,165 @@
       link: "/content/insights/kra-tax-consultant-kenya.html", linkText: "KRA tax consultant services"
     },
 
+    /* ---- Team members: one entry per person, plus "who handles what" ---- */
+    {
+      id: "team-domisiano",
+      q: "Who is Domisiano Wainaina?",
+      s: ["domisiano", "wainaina"],
+      k: ["lead consultant", "managing director"],
+      a: "Domisiano Wainaina is the Director & Lead Consultant at APSIS. He has over 14 years in finance and taxation, with a focus on financial planning, financial modelling and regulatory compliance. He holds an MBA and a BA from the University of Nairobi, is CPA-K certified, and heads the FP&A, modelling and investment appraisal practice.",
+      link: "/about.html", linkText: "Meet the team"
+    },
+    {
+      id: "team-stephen",
+      q: "Who is Stephen Chege?",
+      s: ["stephen", "chege"],
+      a: "Stephen Chege handles Compliance & Business Advisory at APSIS. He has over 15 years of post-qualification experience in financial services and public accounting, with a focus on internal audit and organisational development. He is CPA-K, a member of the Institute of Internal Auditors, holds a BA from the University of Nairobi, and is pursuing an MBA in Strategic Management at JKUAT.",
+      link: "/about.html", linkText: "Meet the team"
+    },
+    {
+      id: "team-mwenda",
+      q: "Who is Mwenda Mwongera?",
+      s: ["mwenda", "mwongera"],
+      a: "Mwenda Mwongera is APSIS's Finance & Systems Lead, with over 13 years in finance and audit across East Africa. He leads statutory and internal audits, strategic planning and tax compliance, including VAT compliance, eTIMS reconciliation and regional tax work. He also designs training on bank reconciliation and advanced Excel, and leads SaaS solutions for bookkeeping and multi-currency reporting. He is an ICPAK member and fluent in English and Swahili.",
+      link: "/about.html", linkText: "Meet the team"
+    },
+    {
+      id: "team-size",
+      q: "How many people are on your team?",
+      k: ["team size", "headcount", "many people", "many staff", "many employees"],
+      a: "The APSIS website introduces three core team members: Domisiano Wainaina (Director & Lead Consultant), Stephen Chege (Compliance & Business Advisory) and Mwenda Mwongera (Finance & Systems Lead). On client work they are joined by tax advisors, customs specialists and systems experts, including CPA-K certified professionals. I don't have an exact headcount.",
+      link: "/about.html", linkText: "Meet the team"
+    },
+    {
+      id: "team-who",
+      q: "Who should I speak to about my issue?",
+      k: ["right person", "which consultant", "who handle", "who should i speak"],
+      a: "Based on the APSIS website:\n" +
+        "- Tax strategy, financial planning and modelling: Domisiano Wainaina\n" +
+        "- Compliance, internal audit and business advisory: Stephen Chege\n" +
+        "- VAT, eTIMS, audits, payroll and bookkeeping systems: Mwenda Mwongera\n\n" +
+        "Not sure who fits? Call or WhatsApp +254 722 670 127 and the team will point you to the right person.",
+      link: "/contact.html", linkText: "Contact page"
+    },
+
+    /* ---- Contact: specific questions, including live opening hours (Nairobi time) ---- */
+    {
+      id: "hours",
+      q: "Are you open today?",
+      k: ["hours"],
+      fn: function (q, now) { return hoursAnswer(q, now); },
+      a: "Our office hours are Monday to Friday, 8:00 AM to 5:00 PM (Nairobi time). Public holidays may differ, so call +254 722 670 127 to confirm.",
+      link: "/contact.html", linkText: "Contact page"
+    },
+    {
+      id: "phone",
+      q: "What is your phone number?",
+      s: ["phone", "telephone", "mobile", "landline", "cellphone"],
+      k: ["number"],
+      a: "You can call APSIS on +254 722 670 127, Monday to Friday, 8:00 AM to 5:00 PM (Nairobi time). The same number works on WhatsApp.",
+      link: "tel:+254722670127", linkText: "Call +254 722 670 127"
+    },
+    {
+      id: "email",
+      q: "What is your email address?",
+      s: ["email", "mail", "gmail"],
+      a: "You can email APSIS at info@apsis.co.ke. Emails and messages sent through the website's contact form are answered within one business day.",
+      link: "mailto:info@apsis.co.ke", linkText: "Email info@apsis.co.ke"
+    },
+    {
+      id: "address",
+      q: "Where is your office located?",
+      s: ["address", "located", "location", "directions", "map", "crescent", "noventra", "westlands"],
+      k: ["where", "find you", "building", "floor"],
+      a: "APSIS is at Noventra Suite, 3rd Floor, Crescent Business Centre, Westlands, Nairobi. It's best to call ahead on +254 722 670 127 to arrange a visit so someone is available to meet you.",
+      link: "https://www.google.com/maps/search/?api=1&query=Crescent+Business+Centre+Westlands+Nairobi", linkText: "Get directions on Google Maps"
+    },
+    {
+      id: "whatsapp",
+      q: "Do you have WhatsApp?",
+      s: ["whatsapp"],
+      k: ["sms", "text message"],
+      a: "Yes! You can reach APSIS on WhatsApp at +254 722 670 127, the same number as the office phone. It's a handy way to start a conversation or send a quick question.",
+      link: "https://wa.me/254722670127", linkText: "Chat on WhatsApp"
+    },
+    {
+      id: "social",
+      q: "Are you on LinkedIn or X?",
+      s: ["linkedin", "twitter", "facebook", "instagram", "tiktok", "youtube", "social"],
+      k: ["social media", "socials", "follow"],
+      a: "You can find APSIS on LinkedIn and X (Twitter), the social profiles listed on the website:",
+      link: "https://www.linkedin.com/company/apsis-business-consulting-ltd/", linkText: "APSIS on LinkedIn",
+      more: [["https://x.com/ApsisBusinessKE", "APSIS on X (Twitter)"]]
+    },
+    {
+      id: "response-time",
+      q: "How quickly will you reply?",
+      a: "Enquiries sent through the website are answered within one business day. For anything urgent, calling or WhatsApp on +254 722 670 127 is fastest (Monday to Friday, 8:00 AM to 5:00 PM, Nairobi time).",
+      link: "/contact.html", linkText: "Contact page"
+    },
+    {
+      id: "appointment",
+      q: "Can I book a meeting?",
+      s: ["appointment", "walk"],
+      k: ["book", "meeting", "schedule", "meet"],
+      a: "Yes! The first consultation is free and with no obligation. Call or WhatsApp +254 722 670 127 or email info@apsis.co.ke to arrange a time. Meetings can be remote, or in person when needed. If you'd like to visit the office, please call ahead so someone is available.",
+      link: "/contact.html", linkText: "Contact page"
+    },
+
+    /* ---- Everyday questions ---- */
+    {
+      id: "time",
+      q: "What time is it?",
+      k: ["clock"],
+      hidden: true,
+      fn: function (q, now) { return clockAnswer(now); },
+      a: "I can usually tell the time, but my clock needs a moment. Try asking again!"
+    },
+    {
+      id: "date",
+      q: "What's today's date?",
+      hidden: true,
+      fn: function (q, now) { return dateAnswer(now); },
+      a: "I can usually tell the date, but my calendar needs a moment. Try asking again!"
+    },
+    {
+      id: "languages",
+      q: "Do you speak Swahili?",
+      s: ["swahili", "kiswahili", "language", "languages"],
+      hidden: true,
+      a: "Kidogo! I can greet you with Jambo, Karibu, Asante and Kwaheri, but my answers are in English for now. For a conversation in Swahili, the APSIS team can help. Mwenda Mwongera, for one, is fluent in both English and Swahili."
+    },
+    {
+      id: "age",
+      q: "How old are you?",
+      hidden: true,
+      a: "I'm brand new, so I'm a baby in robot years. APSIS itself has been serving businesses since 2020."
+    },
+    {
+      id: "home",
+      q: "Where are you from?",
+      hidden: true,
+      a: "I live right here on the APSIS website. The team behind me is in Westlands, Nairobi."
+    },
+    {
+      id: "weather",
+      q: "What's the weather like?",
+      s: ["weather", "rain", "raining", "sunny", "temperature"],
+      hidden: true,
+      a: "I can't see outside from in here, so a weather app will do better than me. If it's raining in Nairobi, though, it's the perfect time to get your tax returns filed indoors!"
+    },
+
+    /* ---- The developer ---- */
+    {
+      id: "developer",
+      q: "Tell me about the developer",
+      s: ["patrick", "kiama"],
+      k: ["developer", "build website", "build chatbot", "make website", "website developer", "web developer", "app developer"],
+      a: "Patrick Kiama is the developer behind me. He's a full-stack developer based in Nairobi who builds websites, web applications and chatbots like me, and he designed me to run free, right in your browser, with no backend. Want to connect or work with him? You'll find him on LinkedIn.",
+      link: "https://www.linkedin.com/in/patrick-kiama-ba91103b9/", linkText: "Patrick Kiama on LinkedIn"
+    },
+
     /* ---- Conversation hooks: emotion, urgency, trust, and personality ---- */
     {
       id: "worried",
@@ -307,7 +467,8 @@
       q: "Who built you?",
       s: ["built", "creator", "programmed", "developer"],
       mood: "happy",
-      a: "I'm a simple FAQ assistant built for the APSIS website. Everything I say comes from the APSIS site pages, and I run free in your browser with no backend behind me.",
+      a: "I was built by Patrick Kiama, a full-stack developer based in Nairobi. I'm a simple FAQ assistant built for the APSIS website. Everything I say comes from the APSIS site pages, and I run free in your browser with no backend behind me. Fun fact: Patrick gave me my blinking eyes, and I'm very attached to them.",
+      link: "https://www.linkedin.com/in/patrick-kiama-ba91103b9/", linkText: "Connect with Patrick on LinkedIn",
       hidden: true
     },
     {
@@ -377,7 +538,8 @@
         "- VAT: deadlines, registration, penalties\n" +
         "- KRA: missed deadlines, demand notices, audits\n" +
         "- Payroll: PAYE, NSSF and SHIF deadlines\n" +
-        "- Fees, how to get started, and how to reach us\n\n" +
+        "- Fees, how to get started, and how to reach us\n" +
+        "- Our team, opening hours, today's date and the time, and who built me\n\n" +
         "Just type your question or pick a topic below.",
       hidden: true
     }
@@ -389,7 +551,25 @@
     [/\b(who|what) are you\b|\bare you (a |an )?(robot|bot|human|real|person|ai|machine|chatbot)\b|\byour name\b|\bwho am i (talking|chatting)\b/, "identity"],
     [/\bare you (still )?(there|awake|asleep|sleeping|alive)\b|\bwake up\b|\banyone (there|home)\b/, "awake"],
     [/\bhow are you\b|\bhow('s| is) it going\b|\bhow do you do\b/, "smalltalk"],
-    [/^\s*(what (can|do) you (do|know|help( me)?( with)?)|how can you help( me)?|what can i ask( you)?|help)\s*[?!.]*\s*$/, "help"]
+    [/^\s*(what (can|do) you (do|know|help( me)?( with)?)|how can you help( me)?|what can i ask( you)?|help)\s*[?!.]*\s*$/, "help"],
+    // opening hours: "are you open today", "what time do you close", "open on saturday"...
+    [/\b(are|is|do|does|will|when|what time)\b.{0,14}\b(you|u|apsis|your office|the office)\b.{0,14}\b(open|close|closing|closed)\b|\bopen\s+(now|today|tomorrow|tonight|on|at|this|late|early|still)\b|\b(opening|closing|working|office|business|operating) (hours|times?)\b|\bhours of operation\b|\bdo you (work|operate)\b.{0,15}\b(weekends?|saturdays?|sundays?|holidays?|today|tomorrow|late)\b/, "hours"],
+    // time and date (anchored so "what is the time limit..." or "the date for filing..." don't match)
+    [/\bwhat time is it\b|\bwhat('s| is) the (current |local )?time( now| right now| there| in nairobi| please)?\s*[?!.]*\s*$|\bcurrent (local )?time\b|\btime (is it )?(now|right now)\b|\b(got|have|know) the time\b/, "time"],
+    [/\bwhat('s| is) (the )?(today'?s? )?date( today)?\s*[?!.]*\s*$|\btoday'?s date\b|\bwhat day (is it|is today|of the week)\b|\bwhich day (is it|is today)\b|\bwhat('s| is) today\s*[?!.]*\s*$|\bwhat (year|month) is it\b|\bdate today\b|\bis it (the )?weekend\b/, "date"],
+    // the developer
+    [/\bwho\b.{0,12}\b(built|made|created|developed|designed|programmed|coded|wrote|engineered|invented)\b.{0,20}\b(you|this|apsi|bot|chatbot|assistant|chat|widget)\b|\bwho('s| is| are| was)?( your| the| this| apsi'?s?)? (developer|creator|maker|programmer|builder|coder|engineer|author)\b|\bwho\b.{0,6}\bbehind (you|this|apsi)\b/, "creator"],
+    [/\b(patrick|kiama)\b|\b(contact|reach|hire|email|message|connect with|talk to|speak to)\b.{0,20}\b(developer|creator|programmer|coder|builder)\b|\b(developer|creator|programmer)('s|s)? (contact|linkedin|email|profile|portfolio|github|details|info)\b|\bthe (developer|creator|programmer)\b/, "developer"],
+    // the team
+    [/\bwho('s| is| are)?( the| your| apsis'?s?)? (director|boss|ceo|managing director|lead consultant)\b|\bwho (runs|leads|heads|manages) (apsis|the (firm|company|business)|this (firm|company))\b|\bwho('s| is) in charge\b/, "team-domisiano"],
+    [/\bhow many (people|staff|employees|consultants|members|accountants|advisors|advisers|directors|partners)\b|\bteam size\b|\bsize of (the |your )?team\b|\bhow big is (the |your )?(team|firm|company)\b/, "team-size"],
+    [/\bwho (handles|handle|deals with|looks after|is responsible for)\b|\bwho should i (speak|talk) (to|with)\b|\bwhich (consultant|advisor|adviser|person|team member)\b/, "team-who"],
+    // directions
+    [/\bhow (do|can|should) (i|we) (get|find|come|go|travel)\b.{0,20}\b(office|apsis|you|there)\b|\bwhere('s| is| are)\b.{0,15}\b(office|apsis|located|based)\b|\bwhere (can i|do i) find you\b/, "address"],
+    // contact extras and small talk
+    [/\bhow (fast|quickly|soon|long)\b.{0,25}\b(reply|respond|response|get back|answer)\b|\b(response|reply) time\b|\bwhen will you (reply|respond|get back)\b|\bget back to me\b/, "response-time"],
+    [/\bhow old are you\b|\bwhen were you (born|made|created)\b|\byour age\b/, "age"],
+    [/\bwhere (are you from|do you (live|come from|stay))\b|\bwhere you from\b/, "home"]
   ];
 
   var STOP = {};
@@ -487,8 +667,94 @@
     return NEG.test(q) ? "neg" : POS.test(q) ? "pos" : null;
   }
 
+  /* ---------- Live answers: time, date and opening hours ----------
+     Nairobi is UTC+3 all year (Kenya has no daylight saving), so the clock is computed
+     from UTC and works the same in every visitor's browser, wherever they are. */
+  var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var OPEN_MIN = 8 * 60, CLOSE_MIN = 17 * 60;   // office hours: Monday to Friday, 8:00 AM to 5:00 PM
+
+  function eat(date) {
+    var t = new Date((date || new Date()).getTime() + 3 * 3600 * 1000);
+    return {
+      dow: t.getUTCDay(), mins: t.getUTCHours() * 60 + t.getUTCMinutes(),
+      day: t.getUTCDate(), month: t.getUTCMonth(), year: t.getUTCFullYear()
+    };
+  }
+
+  function fmt(mins) {
+    var h = Math.floor(mins / 60) % 24, m = mins % 60;
+    return ((h % 12) || 12) + ":" + (m < 10 ? "0" : "") + m + " " + (h >= 12 ? "PM" : "AM");
+  }
+
+  function span(mins) {
+    var h = Math.floor(mins / 60), m = mins % 60, parts = [];
+    if (h) parts.push(h + (h === 1 ? " hour" : " hours"));
+    if (m || !h) parts.push(m + (m === 1 ? " minute" : " minutes"));
+    return parts.join(" and ");
+  }
+
+  function isWorkday(dow) { return dow >= 1 && dow <= 5; }
+
+  function hoursAnswer(query, date) {
+    var q = String(query || "").toLowerCase(), n = eat(date);
+    var hrs = fmt(OPEN_MIN) + " to " + fmt(CLOSE_MIN);
+    var week = "Our office hours are Monday to Friday, " + hrs + " (Nairobi time).";
+    var mail = " You can email info@apsis.co.ke any time and we'll reply within one business day.";
+    var hol = " Public holidays may differ, so please call to confirm.";
+
+    // which day is the visitor asking about? default is today
+    var tomorrow = /\btomorrow\b/.test(q), target = null;
+    if (tomorrow) target = (n.dow + 1) % 7;
+    else DAYS.forEach(function (d, i) {
+      var low = d.toLowerCase();
+      if (new RegExp("\\b" + low.slice(0, 3) + "(" + low.slice(3) + ")?s?\\b").test(q)) target = i;
+    });
+
+    if (target === null && /\bweekends?\b/.test(q)) {
+      return { mood: "sad", text: "We're closed on weekends (Saturday and Sunday). " + week + mail };
+    }
+
+    if (target !== null && target !== n.dow) {
+      var when = tomorrow ? "tomorrow (" + DAYS[target] + ")" : "on " + DAYS[target] + "s";
+      if (isWorkday(target)) return { mood: "happy", text: "Yes, we're open " + when + ", " + hrs + " (Nairobi time)." + hol };
+      return { mood: "sad", text: "No, we're closed " + when + ". " + week + " We open again on Monday at " + fmt(OPEN_MIN) + "." + mail };
+    }
+
+    // today
+    if (isWorkday(n.dow)) {
+      if (n.mins >= OPEN_MIN && n.mins < CLOSE_MIN) {
+        return { mood: "happy", text: "Yes, we're open right now! Today's hours are " + hrs + " (Nairobi time), so we close in " + span(CLOSE_MIN - n.mins) + ". Call or WhatsApp +254 722 670 127." + hol };
+      }
+      if (n.mins < OPEN_MIN) {
+        return { mood: "sad", text: "Not yet. We open today at " + fmt(OPEN_MIN) + " (Nairobi time), in " + span(OPEN_MIN - n.mins) + "." + mail };
+      }
+      return { mood: "sad", text: "We've closed for today (office hours end at " + fmt(CLOSE_MIN) + " Nairobi time). We open again " + (n.dow === 5 ? "on Monday" : "tomorrow") + " at " + fmt(OPEN_MIN) + "." + mail };
+    }
+    return { mood: "sad", text: "We're closed today (" + DAYS[n.dow] + "). " + week + " We open again on Monday at " + fmt(OPEN_MIN) + "." + mail };
+  }
+
+  function clockAnswer(date) {
+    var d = date || new Date(), n = eat(d);
+    var text = "It's " + fmt(n.mins) + " in Nairobi (EAT) right now.";
+    if (d.getTimezoneOffset() !== -180) text += " Your device's clock shows " + fmt(d.getHours() * 60 + d.getMinutes()) + ".";
+    return { mood: "happy", text: text };
+  }
+
+  function dateAnswer(date) {
+    var n = eat(date);
+    var text = "Today is " + DAYS[n.dow] + ", " + n.day + " " + MONTHS[n.month] + " " + n.year + " (Nairobi time).";
+    text += isWorkday(n.dow)
+      ? " It's a weekday, so our office is open " + fmt(OPEN_MIN) + " to " + fmt(CLOSE_MIN) + "."
+      : " It's the weekend, so our office is closed until Monday at " + fmt(OPEN_MIN) + ".";
+    return { mood: "happy", text: text };
+  }
+
   // Expose the engine for testing (Node) and stop if there is no page
-  var api = { KB: KB, answer: answer, tokens: tokens, tone: tone };
+  var api = {
+    KB: KB, answer: answer, tokens: tokens, tone: tone,
+    hoursAnswer: hoursAnswer, clockAnswer: clockAnswer, dateAnswer: dateAnswer
+  };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   if (typeof document === "undefined") return;
 
@@ -850,7 +1116,7 @@
 
   var LEADS = ["Happy to help! ", "Good question. ", "Sure thing. ", "Of course! "];
   function lead(entry) {
-    if (entry.hidden || entry.caution || entry.id === "contact") return "";
+    if (entry.hidden || entry.caution || entry.fn || entry.id === "contact") return "";
     leadN++;
     return leadN % 2 ? LEADS[(leadN >> 1) % LEADS.length] : "";
   }
@@ -889,13 +1155,17 @@
       c.textContent = CAUTION;
       d.appendChild(c);
     }
-    if (opts.link) {
+    var links = [];
+    if (opts.link) links.push([opts.link, opts.linkText]);
+    (opts.more || []).forEach(function (l) { links.push(l); });
+    links.forEach(function (l) {
       d.appendChild(document.createElement("br"));
       var a = document.createElement("a");
-      a.href = opts.link;
-      a.textContent = (opts.linkText || "Read more") + " →";
+      a.href = l[0];
+      if (/^https?:/i.test(l[0])) { a.target = "_blank"; a.rel = "noopener noreferrer"; }  // external links open in a new tab
+      a.textContent = (l[1] || "Read more") + " →";
       d.appendChild(a);
-    }
+    });
     msgs.appendChild(d);
     scroll();
   }
@@ -921,6 +1191,11 @@
       };
     }
     var e = res.entry, text = e.a, m = e.mood;
+    if (typeof e.fn === "function") {              // live answers (time, date, opening hours)
+      var live = e.fn(query, new Date());
+      text = live.text;
+      if (live.mood) m = live.mood;
+    }
     if (e.id === "greeting") {
       var sw = /\b(jambo|habari|sasa|mambo|hujambo)\b/i.test(query);
       text = (sw ? "Jambo! " : timeGreeting() + "! ") +
@@ -944,7 +1219,7 @@
     } else if (t === "pos" && e.id !== "rude") {
       m = "happy";
     }
-    return { mood: m, then: e.then, text: prefix + text, link: e.link, linkText: e.linkText, caution: e.caution, chips: res.related };
+    return { mood: m, then: e.then, text: prefix + text, link: e.link, linkText: e.linkText, more: e.more, caution: e.caution, chips: res.related };
   }
 
   function ask(text) {
@@ -959,7 +1234,7 @@
     var delay = Math.min(900, 380 + r.text.length * 3);
     setTimeout(function () {
       if (t.parentNode) t.parentNode.removeChild(t);
-      addBot(r.text, { link: r.link, linkText: r.linkText, caution: r.caution });
+      addBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution });
       addChips(r.chips || []);
       setMood(r.mood || "happy");
       if (r.then) {
