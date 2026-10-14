@@ -547,6 +547,7 @@
 
   // Phrases made only of common words (who are you, how are you...) that keyword matching would skip
   var PATTERNS = [
+    [/^(?!.*\b(vat|paye|payroll|nssf|shif|nhif|etims)\b).*\b(forgot|forgotten|forget|neglected|overlooked|failed to|fail to|didn'?t|did not|haven'?t|have not|hasn'?t|has not)\b.{0,14}\b(file|filed|filing|submit|submitted|submitting|lodge|lodged|returns?|pay|paid)\b/, "missed-deadline"],
     [/\b(you|u|ur|you're|youre)\b.{0,20}\b(stupid|idiot|dumb|useless|rubbish|worthless|garbage|moron)\b|\b(stupid|useless|dumb|rubbish) (bot|robot|chatbot)\b|\b(shut up|hate you)\b/, "rude"],
     [/\b(who|what) are you\b|\bare you (a |an )?(robot|bot|human|real|person|ai|machine|chatbot)\b|\byour name\b|\bwho am i (talking|chatting)\b/, "identity"],
     [/\bare you (still )?(there|awake|asleep|sleeping|alive)\b|\bwake up\b|\banyone (there|home)\b/, "awake"],
@@ -576,6 +577,16 @@
   ("a an the is are was were be been am do does did i you we my me to of for in on and or can could would should will how what whats your yours it its with at if our us please tell some any there this that when who which have has had get got from as by just need want like know").split(" ")
     .forEach(function (w) { STOP[w] = true; });
 
+  // Keys are STEMMED forms. Both the KB keywords and the visitor's words pass through this,
+  // so every word listed here is treated as the canonical one on both sides.
+  var SYN = {
+    fil: "file", submit: "file", submitt: "file", lodg: "file", lodge: "file",
+    forgot: "miss", forget: "miss", forgett: "miss", forgotten: "miss",
+    overlook: "miss", neglect: "miss"
+    // add more as you see real questions, e.g. fine: "penalty"
+  };
+  function canon(t) { return Object.prototype.hasOwnProperty.call(SYN, t) ? SYN[t] : t; }
+
   function stem(w) {
     if (w.length > 4 && /ies$/.test(w)) return w.slice(0, -3) + "y";
     if (w.length > 5 && /ing$/.test(w)) return w.slice(0, -3);
@@ -588,7 +599,7 @@
   function tokens(text) {
     return String(text).toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9\s]/g, " ").split(/\s+/)
       .filter(function (w) { return w && !STOP[w] && (w.length > 1 || /\d/.test(w)); })
-      .map(stem);
+      .map(function (w) { return canon(stem(w)); });
   }
 
   // Pre-compute each entry's keyword stems once
@@ -609,6 +620,42 @@
     });
   });
 
+  // Build vocabulary of every keyword stem in the KB for typo tolerance
+  var VOCAB = Object.create(null), VOCAB_LIST = [];
+  KB.forEach(function (e) {
+    [e._single, e._strong, e._gen].forEach(function (m) {
+      Object.keys(m).forEach(function (t) { VOCAB[t] = true; });
+    });
+    e._phrases.forEach(function (ph) {
+      ph.trim().split(" ").forEach(function (t) { VOCAB[t] = true; });
+    });
+  });
+  VOCAB_LIST = Object.keys(VOCAB);
+
+  function within(a, b, max) {            // edit distance <= max ?
+    if (Math.abs(a.length - b.length) > max) return false;
+    var prev = [], cur, i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur = [i];
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      }
+      prev = cur;
+    }
+    return prev[b.length] <= max;
+  }
+
+  function snap(t) {                       // "etms" -> "etims", "vatt" -> "vat", "penalities" -> "penalty"
+    if (VOCAB[t] || t.length < 4 || /\d/.test(t)) return t;
+    var max = t.length >= 8 ? 2 : 1;
+    for (var i = 0; i < VOCAB_LIST.length; i++) {
+      var v = VOCAB_LIST[i];
+      if (v[0] === t[0] && v.length >= 3 && within(t, v, max)) return v;   // same first letter: typos rarely change it
+    }
+    return t;
+  }
+
   function score(entry, qTokens, qPadded) {
     var s = 0, seen = {}, strongHit = false;
     qTokens.forEach(function (t) {
@@ -627,17 +674,32 @@
     return s;
   }
 
-  function answer(query) {
-    var raw = String(query).toLowerCase();
+  function rank(qt) {
+    var padded = " " + qt.join(" ") + " ";
+    return KB.map(function (e, i) { return { e: e, s: score(e, qt, padded), i: i }; })
+      .filter(function (r) { return r.s >= 2; })
+      .sort(function (a, b) { return b.s - a.s || a.i - b.i; });
+  }
+
+  function answer(query, prev) {
+    // phone keyboards type curly apostrophes (didn't), which the patterns would miss
+    var raw = String(query).toLowerCase().replace(/[\u2018\u2019]/g, "'");
     for (var p = 0; p < PATTERNS.length; p++) {
       if (PATTERNS[p][0].test(raw)) return { entry: byId(PATTERNS[p][1]), related: [], score: 99 };
     }
-    var qt = tokens(query);
+    var qt = tokens(query).map(snap);
     if (!qt.length) return null;
-    var qPadded = " " + qt.join(" ") + " ";
-    var ranked = KB.map(function (e, i) { return { e: e, s: score(e, qt, qPadded), i: i }; })
-      .filter(function (r) { return r.s >= 2; })
-      .sort(function (a, b) { return b.s - a.s || a.i - b.i; });
+    var ranked = rank(qt);
+
+    // Follow-up ("and the penalty?"): weak on its own -> borrow the previous topic's strong words
+    if (prev && qt.length <= 4 && !(ranked.length && ranked[0].e.hidden) && (!ranked.length || ranked[0].s < 5)) {
+      var ctx = Object.keys(prev._strong);
+      if (ctx.length) {
+        var again = rank(ctx.concat(qt));
+        if (again.length && again[0].s >= 7) ranked = again;
+      }
+    }
+
     if (!ranked.length) return null;
     var top = ranked[0];
     var related = ranked.slice(1).filter(function (r) { return !r.e.hidden && r.e.id !== top.e.id; })
@@ -941,6 +1003,7 @@
   var input = panel.querySelector("#apsis-input");
   var busy = false;
   var leadN = 0;
+  var lastEntry = null;
   var rudeN = 0;
 
   /* ---------- Face controller ---------- */
@@ -1203,8 +1266,9 @@
   }
 
   function reply(query) {
-    var res = answer(query), t = tone(query);
+    var res = answer(query, lastEntry), t = tone(query);
     if (!res) {
+      lastEntry = null;
       return {
         mood: "sad",
         text: "Hmm, I'm not sure I have that one. I'm a simple FAQ assistant, so for anything specific our team is your best bet:\n\n" +
@@ -1213,6 +1277,7 @@
       };
     }
     var e = res.entry, text = e.a, m = e.mood;
+    if (!e.hidden) lastEntry = e;
     if (typeof e.fn === "function") {              // live answers (time, date, opening hours)
       var live = e.fn(query, new Date());
       text = live.text;
@@ -1235,6 +1300,7 @@
       return { mood: m, text: text, chips: SUGGESTIONS.map(byId) };
     }
     var prefix = lead(e);
+    if (res.score < 4 && !e.hidden && !e.fn) prefix = "I'm not completely sure I understood, but this may help. ";
     if (t === "neg" && !/^(worried|frustrated|rude)$/.test(e.id)) {
       prefix = "Sorry you're dealing with that. ";
       m = "sad";
