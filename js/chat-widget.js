@@ -561,6 +561,7 @@
     // the developer
     [/\bwho\b.{0,12}\b(built|made|created|developed|designed|programmed|coded|wrote|engineered|invented)\b.{0,20}\b(you|this|apsi|bot|chatbot|assistant|chat|widget)\b|\bwho('s| is| are| was)?( your| the| this| apsi'?s?)? (developer|creator|maker|programmer|builder|coder|engineer|author)\b|\bwho\b.{0,6}\bbehind (you|this|apsi)\b/, "creator"],
     [/\b(patrick|kiama)\b|\b(contact|reach|hire|email|message|connect with|talk to|speak to)\b.{0,20}\b(developer|creator|programmer|coder|builder)\b|\b(developer|creator|programmer)('s|s)? (contact|linkedin|email|profile|portfolio|github|details|info)\b|\bthe (developer|creator|programmer)\b/, "developer"],
+    [/\bget in touch\b|\bcontact (details|info|information|us)\b|\b(contact|reach|call|phone|email|message|whatsapp|talk to|speak to)\b.{0,20}\b(you|u|apsis|someone|the team|a consultant|staff|the office)\b/, "contact"],
     // the team
     [/\bwho('s| is| are)?( the| your| apsis'?s?)? (director|boss|ceo|managing director|lead consultant)\b|\bwho (runs|leads|heads|manages) (apsis|the (firm|company|business)|this (firm|company))\b|\bwho('s| is) in charge\b/, "team-domisiano"],
     [/\bhow many (people|staff|employees|consultants|members|accountants|advisors|advisers|directors|partners)\b|\bteam size\b|\bsize of (the |your )?team\b|\bhow big is (the |your )?(team|firm|company)\b/, "team-size"],
@@ -1215,6 +1216,7 @@
   }
 
   function addChips(entries) {
+    return;
     if (!entries.length) return;
     var wrap = document.createElement("div");
     wrap.className = "apsis-chips";
@@ -1272,7 +1274,7 @@
       return {
         mood: "sad",
         text: "Hmm, I'm not sure I have that one. I'm a simple FAQ assistant, so for anything specific our team is your best bet:\n\n" +
-          CONTACT + "\n\nOr pick a topic:",
+          CONTACT,
         chips: SUGGESTIONS.map(byId)
       };
     }
@@ -1300,7 +1302,7 @@
       return { mood: m, text: text, chips: SUGGESTIONS.map(byId) };
     }
     var prefix = lead(e);
-    if (res.score < 4 && !e.hidden && !e.fn) prefix = "I'm not completely sure I understood, but this may help. ";
+    if (res.score < 4 && !e.hidden && !e.fn && tokens(query).length > 1) prefix = "I'm not completely sure I understood, but this may help. ";
     if (t === "neg" && !/^(worried|frustrated|rude)$/.test(e.id)) {
       prefix = "Sorry you're dealing with that. ";
       m = "sad";
