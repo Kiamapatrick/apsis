@@ -544,6 +544,277 @@
       hidden: true
     }
   ];
+  /* ---------- VAT topic (pilot) ----------
+   One topic, four facts. Every wording of a fact carries the SAME verified
+   numbers; only the sentence style changes. {next} is replaced later with the
+   fact's `next` label. */
+  var VAT_TOPIC = {
+    id: "vat",
+    words: ["vat"],                               // a message containing one of these words is about this topic
+    phrase: /value[- ]added/,                     // optional: an extra pattern that also means this topic
+    stepAside: ["etims", "tims", "etr", "cuin", "invoice", "paye", "payroll", "nssf", "shif", "nhif", "helb", "salary", "import", "export", "customs", "tariff"],
+    feeExempt: "penalty",                         // price words go to the Fees answer, unless this fact was asked for
+    vague: ["deadline", "registration", "penalty"],   // the buttons shown when the question is too vague
+    canYou: "overview",                           // "Do you handle VAT?" gets this fact
+    missed: {                                     // "I missed my VAT deadline": this fact, then a push to contact APSIS
+      re: /\bmiss(ed)?\b|\bforgot(ten)?\b|\boverdue\b|\b(past|after) (the |my )?(due|deadline)\b|\b(haven'?t|have not|hasn'?t|has not|didn'?t|did not|never|failed to) (yet )?(filed?|submit(ted)?|paid?)\b|\bnot (yet )?(filed|submitted|paid)\b|\b(filed|submitted|paid)\b.{0,15}\blate\b/,
+      example: "I missed my VAT deadline",
+      fact: "penalty",
+      unless: "registration",                      // "I forgot to register" is not a late-filing question
+      contact: [
+        "Because interest on unpaid VAT builds up monthly, it's best to act early. Call or WhatsApp APSIS on +254 722 670 127, or email info@apsis.co.ke, and the team can review your position and help you get compliant.",
+        "The sooner this is looked at, the better. Contact APSIS on +254 722 670 127 (call or WhatsApp) or info@apsis.co.ke and a consultant can review your VAT position.",
+        "Not sure where you stand? Reach the APSIS team on +254 722 670 127 (call or WhatsApp) or at info@apsis.co.ke and they'll go through your VAT position with you."
+      ]
+    },
+
+    openers: [
+      "Good question. ",
+      "Sure, here's what I have. ",
+      "Happy to help with that. ",
+      "Here's the short version. ",
+      "Of course. "
+    ],
+
+    closers: [
+      "Want to know about {next} too?",
+      "I can also cover {next} if that helps.",
+      "Anything else on VAT? I can explain {next}.",
+      "Next up, {next}? Just ask.",
+      "Need anything else on VAT?"
+    ],
+
+    // asked when the visitor says only "VAT" / "VAT problem"
+    clarify: [
+      "Happy to help with VAT. Is your question about the filing deadline, registration, or penalties?",
+      "VAT covers a few things. Which one do you need: deadline, registration, or penalties?",
+      "Sure! Are you after the VAT deadline, how to register, or the late-filing penalties?"
+    ],
+
+    // asked when two facts match, e.g. "VAT deadline and penalty"
+    clarifyMulti: [
+      "I can cover {a} and {b}. Together, or one at a time?",
+      "Both are covered: {a} and {b}. Want them together, or one at a time?"
+    ],
+
+    facts: [
+      {
+        id: "overview", label: "the VAT services", next: "the filing deadline",
+        nextId: "deadline", button: "VAT services",
+        s: ["service", "cycle", "compliance"],
+        w: ["handle", "help", "offer", "provide", "about", "audit", "health", "check", "cross", "border", "input", "recovery"],
+        must: ["iTax"],
+        wordings: [
+          "APSIS handles the full VAT cycle: monthly return filing on iTax (nil returns included), eTIMS invoice reconciliation, input tax recovery and validation, KRA VAT audit support, VAT health checks and registration, and cross-border VAT advice.",
+          "On VAT, APSIS covers the whole cycle. That means filing monthly returns on iTax (including nil returns), reconciling eTIMS invoices, recovering and validating input tax, supporting you through KRA VAT audits, running VAT health checks, handling registration and advising on cross-border VAT.",
+          "Here's what APSIS does on VAT:\n- Monthly return filing on iTax, including nil returns\n- eTIMS invoice reconciliation\n- Input tax recovery and validation\n- KRA VAT audit support\n- VAT health checks and registration\n- Cross-border VAT advice",
+          "VAT is something APSIS looks after end to end: from filing your monthly iTax returns (nil returns too) and reconciling eTIMS invoices, to input tax recovery, VAT audit support, health checks, registration and cross-border advice."
+        ],
+        link: "/vat-compliance-kenya.html", linkText: "VAT compliance"
+      },
+      {
+        id: "deadline", label: "the filing deadline", next: "the late-filing penalties",
+        nextId: "penalty", button: "Filing deadline",
+        s: ["deadline", "due", "20th"],
+        w: ["monthly", "file", "return", "date", "nil"],
+        must: ["20th"],
+        wordings: [
+          "According to APSIS, VAT returns are due on iTax by the 20th of every month, including nil returns.",
+          "Mark the 20th: per APSIS, your VAT return goes on iTax by the 20th of each month, and that includes nil returns.",
+          "Monthly, by the 20th. Per APSIS, VAT returns are filed on iTax by that date, even when there is nothing to declare (a nil return).",
+          "Per APSIS, the VAT deadline is the 20th of every month on iTax. Nil returns must be filed too."
+        ],
+        link: "/vat-compliance-kenya.html", linkText: "VAT compliance"
+      },
+      {
+        id: "registration", label: "registration", next: "the filing deadline",
+        nextId: "deadline", button: "Registration",
+        s: ["register", "registration", "threshold", "turnover", "voluntary"],
+        w: ["number", "million", "certificate"],
+        must: ["5 million", "30 days"],
+        wordings: [
+          "Per APSIS, a business with annual taxable turnover of Ksh 5 million or more must register for VAT within 30 days of reaching it. Voluntary registration is possible below the threshold, and importers of taxable goods or businesses supplying government entities may need to register regardless of turnover. APSIS can handle the registration on iTax.",
+          "The VAT registration threshold is Ksh 5 million in annual taxable turnover, per APSIS, and you register within 30 days of reaching it. Below that you can register voluntarily. Importers of taxable goods and businesses supplying government entities may need to register whatever their turnover. APSIS can do the iTax registration for you.",
+          "VAT registration, per APSIS:\n- Required at annual taxable turnover of Ksh 5 million or more, within 30 days of reaching it\n- Voluntary below the threshold\n- May apply regardless of turnover to importers of taxable goods and businesses supplying government entities\n- APSIS can handle it on iTax",
+          "Reached Ksh 5 million in annual taxable turnover? Per APSIS, you must register for VAT within 30 days. You can also register voluntarily below that, and importers of taxable goods or government suppliers may need to register regardless of turnover. APSIS can take care of it on iTax."
+        ],
+        link: "/content/insights/vat-registration-kenya.html", linkText: "VAT registration guide", caution: true
+      },
+      {
+        id: "penalty", label: "the late-filing penalties", next: "how to register",
+        nextId: "registration", button: "Penalties", mood: "sad",
+        s: ["penalty", "late", "levy", "seizure", "fine"],
+        w: ["interest", "unpaid", "enforcement"],
+        must: ["10,000", "1%"],
+        wordings: [
+          "Per APSIS, a late VAT return carries a minimum penalty of Ksh 10,000 per return, and unpaid VAT attracts interest of 1% per month, compounded from the due date. Persistent non-compliance can lead to enforcement such as bank levies and asset seizure.",
+          "Filing VAT late costs money. Per APSIS: a minimum penalty of Ksh 10,000 per return, plus interest of 1% per month on unpaid VAT, compounded from the due date. If non-compliance persists, enforcement such as bank levies and asset seizure can follow.",
+          "Late VAT, per APSIS:\n- Minimum penalty of Ksh 10,000 per late return\n- Interest of 1% per month on unpaid VAT, compounded from the due date\n- Persistent non-compliance can lead to bank levies and asset seizure",
+          "Late VAT gets costly, according to APSIS: Ksh 10,000 minimum per late return, 1% monthly interest on unpaid VAT (compounded from the due date), and, for persistent non-compliance, possible bank levies and asset seizure."
+        ],
+        link: "/vat-compliance-kenya.html", linkText: "VAT compliance", caution: true
+      }
+    ]
+  };
+  /* ---------- Payroll topic ----------
+     Drafted ONLY from what the KB "payroll" entry already says. Do not deploy until
+     every figure has been checked against the APSIS pages. */
+  var PAYROLL_TOPIC = {
+    id: "payroll",
+    words: ["payroll", "paye", "nssf", "shif", "nhif", "helb", "payslip", "p9"],
+    stepAside: ["etims", "tims", "etr", "cuin", "invoice", "import", "export", "customs", "tariff"],
+    feeExempt: "penalty",
+    vague: ["deadlines", "penalty", "liability"],
+    canYou: "overview",
+    missed: {                                     // same rule as VAT: the penalty facts, then a push to contact APSIS
+      re: VAT_TOPIC.missed.re,
+      example: "I missed my PAYE deadline",
+      fact: "penalty",
+      contact: [
+        "Because late PAYE attracts monthly interest, it's best to act early. Call or WhatsApp APSIS on +254 722 670 127, or email info@apsis.co.ke, and the team can review your position and help you get compliant.",
+        "The sooner this is looked at, the better. Contact APSIS on +254 722 670 127 (call or WhatsApp) or info@apsis.co.ke and a consultant can review your payroll position.",
+        "Not sure where you stand? Reach the APSIS team on +254 722 670 127 (call or WhatsApp) or at info@apsis.co.ke and they'll go through your payroll position with you."
+      ]
+    },
+
+    openers: [
+      "Good question. ",
+      "Sure, here's what I have. ",
+      "Happy to help with that. ",
+      "Here's the short version. ",
+      "Of course. "
+    ],
+
+    closers: [
+      "Want to know about {next} too?",
+      "I can also cover {next} if that helps.",
+      "Anything else on payroll? I can explain {next}.",
+      "Next up, {next}? Just ask.",
+      "Need anything else on payroll?"
+    ],
+
+    clarify: [
+      "Happy to help with payroll. Is your question about the deadlines, the late PAYE penalties, or director liability?",
+      "Payroll covers a few things. Which one do you need: deadlines, late penalties, or director liability?",
+      "Sure! Are you after the payroll deadlines, the late PAYE penalties, or director liability?"
+    ],
+
+    clarifyMulti: [
+      "I can cover {a} and {b}. Together, or one at a time?",
+      "Both are covered: {a} and {b}. Want them together, or one at a time?"
+    ],
+
+    facts: [
+      {
+        id: "overview", label: "the payroll services", next: "the payroll deadlines",
+        nextId: "deadlines", button: "Payroll services",
+        s: ["service", "payslip", "p9"],
+        w: ["handle", "help", "offer", "provide", "about", "audit", "salary", "employee", "employer"],
+        must: ["P9"],
+        wordings: [
+          "APSIS handles monthly payroll computation, PAYE filing, NSSF and SHIF remittances, HELB deductions, payslips and annual P9 forms, plus KRA payroll audit support.",
+          "On payroll, APSIS covers the monthly computation, PAYE filing, NSSF and SHIF remittances, HELB deductions, payslips and the annual P9 forms. It also supports you through KRA payroll audits.",
+          "Here's what APSIS does on payroll:\n- Monthly payroll computation\n- PAYE filing\n- NSSF and SHIF remittances\n- HELB deductions\n- Payslips and annual P9 forms\n- KRA payroll audit support"
+        ],
+        link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services"
+      },
+      {
+        id: "deadlines", label: "the payroll deadlines", next: "the late PAYE penalties",
+        nextId: "penalty", button: "Payroll deadlines",
+        s: ["deadline", "due", "9th", "15th"],
+        w: ["monthly", "file", "date"],
+        must: ["9th", "15th"],
+        wordings: [
+          "Per APSIS: PAYE is filed and remitted by the 9th of the following month, and NSSF is remitted by the 15th of the following month. SHIF is remitted monthly.",
+          "Payroll deadlines, per APSIS:\n- PAYE: filed and remitted by the 9th of the following month\n- NSSF: remitted by the 15th of the following month\n- SHIF: remitted monthly",
+          "Two dates to remember, per APSIS: the 9th of the following month for PAYE (filing and remitting), and the 15th of the following month for NSSF. SHIF is remitted monthly too."
+        ],
+        link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
+      },
+      {
+        id: "shif", label: "SHIF", next: "the payroll deadlines",
+        nextId: "deadlines", button: "SHIF",
+        s: ["shif", "nhif"],
+        w: [],
+        must: ["October 2024"],
+        wordings: [
+          "Per APSIS, SHIF replaced NHIF from October 2024 and is remitted monthly.",
+          "From October 2024, per APSIS, SHIF replaced NHIF. It is remitted monthly.",
+          "NHIF has been replaced by SHIF from October 2024, per APSIS, and SHIF is remitted monthly."
+        ],
+        link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
+      },
+      {
+        id: "penalty", label: "the late PAYE penalties", next: "director liability",
+        nextId: "liability", button: "Late penalties", mood: "sad",
+        s: ["penalty", "late", "fine"],
+        w: ["interest"],
+        must: ["10,000", "25%", "1%"],
+        wordings: [
+          "Late PAYE, per APSIS: Ksh 10,000 plus 25% of the PAYE not paid on time, with 1% monthly interest.",
+          "Per APSIS, paying PAYE late means Ksh 10,000 plus 25% of the PAYE not paid on time, with 1% monthly interest.",
+          "Late PAYE, per APSIS:\n- Ksh 10,000\n- Plus 25% of the PAYE not paid on time\n- With 1% monthly interest"
+        ],
+        link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
+      },
+      {
+        id: "liability", label: "director liability", next: "the payroll deadlines",
+        nextId: "deadlines", button: "Director liability",
+        s: ["director", "liable", "liability", "personally"],
+        w: ["deduct"],
+        must: ["PAYE"],
+        wordings: [
+          "Directors can be personally liable for PAYE deducted but not remitted.",
+          "Per APSIS, directors can be personally liable for PAYE that was deducted but not remitted.",
+          "A point worth knowing, per APSIS: PAYE deducted but not remitted can make directors personally liable."
+        ],
+        link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
+      }
+    ]
+  };
+  /* ---------- Step 2: the picker ---------- */
+  var rng = Math.random;           // tests can swap this for a fixed sequence
+  var lastPick = {};               // pool name -> index used last time
+
+  // Random item from a list, never the same one twice in a row
+  function pick(pool, list) {
+    if (!list || !list.length) return { i: -1, v: "" };
+    var i = Math.floor(rng() * list.length);
+    if (list.length > 1 && i === lastPick[pool]) {
+      i = (i + 1 + Math.floor(rng() * (list.length - 1))) % list.length;
+    }
+    lastPick[pool] = i;
+    return { i: i, v: list[i] };
+  }
+
+  // Build one answer for a fact: [opener] + wording + [closer]
+  function compose(factId, topic) {
+    topic = topic || VAT_TOPIC;
+    var f = topic.facts.filter(function (x) { return x.id === factId; })[0];
+    if (!f) return null;
+    var w = pick(topic.id + ":" + f.id, f.wordings);
+    var text = w.v;
+    if (rng() < 0.6) text = pick(topic.id + ":openers", topic.openers).v + text;
+    var offer = false;                       // true only when the closer really offers the next topic
+    if (rng() < 0.7) {
+      var c = pick(topic.id + ":closers", topic.closers).v;
+      offer = c.indexOf("{next}") !== -1;
+      text += "\n\n" + c.replace("{next}", f.next);
+    }
+    return { text: text, link: f.link, linkText: f.linkText, caution: !!f.caution, picked: w.i, offer: offer };
+  }
+
+  // Question for a vague message ("VAT")
+  function clarify(topic) {
+    topic = topic || VAT_TOPIC;
+    return pick(topic.id + ":clarify", topic.clarify).v;
+  }
+
+  // Question when two facts match; a and b are fact labels
+  function clarifyMulti(a, b, topic) {
+    topic = topic || VAT_TOPIC;
+    return pick(topic.id + ":multi", topic.clarifyMulti).v.replace("{a}", a).replace("{b}", b);
+  }
 
   // Phrases made only of common words (who are you, how are you...) that keyword matching would skip
   var PATTERNS = [
@@ -694,9 +965,9 @@
 
     // Follow-up ("and the penalty?"): weak on its own -> borrow the previous topic's strong words
     if (prev && qt.length <= 4 && !(ranked.length && ranked[0].e.hidden) && (!ranked.length || ranked[0].s < 5)) {
-      var ctx = Object.keys(prev._strong);
-      if (ctx.length) {
-        var again = rank(ctx.concat(qt));
+      var prevWords = Object.keys(prev._strong);
+      if (prevWords.length) {
+        var again = rank(prevWords.concat(qt));
         if (again.length && again[0].s >= 7) ranked = again;
       }
     }
@@ -708,14 +979,14 @@
     return { entry: top.e, related: related, score: top.s };
   }
 
-  var SUGGESTIONS = ["services", "vat-deadline", "missed-deadline", "payroll", "fees", "contact"];
+  var SUGGESTIONS = ["services", "missed-deadline", "payroll", "fees", "contact"];
 
   function byId(id) { return KB.filter(function (e) { return e.id === id; })[0]; }
 
-  /* ---------- Moods ----------
-     Every entry gets a mood. Default is happy; these entries differ. */
+/* ---------- Moods ----------
+   Every entry gets a mood. Default is happy; these entries differ. */
   var MOOD = {
-    "missed-deadline": "sad", "demand-notice": "sad", "vat-penalty": "sad",
+    "missed-deadline": "sad", "demand-notice": "sad",
     audit: "thinking", "advance-ruling": "thinking", "health-check": "thinking",
     rude: "angry"
   };
@@ -812,11 +1083,235 @@
       : " It's the weekend, so our office is closed until Monday at " + fmt(OPEN_MIN) + ".";
     return { mood: "happy", text: text };
   }
+  /* ---------- Step 6: the topic engine ----------
+     A topic is plain data (see VAT_TOPIC). To add one: write its data block, call
+     addTopic(...) below, run the tests. There is no router code to change. */
+  var TOPICS = [];
 
+  var FEE_WORDS = ["price", "cost", "fee", "charge", "quote", "much", "pricing", "cheap", "affordable"];
+  var SEQ_LINES = ["Shall I go on to {x}?", "Want {x} next?", "Ready for {x}?"];
+  var DONE_LINES = ["No problem! Ask me anything else about our services whenever you like.", "Sure thing. I'm here if you have more questions."];
+  var YES_NO = [
+    { label: "Yes", send: "Yes", mood: "happy" },
+    { label: "No thanks", send: "No thanks", mood: "sad" }
+  ];
+  var CAN_YOU = /\b(can|could|will|do|does)\s+(you|u|apsis)\b/;
+
+  function wordSet(words) {
+    var o = {};
+    words.forEach(function (w) { tokens(w).forEach(function (t) { o[t] = true; }); });
+    return o;
+  }
+  var FEES = wordSet(FEE_WORDS);
+
+  function addVocab(t) { if (!VOCAB[t]) { VOCAB[t] = true; VOCAB_LIST.push(t); } }   // teaches the typo-snapper
+
+  function addTopic(t) {
+    t._words = wordSet(t.words);
+    t._aside = wordSet(t.stepAside || []);
+    Object.keys(t._words).forEach(addVocab);
+    t.facts.forEach(function (f) {
+      f._s = wordSet(f.s || []);
+      f._w = wordSet(f.w || []);
+      Object.keys(f._s).concat(Object.keys(f._w)).forEach(addVocab);
+    });
+    TOPICS.push(t);
+  }
+  addTopic(VAT_TOPIC);
+  addTopic(PAYROLL_TOPIC);
+
+  // What the engine remembers between messages (a question lives for one turn only)
+  var ctx = { topic: null, pending: null };
+  function routeReset() { ctx.topic = null; ctx.pending = null; }
+
+  function factOf(t, id) { return t.facts.filter(function (f) { return f.id === id; })[0]; }
+
+  function mentions(t, qt, raw) {
+    return qt.some(function (x) { return t._words[x]; }) || !!(t.phrase && t.phrase.test(raw));
+  }
+
+  function hitsFor(t, qt) {
+    var h = { s: {}, w: {}, strongIds: [] };
+    t.facts.forEach(function (f) {
+      var seen = {}, s = 0, w = 0;
+      qt.forEach(function (x) {
+        if (seen[x]) return;
+        seen[x] = true;
+        if (f._s[x]) s++; else if (f._w[x]) w++;
+      });
+      h.s[f.id] = s; h.w[f.id] = w;
+      if (s) h.strongIds.push(f.id);
+    });
+    return h;
+  }
+
+  function bestWeak(h) {
+    var max = 0, ids = [];
+    Object.keys(h.w).forEach(function (id) {
+      if (h.w[id] > max) { max = h.w[id]; ids = [id]; }
+      else if (h.w[id] === max && max > 0) ids.push(id);
+    });
+    return ids;
+  }
+
+  // Several facts in one reply: [opener] + wording + wording... (no closer)
+  function multiAnswer(t, ids) {
+    var parts = [], seen = {}, links = [], caution = false;
+    ids.forEach(function (id) {
+      var f = factOf(t, id);
+      parts.push(pick(t.id + ":" + id, f.wordings).v);
+      if (!seen[f.link]) { seen[f.link] = true; links.push([f.link, f.linkText]); }
+      if (f.caution) caution = true;
+    });
+    var text = parts.join("\n\n");
+    if (rng() < 0.6) text = pick(t.id + ":openers", t.openers).v + text;
+    return { text: text, link: links[0][0], linkText: links[0][1], more: links.slice(1), caution: caution };
+  }
+
+  function answerFacts(t, ids, then) {
+    var out = (ids.length === 1 && !then) ? compose(ids[0], t) : multiAnswer(t, ids);
+    out.more = out.more || [];
+    var first = factOf(t, ids[0]);
+    if (then && then.length) {                         // "one at a time": offer the next one
+      out.text += "\n\n" + pick(t.id + ":seq", SEQ_LINES).v.replace("{x}", factOf(t, then[0]).label);
+      ctx.pending = { topic: t, type: "next", options: [then[0]] };
+      out.options = YES_NO;
+    } else if (ids.length === 1 && first.nextId) {
+      ctx.pending = { topic: t, type: "next", options: [first.nextId] };   // a typed "yes" always works
+      if (out.offer) out.options = YES_NO;                                  // buttons only when an offer was made
+    }
+    ctx.topic = t;
+    out.kind = "answer";
+    out.mood = ids.some(function (id) { return factOf(t, id).mood === "sad"; }) ? "sad" : "happy";
+    return out;
+  }
+
+  // "I missed my deadline": the fact, then a push to contact APSIS
+  function missedAnswer(t) {
+    var m = t.missed, f = factOf(t, m.fact);
+    ctx.topic = t;
+    return {
+      kind: "answer", mood: "sad", caution: true,
+      text: pick(t.id + ":" + f.id, f.wordings).v + "\n\n" + pick(t.id + ":contact", m.contact).v,
+      link: "/contact.html", linkText: "Contact the APSIS team",
+      more: [[f.link, f.linkText]]
+    };
+  }
+
+  function askFor(t, kind, ids) {
+    var text = kind === "multi"
+      ? clarifyMulti(factOf(t, ids[0]).label, factOf(t, ids[1]).label, t)
+      : clarify(t);
+    ctx.pending = { topic: t, type: kind, options: ids };
+    ctx.topic = t;
+    // each button's `send` text is understood by resolve(), exactly as if the visitor typed it
+    var options = kind === "multi"
+      ? [{ label: "Both together", send: "Both together" }, { label: "One at a time", send: "One at a time" }]
+      : ids.map(function (id) { var b = factOf(t, id).button; return { label: b, send: b }; });
+    return { kind: "ask", mood: "thinking", text: text, options: options };
+  }
+
+  // Did the visitor's message answer the question Apsi just asked?
+  function resolve(t, raw, qt, pending) {
+    var opts = pending.options;
+    if (pending.type === "next") {
+      if (/^\s*(yes|yeah|yep|yup|sure|ok|okay|please|go ahead|go on|y|sounds good|why not|definitely)\b/.test(raw)) return { ids: opts };
+      if (/^\s*(no|nope|nah|no thanks|no thank you|not now|that'?s all|i'?m good|im good)\s*[.!]*\s*$/.test(raw)) return { done: true };
+      return null;
+    }
+    if (/\bone (at a time|by one)\b|\bseparately\b|\bstep by step\b/.test(raw)) return { ids: [opts[0]], then: opts.slice(1) };
+    if (/\b(both|together|everything|all of (them|it)|all three)\b/.test(raw)) return { ids: opts };
+    if (/\b(first|1st)\b|^\s*1\s*$/.test(raw)) return { ids: [opts[0]] };
+    if ((/\b(second|2nd)\b|^\s*2\s*$/.test(raw)) && opts[1]) return { ids: [opts[1]] };
+    if ((/\b(third|3rd)\b|^\s*3\s*$/.test(raw)) && opts[2]) return { ids: [opts[2]] };
+    if (/\blast\b/.test(raw)) return { ids: [opts[opts.length - 1]] };
+    var h = hitsFor(t, qt);
+    var picks = opts.filter(function (id) { return h.s[id] > 0 || h.w[id] > 0; });
+    return picks.length ? { ids: picks } : null;
+  }
+
+  // The router. Returns null when the message is not for any topic.
+  function routeReply(query) {
+    var raw = String(query).toLowerCase().replace(/[\u2018\u2019]/g, "'");
+    var qt = tokens(raw).map(snap);
+    var pending = ctx.pending;
+    ctx.pending = null;
+
+    if (pending) {
+      var r = resolve(pending.topic, raw, qt, pending);
+      if (r && r.done) return { kind: "text", mood: "happy", text: pick(pending.topic.id + ":done", DONE_LINES).v };
+      if (r && r.ids) return answerFacts(pending.topic, r.ids, r.then);
+    }
+
+    var named = TOPICS.filter(function (t) { return mentions(t, qt, raw); });
+    if (named.length > 1) { ctx.topic = null; return null; }      // two topics in one message: the old system handles it
+    var t = named[0] || null, explicit = !!t;
+    if (!t && ctx.topic) {                                        // "and the penalty?" right after an answer
+      var h0 = hitsFor(ctx.topic, qt);
+      if (qt.length > 0 && qt.length <= 4 && (h0.strongIds.length || bestWeak(h0).length)) t = ctx.topic;
+    }
+    if (!t) { ctx.topic = null; return null; }
+
+    var h = hitsFor(t, qt), weak = bestWeak(h);
+    var aside = qt.some(function (x) { return t._aside[x]; });
+    var fees = qt.some(function (x) { return FEES[x]; }) && !(t.feeExempt && h.s[t.feeExempt]);
+    if (aside || fees) { ctx.topic = null; return null; }         // the older KB entries answer these better
+
+    var m = t.missed;
+    if (explicit && m && m.re.test(raw) && !(m.unless && h.s[m.unless])) return missedAnswer(t);
+
+    var sIds = h.strongIds;
+    if (sIds.length === 1) return answerFacts(t, sIds);
+    if (sIds.length === 2) return askFor(t, "multi", sIds);
+    if (sIds.length >= 3) return askFor(t, "vague", t.vague);
+    if (t.canYou && CAN_YOU.test(raw)) return answerFacts(t, [t.canYou]);
+    if (weak.length === 1) return answerFacts(t, weak);
+    return askFor(t, "vague", t.vague);
+  }
+  /* ---------- Step 5: streaming plan (pure, so it can be tested in Node) ---------- */
+  var STREAM_MAX = 3000;     // a reply never takes longer than this (ms)
+  var STREAM_UNIT = 45;      // ms per word on short replies
+
+  // How long to pause after this chunk (1 = a normal word)
+  function chunkWeight(c, next) {
+    var w = 1;
+    if (/[.!?]["')\]]?$/.test(c)) w += 3;            // end of a sentence
+    else if (/[,;:]$/.test(c)) w += 1.2;             // comma, semicolon, colon
+    if (next && /^\s*\n\s*\n/.test(next)) w += 2.5;  // paragraph break comes next
+    else if (next && /^\s*\n/.test(next)) w += 1;    // line break comes next
+    return w;
+  }
+
+  // Splits a reply into word chunks (keeping spaces and line breaks) and
+  // decides when each chunk appears, in ms from the start.
+  function streamPlan(text, jitter) {
+    jitter = jitter || function () { return 0.8 + Math.random() * 0.4; };
+    text = String(text);
+    var chunks = text.match(/\s*\S+/g) || [text];
+    var joined = chunks.join("");
+    if (joined.length < text.length) chunks[chunks.length - 1] += text.slice(joined.length);
+
+    var weights = chunks.map(function (c, i) { return chunkWeight(c, chunks[i + 1]); });
+    var total = weights.reduce(function (a, b) { return a + b; }, 0);
+    var unit = Math.min(STREAM_UNIT, STREAM_MAX / total);
+
+    var times = [], acc = 0;
+    weights.forEach(function (w) { times.push(acc); acc += unit * w * jitter(); });
+    var last = times[times.length - 1];
+    if (last > STREAM_MAX) {                          // jitter pushed it over: squeeze back to the cap
+      var k = STREAM_MAX / last;
+      times = times.map(function (x) { return x * k; });
+    }
+    return { chunks: chunks, times: times };
+  }
   // Expose the engine for testing (Node) and stop if there is no page
   var api = {
     KB: KB, answer: answer, tokens: tokens, tone: tone,
-    hoursAnswer: hoursAnswer, clockAnswer: clockAnswer, dateAnswer: dateAnswer
+    hoursAnswer: hoursAnswer, clockAnswer: clockAnswer, dateAnswer: dateAnswer,
+    VAT_TOPIC: VAT_TOPIC, compose: compose, clarify: clarify, clarifyMulti: clarifyMulti,
+    TOPICS: TOPICS, addTopic: addTopic, routeReply: routeReply, routeReset: routeReset,
+    vatReply: routeReply, vatReset: routeReset,       // the old names, so your earlier tests keep working
+    streamPlan: streamPlan
   };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   if (typeof document === "undefined") return;
@@ -950,6 +1445,9 @@
     ".apsis-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}",
     ".apsis-chips button{border:1px solid var(--a-navy2);background:#fff;color:var(--a-navy);border-radius:16px;padding:6px 11px;font-size:13px;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}",
     ".apsis-chips button:hover{background:var(--a-navy);color:#fff}",
+    ".apsis-opts{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}",
+    ".apsis-opts button{border:1px solid var(--a-navy2);background:#fff;color:var(--a-navy);border-radius:16px;padding:7px 13px;font-size:13px;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}",
+    ".apsis-opts button:hover,.apsis-opts button:focus-visible{background:var(--a-navy);color:#fff}",
     "#apsis-note{font-size:11px;color:#667;padding:6px 12px;background:#fff;border-top:1px solid #e3e8ef}",
     "#apsis-form{display:flex;border-top:1px solid #e3e8ef;background:#fff}",
     "#apsis-input{flex:1;border:0;padding:14px;font-size:14px;outline:none;font-family:inherit;background:transparent}",
@@ -1230,12 +1728,45 @@
     msgs.appendChild(wrap);
     scroll();
   }
+  /* ---------- Step 4: tappable replies ---------- */
+  var optsEl = null;
 
-  function addBot(text, opts) {
-    opts = opts || {};
-    var d = document.createElement("div");
-    d.className = "apsis-m bot";
-    d.appendChild(document.createTextNode(text));
+  function clearOptions() {
+    if (optsEl && optsEl.parentNode) optsEl.parentNode.removeChild(optsEl);
+    optsEl = null;
+  }
+
+  function addOptions(options) {
+    clearOptions();
+    var wrap = document.createElement("div");
+    wrap.className = "apsis-opts";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "Quick replies");
+    var wait = "thinking";                            // Apsi's face while waiting for a choice
+    function preview(m) { if (optsEl === wrap) setMood(m); }
+    options.forEach(function (o) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = o.label;
+      if (o.mood) {                                   // Yes / No change her face as you aim at them
+        b.addEventListener("pointerenter", function () { preview(o.mood); });
+        b.addEventListener("focus", function () { preview(o.mood); });
+        b.addEventListener("pointerleave", function () { preview(wait); });
+        b.addEventListener("blur", function () { preview(wait); });
+      }
+      b.addEventListener("click", function () {
+        if (busy) return;
+        ask(o.send, o.mood);
+        if (!root.matchMedia("(pointer:coarse)").matches) input.focus();
+      });
+      wrap.appendChild(b);
+    });
+    msgs.appendChild(wrap);
+    optsEl = wrap;
+    scroll();
+  }
+  // Adds the caution line and link buttons under a bot message
+  function decorate(d, opts) {
     if (opts.caution) {
       var c = document.createElement("span");
       c.className = "apsis-c";
@@ -1253,8 +1784,69 @@
       a.textContent = (l[1] || "Read more") + " →";
       d.appendChild(a);
     });
+  }
+
+  // Shows a message all at once (used for the opening greeting)
+  function addBot(text, opts) {
+    opts = opts || {};
+    var d = document.createElement("div");
+    d.className = "apsis-m bot";
+    d.appendChild(document.createTextNode(text));
+    decorate(d, opts);
     msgs.appendChild(d);
     scroll();
+  }
+
+  var skipStream = null;     // set while a reply is streaming; calling it shows the full reply
+
+  // Shows a reply word by word, then adds the caution line and links
+  function streamBot(text, opts, onStart, onDone) {
+    opts = opts || {};
+    var d = document.createElement("div");
+    d.className = "apsis-m bot";
+    var node = document.createTextNode("");
+    d.appendChild(node);
+    msgs.appendChild(d);
+    msgs.setAttribute("aria-busy", "true");          // screen readers wait, then read the whole reply once
+
+    var plan = streamPlan(text);
+    var shown = 0, started = false, finished = false, timer = null;
+    var t0 = performance.now();
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      skipStream = null;
+      d.style.cursor = "";
+      d.removeEventListener("click", finish);
+      node.nodeValue = text;
+      if (!started) { started = true; onStart(); }
+      decorate(d, opts);
+      msgs.removeAttribute("aria-busy");
+      scroll();
+      onDone();
+    }
+
+    function tick() {
+      if (finished) return;
+      var el = performance.now() - t0, upto = shown;
+      while (upto < plan.chunks.length && plan.times[upto] <= el) upto++;
+      if (upto > shown) {
+        var stick = msgs.scrollHeight - msgs.scrollTop - msgs.clientHeight < 60;   // only follow if already at the bottom
+        node.nodeValue += plan.chunks.slice(shown, upto).join("");
+        shown = upto;
+        if (stick) scroll();
+        if (!started) { started = true; onStart(); }
+      }
+      if (shown >= plan.chunks.length) finish(); else timer = setTimeout(tick, 16);
+    }
+
+    if (reduceMotion) { finish(); return; }          // "reduce motion": show the reply instantly
+    skipStream = finish;
+    d.style.cursor = "pointer";                      // click the message to skip the typing
+    d.addEventListener("click", finish);
+    tick();
   }
 
   function typing() {
@@ -1268,6 +1860,13 @@
   }
 
   function reply(query) {
+    var vr = routeReply(query);
+    if (vr) {
+      lastEntry = null;
+      var vtext = vr.text, vmood = vr.mood;
+      if (vr.kind === "answer" && tone(query) === "neg") { vtext = "Sorry you're dealing with that. " + vtext; vmood = "sad"; }
+      return { mood: vmood, text: vtext, link: vr.link, linkText: vr.linkText, more: vr.more, caution: vr.caution, chips: [], options: vr.options };
+    }
     var res = answer(query, lastEntry), t = tone(query);
     if (!res) {
       lastEntry = null;
@@ -1311,31 +1910,39 @@
     }
     return { mood: m, then: e.then, text: prefix + text, link: e.link, linkText: e.linkText, more: e.more, caution: e.caution, chips: res.related };
   }
-
-  function ask(text) {
+  function ask(text, reaction) {
     if (busy) return;
     busy = true;
     lastActive = performance.now();
     clearTimeout(settleT);
+    clearOptions();                                   // old buttons disappear once anything is sent
     addUser(text);
-    setMood("thinking");
+    setMood(reaction || "thinking");                  // Yes -> happy, No -> sad while she "types"
     var t = typing();
     var r = reply(text);
-    var delay = Math.min(900, 380 + r.text.length * 3);
+    var beat = reduceMotion ? 100 : rnd(420, 640);    // a short pause before the words start
     setTimeout(function () {
       if (t.parentNode) t.parentNode.removeChild(t);
-      addBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution });
-      addChips(r.chips || []);
-      setMood(r.mood || "happy");
-      if (r.then) {
-        setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
-      } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
-        settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
-      }
-      busy = false;
-    }, delay);
+      streamBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution },
+        function () { setMood(r.mood || "happy"); },  // her face changes as the first word appears
+        function () {                                 // everything below waits until the text is complete
+          lastActive = performance.now();
+          addChips(r.chips || []);
+          if (r.options && r.options.length) {
+            addOptions(r.options);
+            var shown = optsEl;
+            if (r.mood && r.mood !== "thinking") {    // react to the answer first, then wait for the choice
+              setTimeout(function () { if (optsEl === shown && mood === r.mood) setMood("thinking"); }, 1300);
+            }
+          } else if (r.then) {
+            setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
+          } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
+            settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
+          }
+          busy = false;
+        });
+    }, beat);
   }
-
   addBot(timeGreeting() + "! I'm Apsi, the virtual assistant for APSIS Business Consulting. Karibu! Ask me about our services, KRA and VAT basics, payroll deadlines or how to work with us.");
 
   function store(key, val) { try { sessionStorage.setItem(key, val); } catch (e) { /* storage may be blocked */ } }
@@ -1362,11 +1969,17 @@
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (busy) { if (skipStream) skipStream(); return; }   // Send while she is typing = show the full reply, keep your text
     var text = input.value.trim();
     if (!text) return;
     input.value = "";
     typing_ = false;
     ask(text);
+  });
+
+  // Enter while she is typing also skips (even with an empty box)
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && skipStream) { e.preventDefault(); skipStream(); }
   });
 
   // Friendly nudge once per visit, a few seconds after the page loads
