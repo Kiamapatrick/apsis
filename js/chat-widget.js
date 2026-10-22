@@ -1,10 +1,13 @@
-/* APSIS FAQ assistant: free, runs entirely in the browser.
-   No API, no backend, no cost. Answers come from the knowledge base (KB) below,
-   which is taken from the public APSIS website pages.
+/* APSIS FAQ assistant: local FAQ answers plus optional AI fallback.
+   The website still runs on cPanel. AI requests go to a Cloudflare Worker;
+   the Gemini API key must never be placed in this file.
 
-   Install: put this file in /js/ and add before </body> on each page:
-     <script src="/js/chat-widget.js" defer></script>
-   To update an answer, edit the matching entry in KB.
+   Setup:
+   1. Deploy apsis-ai-worker.js to Cloudflare Workers and set GEMINI_API_KEY
+      as a Worker Secret.
+   2. Replace AI_ENDPOINT below with the deployed Worker URL.
+   3. Upload this file to /js/chat-widget.js and keep the existing script tag.
+   If AI is unavailable or quota is exhausted, local FAQs still work.
 
    Apsi's face: animated SVG robot with five moods (happy, sad, angry, thinking,
    sleepy), eyes that follow the cursor, head tilt, blinking, and reactions to
@@ -21,6 +24,11 @@
     "Hours: Mon-Fri, 8:00 AM - 5:00 PM";
 
   var CAUTION = "Rates and rules change, so please confirm current figures with KRA or the APSIS team.";
+
+  // Public Worker URL only. NEVER put a Gemini API key in this browser file.
+  var AI_ENDPOINT = "https://apsis-ai-worker.kiamapatrick.workers.dev/";
+  var AI_HISTORY_MAX = 8;
+  var aiHistory = [];
 
   /* Each entry: id, q (sample question, also used for suggestion chips),
      k (keywords; multi-word phrases score higher), s (strong, topic-specific words),
@@ -459,7 +467,7 @@
       q: "Do you save my chat?",
       k: ["save chat", "store chat", "my data", "recorded", "tracking", "chat saved", "log chat", "data privacy"],
       mood: "thinking",
-      a: "I run entirely in your browser. I don't send your messages anywhere, and the conversation disappears when you close or reload the page. Please don't type sensitive details such as PINs or passwords here.",
+      a: "Most known FAQ answers are generated in your browser. If I cannot confidently match a question, I may send that question and a short recent chat history to Google Gemini through a secure service to generate an answer. The provider's free tier may use submitted content to improve its products. Please do not enter confidential business records, KRA PINs, passwords, bank details or personal financial information. Contact APSIS directly for sensitive matters.",
       hidden: true
     },
     {
@@ -467,7 +475,7 @@
       q: "Who built you?",
       s: ["built", "creator", "programmed", "developer"],
       mood: "happy",
-      a: "I was built by Patrick Kiama, a full-stack developer based in Nairobi. I'm a simple FAQ assistant built for the APSIS website. Everything I say comes from the APSIS site pages, and I run free in your browser with no backend behind me. Fun fact: Patrick gave me my blinking eyes, and I'm very attached to them.",
+      a: "I was built by Patrick Kiama for the APSIS website. I use the APSIS FAQ knowledge base for known questions and may use an AI service for questions I cannot confidently match. Fun fact: Patrick gave me my blinking eyes, and I'm very attached to them.",
       link: "https://www.linkedin.com/in/patrick-kiama-ba91103b9/", linkText: "Connect with Patrick on LinkedIn",
       hidden: true
     },
@@ -976,15 +984,15 @@
     var top = ranked[0];
     var related = ranked.slice(1).filter(function (r) { return !r.e.hidden && r.e.id !== top.e.id; })
       .slice(0, 2).map(function (r) { return r.e; });
-    return { entry: top.e, related: related, score: top.s };
+    return { entry: top.e, related: related, score: top.s, secondScore: ranked.length > 1 ? ranked[1].s : 0 };
   }
 
   var SUGGESTIONS = ["services", "missed-deadline", "payroll", "fees", "contact"];
 
   function byId(id) { return KB.filter(function (e) { return e.id === id; })[0]; }
 
-/* ---------- Moods ----------
-   Every entry gets a mood. Default is happy; these entries differ. */
+  /* ---------- Moods ----------
+     Every entry gets a mood. Default is happy; these entries differ. */
   var MOOD = {
     "missed-deadline": "sad", "demand-notice": "sad",
     audit: "thinking", "advance-ruling": "thinking", "health-check": "thinking",
@@ -1490,7 +1498,7 @@
     '<div class="apsis-ht"><strong>Apsi</strong><span>APSIS virtual assistant</span></div>' +
     '<button type="button" aria-label="Close chat">&times;</button></header>' +
     '<div id="apsis-msgs" aria-live="polite"></div>' +
-    '<div id="apsis-note">Automated assistant. General information from our website, not formal tax advice. For your situation, contact our team.</div>' +
+    '<div id="apsis-note">Automated assistant. Some questions may be sent to an AI provider to generate a reply. Do not enter passwords, KRA PINs or confidential financial information. General information only, not formal tax advice.</div>' +
     '<form id="apsis-form"><input id="apsis-input" type="text" maxlength="200" placeholder="Ask about tax, VAT, payroll..." autocomplete="off" aria-label="Your question" required><button type="submit">Send</button></form>';
 
   document.body.appendChild(teaser);
@@ -1714,8 +1722,7 @@
   }
 
   function addChips(entries) {
-    return;
-    if (!entries.length) return;
+    if (!entries || !entries.length) return;
     var wrap = document.createElement("div");
     wrap.className = "apsis-chips";
     entries.forEach(function (e) {
@@ -1859,6 +1866,14 @@
     return d;
   }
 
+  function safeFallback() {
+    return {
+      mood: "sad",
+      text: "I couldn't find a reliable answer to that just now. I can still help you find the right APSIS service. Choose a topic below or contact our team:\n\n" + CONTACT,
+      chips: SUGGESTIONS.map(byId)
+    };
+  }
+
   function reply(query) {
     var vr = routeReply(query);
     if (vr) {
@@ -1870,13 +1885,16 @@
     var res = answer(query, lastEntry), t = tone(query);
     if (!res) {
       lastEntry = null;
-      return {
-        mood: "sad",
-        text: "Hmm, I'm not sure I have that one. I'm a simple FAQ assistant, so for anything specific our team is your best bet:\n\n" +
-          CONTACT,
-        chips: SUGGESTIONS.map(byId)
-      };
+      return { aiFallback: true, fallback: safeFallback() };
     }
+
+    // Ask AI when the local matcher has no clear winner instead of confidently
+    // presenting a potentially unrelated FAQ answer.
+    if (res.score < 5 || (res.secondScore > 0 && res.secondScore >= res.score - 2)) {
+      lastEntry = null;
+      return { aiFallback: true, fallback: safeFallback() };
+    }
+
     var e = res.entry, text = e.a, m = e.mood;
     if (!e.hidden) lastEntry = e;
     if (typeof e.fn === "function") {              // live answers (time, date, opening hours)
@@ -1910,6 +1928,42 @@
     }
     return { mood: m, then: e.then, text: prefix + text, link: e.link, linkText: e.linkText, more: e.more, caution: e.caution, chips: res.related };
   }
+
+  function askAI(query) {
+    if (!AI_ENDPOINT || AI_ENDPOINT.indexOf("PASTE_YOUR_") === 0) return Promise.resolve(null);
+    // A convenience cap per browser session. This reduces accidental use but is
+    // not a security boundary; enforce real abuse limits at the Worker/provider.
+    try {
+      var used = parseInt(sessionStorage.getItem("apsis-ai-calls") || "0", 10);
+      if (used >= 8) return Promise.resolve(null);
+      sessionStorage.setItem("apsis-ai-calls", String(used + 1));
+    } catch (e) { /* session storage can be blocked */ }
+    var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 12000) : null;
+    return fetch(AI_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: query, history: aiHistory.slice(-AI_HISTORY_MAX) }),
+      signal: controller ? controller.signal : undefined
+    }).then(function (response) {
+      if (!response.ok) throw new Error("AI service unavailable");
+      return response.json();
+    }).then(function (data) {
+      var answerText = data && typeof data.answer === "string" ? data.answer.trim() : "";
+      return answerText ? answerText.slice(0, 2500) : null;
+    }).catch(function () {
+      return null; // quota, network, model or Worker error -> local fallback
+    }).then(function (answerText) {
+      if (timer) clearTimeout(timer);
+      return answerText;
+    });
+  }
+
+  function rememberTurn(userText, botText) {
+    aiHistory.push({ role: "user", text: String(userText).slice(0, 1200) });
+    aiHistory.push({ role: "assistant", text: String(botText).slice(0, 1800) });
+    if (aiHistory.length > AI_HISTORY_MAX) aiHistory = aiHistory.slice(-AI_HISTORY_MAX);
+  }
   function ask(text, reaction) {
     if (busy) return;
     busy = true;
@@ -1917,31 +1971,54 @@
     clearTimeout(settleT);
     clearOptions();                                   // old buttons disappear once anything is sent
     addUser(text);
-    setMood(reaction || "thinking");                  // Yes -> happy, No -> sad while she "types"
+    setMood(reaction || "thinking");
     var t = typing();
     var r = reply(text);
-    var beat = reduceMotion ? 100 : rnd(420, 640);    // a short pause before the words start
-    setTimeout(function () {
-      if (t.parentNode) t.parentNode.removeChild(t);
-      streamBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution },
-        function () { setMood(r.mood || "happy"); },  // her face changes as the first word appears
-        function () {                                 // everything below waits until the text is complete
-          lastActive = performance.now();
-          addChips(r.chips || []);
-          if (r.options && r.options.length) {
-            addOptions(r.options);
-            var shown = optsEl;
-            if (r.mood && r.mood !== "thinking") {    // react to the answer first, then wait for the choice
-              setTimeout(function () { if (optsEl === shown && mood === r.mood) setMood("thinking"); }, 1300);
+    var answerReady;
+
+    if (r.aiFallback) {
+      answerReady = askAI(text).then(function (aiText) {
+        if (aiText) return { mood: "happy", text: aiText, chips: SUGGESTIONS.map(byId) };
+        return r.fallback || safeFallback();
+      });
+    } else {
+      answerReady = Promise.resolve(r);
+    }
+
+    answerReady.then(function (resolved) {
+      r = resolved;
+      var beat = reduceMotion ? 100 : rnd(420, 640);
+      setTimeout(function () {
+        if (t.parentNode) t.parentNode.removeChild(t);
+        streamBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution },
+          function () { setMood(r.mood || "happy"); },
+          function () {
+            rememberTurn(text, r.text);
+            lastActive = performance.now();
+            addChips(r.chips || []);
+            if (r.options && r.options.length) {
+              addOptions(r.options);
+              var shown = optsEl;
+              if (r.mood && r.mood !== "thinking") {
+                setTimeout(function () { if (optsEl === shown && mood === r.mood) setMood("thinking"); }, 1300);
+              }
+            } else if (r.then) {
+              setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
+            } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
+              settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
             }
-          } else if (r.then) {
-            setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
-          } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
-            settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
-          }
-          busy = false;
-        });
-    }, beat);
+            busy = false;
+          });
+      }, beat);
+    }).catch(function () {
+      if (t.parentNode) t.parentNode.removeChild(t);
+      r = safeFallback();
+      streamBot(r.text, {}, function () { setMood(r.mood); }, function () {
+        rememberTurn(text, r.text);
+        addChips(r.chips || []);
+        busy = false;
+      });
+    });
   }
   addBot(timeGreeting() + "! I'm Apsi, the virtual assistant for APSIS Business Consulting. Karibu! Ask me about our services, KRA and VAT basics, payroll deadlines or how to work with us.");
 
