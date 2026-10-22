@@ -24,14 +24,6 @@ Static website for **APSIS Business Consulting Ltd**, a Nairobi-based accounting
 ```bash
 # Serve locally (any static server)
 npx serve .
-
-# Run tests
-node js/test.js
-node js/test-step3.js
-node js/test-step4.js
-node js/test-step5.js
-node js/test-step6.js
-node js/test-payroll.js
 ```
 
 ## Project Structure
