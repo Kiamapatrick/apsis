@@ -26,7 +26,7 @@
   var CAUTION = "Rates and rules change, so please confirm current figures with KRA or the APSIS team.";
 
   // Public Worker URL only. NEVER put a Gemini API key in this browser file.
-  var AI_ENDPOINT = "https://apsis-ai-worker.kiamapatrick.workers.dev/";
+  var AI_ENDPOINT = "https://apsis-ai-worker.kiamapatrick.workers.dev/chat";
   var AI_HISTORY_MAX = 8;
   var aiHistory = [];
 
