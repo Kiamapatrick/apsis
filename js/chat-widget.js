@@ -467,7 +467,7 @@
       q: "Do you save my chat?",
       k: ["save chat", "store chat", "my data", "recorded", "tracking", "chat saved", "log chat", "data privacy"],
       mood: "thinking",
-      a: "Most known FAQ answers are generated in your browser. If I cannot confidently match a question, I may send that question and a short recent chat history to Google Gemini through a secure service to generate an answer. The provider's free tier may use submitted content to improve its products. Please do not enter confidential business records, KRA PINs, passwords, bank details or personal financial information. Contact APSIS directly for sensitive matters.",
+      a: "Most questions are answered in your browser. If I cannot confidently match a question, that single message may be sent to Google Gemini through a secure service, only so it can help me pick the right built-in answer. The provider's free tier may use submitted content to improve its products. Please do not enter confidential business records, KRA PINs, passwords, bank details or personal financial information. Contact APSIS directly for sensitive matters.",
       hidden: true
     },
     {
@@ -1874,25 +1874,27 @@
     };
   }
 
-  function reply(query) {
-    var vr = routeReply(query);
-    if (vr) {
-      lastEntry = null;
-      var vtext = vr.text, vmood = vr.mood;
-      if (vr.kind === "answer" && tone(query) === "neg") { vtext = "Sorry you're dealing with that. " + vtext; vmood = "sad"; }
-      return { mood: vmood, text: vtext, link: vr.link, linkText: vr.linkText, more: vr.more, caution: vr.caution, chips: [], options: vr.options };
-    }
-    var res = answer(query, lastEntry), t = tone(query);
-    if (!res) {
-      lastEntry = null;
-      return { aiFallback: true, fallback: safeFallback() };
-    }
-
-    // Ask AI when the local matcher has no clear winner instead of confidently
-    // presenting a potentially unrelated FAQ answer.
-    if (res.score < 5 || (res.secondScore > 0 && res.secondScore >= res.score - 2)) {
-      lastEntry = null;
-      return { aiFallback: true, fallback: safeFallback() };
+  function reply(query, forcedId) {
+    var res, t = tone(query);
+    if (forcedId && byId(forcedId)) {
+      res = { entry: byId(forcedId), related: [], score: 99, secondScore: 0 };   // Gemini picked this entry
+    } else {
+      var vr = routeReply(query);
+      if (vr) {
+        lastEntry = null;
+        var vtext = vr.text, vmood = vr.mood;
+        if (vr.kind === "answer" && tone(query) === "neg") { vtext = "Sorry you're dealing with that. " + vtext; vmood = "sad"; }
+        return { mood: vmood, text: vtext, link: vr.link, linkText: vr.linkText, more: vr.more, caution: vr.caution, chips: [], options: vr.options };
+      }
+      res = answer(query, lastEntry);
+      if (!res) {
+        lastEntry = null;
+        return { aiFallback: true, fallback: safeFallback() };
+      }
+      if (res.score < 5 || (res.secondScore > 0 && res.secondScore >= res.score - 2)) {
+        lastEntry = null;
+        return { aiFallback: true, fallback: safeFallback() };
+      }
     }
 
     var e = res.entry, text = e.a, m = e.mood;
@@ -1930,9 +1932,7 @@
   }
 
   function askAI(query) {
-    if (!AI_ENDPOINT || AI_ENDPOINT.indexOf("PASTE_YOUR_") === 0) return Promise.resolve(null);
-    // A convenience cap per browser session. This reduces accidental use but is
-    // not a security boundary; enforce real abuse limits at the Worker/provider.
+    if (!AI_ENDPOINT) return Promise.resolve(null);
     try {
       var used = parseInt(sessionStorage.getItem("apsis-ai-calls") || "0", 10);
       if (used >= 8) return Promise.resolve(null);
@@ -1940,25 +1940,24 @@
     } catch (e) { /* session storage can be blocked */ }
     var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, 12000) : null;
+    var intents = KB.map(function (e) { return { id: e.id, q: e.q || e.id }; });
     return fetch(AI_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: query, history: aiHistory.slice(-AI_HISTORY_MAX) }),
+      body: JSON.stringify({ message: query, intents: intents }),
       signal: controller ? controller.signal : undefined
     }).then(function (response) {
       if (!response.ok) throw new Error("AI service unavailable");
       return response.json();
     }).then(function (data) {
-      var answerText = data && typeof data.answer === "string" ? data.answer.trim() : "";
-      return answerText ? answerText.slice(0, 2500) : null;
+      return data && typeof data.id === "string" && data.id !== "none" && byId(data.id) ? data.id : null;
     }).catch(function () {
-      return null; // quota, network, model or Worker error -> local fallback
-    }).then(function (answerText) {
+      return null;
+    }).then(function (id) {
       if (timer) clearTimeout(timer);
-      return answerText;
+      return id;
     });
   }
-
   function rememberTurn(userText, botText) {
     aiHistory.push({ role: "user", text: String(userText).slice(0, 1200) });
     aiHistory.push({ role: "assistant", text: String(botText).slice(0, 1800) });
@@ -1977,8 +1976,9 @@
     var answerReady;
 
     if (r.aiFallback) {
-      answerReady = askAI(text).then(function (aiText) {
-        if (aiText) return { mood: "happy", text: aiText, chips: SUGGESTIONS.map(byId) };
+      answerReady = askAI(text).then(function (id) {
+        var forced = id ? reply(text, id) : null;
+        if (forced && !forced.aiFallback) return forced;
         return r.fallback || safeFallback();
       });
     } else {
