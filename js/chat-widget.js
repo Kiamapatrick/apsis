@@ -1,13 +1,10 @@
-/* APSIS FAQ assistant: local FAQ answers plus optional AI fallback.
-   The website still runs on cPanel. AI requests go to a Cloudflare Worker;
-   the Gemini API key must never be placed in this file.
+/* APSIS FAQ assistant: free, runs entirely in the browser.
+   No API, no backend, no cost. Answers come from the knowledge base (KB) below,
+   which is taken from the public APSIS website pages.
 
-   Setup:
-   1. Deploy apsis-ai-worker.js to Cloudflare Workers and set GEMINI_API_KEY
-      as a Worker Secret.
-   2. Replace AI_ENDPOINT below with the deployed Worker URL.
-   3. Upload this file to /js/chat-widget.js and keep the existing script tag.
-   If AI is unavailable or quota is exhausted, local FAQs still work.
+   Install: put this file in /js/ and add before </body> on each page:
+     <script src="/js/chat-widget.js" defer></script>
+   To update an answer, edit the matching entry in KB.
 
    Apsi's face: animated SVG robot with five moods (happy, sad, angry, thinking,
    sleepy), eyes that follow the cursor, head tilt, blinking, and reactions to
@@ -24,11 +21,6 @@
     "Hours: Mon-Fri, 8:00 AM - 5:00 PM";
 
   var CAUTION = "Rates and rules change, so please confirm current figures with KRA or the APSIS team.";
-
-  // Public Worker URL only. NEVER put a Gemini API key in this browser file.
-  var AI_ENDPOINT = "https://apsis-ai-worker.kiamapatrick.workers.dev/chat";
-  var AI_HISTORY_MAX = 8;
-  var aiHistory = [];
 
   /* Each entry: id, q (sample question, also used for suggestion chips),
      k (keywords; multi-word phrases score higher), s (strong, topic-specific words),
@@ -89,41 +81,6 @@
         "5. Ongoing support for follow-up questions\n\n" +
         "You can begin by phone, WhatsApp or email.",
       link: "/workwithus.html", linkText: "Work with us"
-    },
-    {
-      id: "vat",
-      q: "Tell me about VAT compliance",
-      s: ["vat"],
-      k: ["value added", "vat service"],
-      a: "APSIS handles the full VAT cycle: monthly VAT return filing on iTax (including nil returns), eTIMS invoice reconciliation, input tax recovery and validation, KRA VAT audit support, VAT health checks and registration, and cross-border VAT advice.",
-      link: "/vat-compliance-kenya.html", linkText: "VAT compliance"
-    },
-    {
-      id: "vat-deadline",
-      q: "When are VAT returns due?",
-      s: ["vat"],
-      k: ["vat deadline", "vat due", "20th", "monthly vat"],
-      g: ["file", "filing", "deadline", "due"],
-      a: "According to APSIS, VAT returns are due on iTax by the 20th of every month, including nil returns.",
-      link: "/vat-compliance-kenya.html", linkText: "VAT compliance"
-    },
-    {
-      id: "vat-registration",
-      q: "When must I register for VAT?",
-      s: ["vat"],
-      k: ["vat register", "vat registration", "vat number", "threshold", "million"],
-      g: ["register", "registration", "turnover", "voluntary"],
-      a: "Per APSIS, a business with annual taxable turnover of Ksh 5 million or more must register for VAT within 30 days of reaching it. Voluntary registration is possible below the threshold, and importers of taxable goods or businesses supplying government entities may need to register regardless of turnover. APSIS can handle the registration on iTax.",
-      link: "/content/insights/vat-registration-kenya.html", linkText: "VAT registration guide", caution: true
-    },
-    {
-      id: "vat-penalty",
-      q: "What are the VAT late filing penalties?",
-      s: ["vat"],
-      k: ["vat penalty", "vat late", "bank levy"],
-      g: ["penalty", "late", "interest", "fine", "levy", "late filing"],
-      a: "Per APSIS, a late VAT return carries a minimum penalty of Ksh 10,000 per return, and unpaid VAT attracts interest of 1% per month, compounded from the due date. Persistent non-compliance can lead to enforcement such as bank levies and asset seizure.",
-      link: "/vat-compliance-kenya.html", linkText: "VAT compliance", caution: true
     },
     {
       id: "etims",
@@ -467,7 +424,7 @@
       q: "Do you save my chat?",
       k: ["save chat", "store chat", "my data", "recorded", "tracking", "chat saved", "log chat", "data privacy"],
       mood: "thinking",
-      a: "Most questions are answered in your browser. If I cannot confidently match a question, that single message may be sent to Google Gemini through a secure service, only so it can help me pick the right built-in answer. The provider's free tier may use submitted content to improve its products. Please do not enter confidential business records, KRA PINs, passwords, bank details or personal financial information. Contact APSIS directly for sensitive matters.",
+      a: "I run entirely in your browser. I don't send your messages anywhere, and the conversation disappears when you close or reload the page. Please don't type sensitive details such as PINs or passwords here.",
       hidden: true
     },
     {
@@ -475,7 +432,7 @@
       q: "Who built you?",
       s: ["built", "creator", "programmed", "developer"],
       mood: "happy",
-      a: "I was built by Patrick Kiama for the APSIS website. I use the APSIS FAQ knowledge base for known questions and may use an AI service for questions I cannot confidently match. Fun fact: Patrick gave me my blinking eyes, and I'm very attached to them.",
+      a: "I was built by Patrick Kiama, a full-stack developer based in Nairobi. I'm a simple FAQ assistant built for the APSIS website. Everything I say comes from the APSIS site pages, and I run free in your browser with no backend behind me. Fun fact: Patrick gave me my blinking eyes, and I'm very attached to them.",
       link: "https://www.linkedin.com/in/patrick-kiama-ba91103b9/", linkText: "Connect with Patrick on LinkedIn",
       hidden: true
     },
@@ -552,6 +509,7 @@
       hidden: true
     }
   ];
+
   /* ---------- VAT topic (pilot) ----------
    One topic, four facts. Every wording of a fact carries the SAME verified
    numbers; only the sentence style changes. {next} is replaced later with the
@@ -664,9 +622,11 @@
       }
     ]
   };
+
   /* ---------- Payroll topic ----------
-     Drafted ONLY from what the KB "payroll" entry already says. Do not deploy until
-     every figure has been checked against the APSIS pages. */
+     Drafted ONLY from what the KB "payroll" entry already says. It is switched OFF:
+     the addTopic(PAYROLL_TOPIC) line in the topic engine below is commented out.
+     Do not switch it on until every figure has been checked against the APSIS pages. */
   var PAYROLL_TOPIC = {
     id: "payroll",
     words: ["payroll", "paye", "nssf", "shif", "nhif", "helb", "payslip", "p9"],
@@ -780,6 +740,7 @@
       }
     ]
   };
+
   /* ---------- Step 2: the picker ---------- */
   var rng = Math.random;           // tests can swap this for a fixed sequence
   var lastPick = {};               // pool name -> index used last time
@@ -984,7 +945,7 @@
     var top = ranked[0];
     var related = ranked.slice(1).filter(function (r) { return !r.e.hidden && r.e.id !== top.e.id; })
       .slice(0, 2).map(function (r) { return r.e; });
-    return { entry: top.e, related: related, score: top.s, secondScore: ranked.length > 1 ? ranked[1].s : 0 };
+    return { entry: top.e, related: related, score: top.s };
   }
 
   var SUGGESTIONS = ["services", "missed-deadline", "payroll", "fees", "contact"];
@@ -1091,6 +1052,7 @@
       : " It's the weekend, so our office is closed until Monday at " + fmt(OPEN_MIN) + ".";
     return { mood: "happy", text: text };
   }
+
   /* ---------- Step 6: the topic engine ----------
      A topic is plain data (see VAT_TOPIC). To add one: write its data block, call
      addTopic(...) below, run the tests. There is no router code to change. */
@@ -1126,7 +1088,7 @@
     TOPICS.push(t);
   }
   addTopic(VAT_TOPIC);
-  addTopic(PAYROLL_TOPIC);
+  // addTopic(PAYROLL_TOPIC);   // OFF until every payroll figure is verified against the APSIS pages
 
   // What the engine remembers between messages (a question lives for one turn only)
   var ctx = { topic: null, pending: null };
@@ -1276,6 +1238,7 @@
     if (weak.length === 1) return answerFacts(t, weak);
     return askFor(t, "vague", t.vague);
   }
+
   /* ---------- Step 5: streaming plan (pure, so it can be tested in Node) ---------- */
   var STREAM_MAX = 3000;     // a reply never takes longer than this (ms)
   var STREAM_UNIT = 45;      // ms per word on short replies
@@ -1312,11 +1275,12 @@
     }
     return { chunks: chunks, times: times };
   }
+
   // Expose the engine for testing (Node) and stop if there is no page
   var api = {
     KB: KB, answer: answer, tokens: tokens, tone: tone,
     hoursAnswer: hoursAnswer, clockAnswer: clockAnswer, dateAnswer: dateAnswer,
-    VAT_TOPIC: VAT_TOPIC, compose: compose, clarify: clarify, clarifyMulti: clarifyMulti,
+    VAT_TOPIC: VAT_TOPIC, PAYROLL_TOPIC: PAYROLL_TOPIC, compose: compose, clarify: clarify, clarifyMulti: clarifyMulti,
     TOPICS: TOPICS, addTopic: addTopic, routeReply: routeReply, routeReset: routeReset,
     vatReply: routeReply, vatReset: routeReset,       // the old names, so your earlier tests keep working
     streamPlan: streamPlan
@@ -1498,7 +1462,7 @@
     '<div class="apsis-ht"><strong>Apsi</strong><span>APSIS virtual assistant</span></div>' +
     '<button type="button" aria-label="Close chat">&times;</button></header>' +
     '<div id="apsis-msgs" aria-live="polite"></div>' +
-    '<div id="apsis-note">Automated assistant. Some questions may be sent to an AI provider to generate a reply. Do not enter passwords, KRA PINs or confidential financial information. General information only, not formal tax advice.</div>' +
+    '<div id="apsis-note">Automated assistant. General information from our website, not formal tax advice. For your situation, contact our team.</div>' +
     '<form id="apsis-form"><input id="apsis-input" type="text" maxlength="200" placeholder="Ask about tax, VAT, payroll..." autocomplete="off" aria-label="Your question" required><button type="submit">Send</button></form>';
 
   document.body.appendChild(teaser);
@@ -1722,7 +1686,8 @@
   }
 
   function addChips(entries) {
-    if (!entries || !entries.length) return;
+    return;
+    if (!entries.length) return;
     var wrap = document.createElement("div");
     wrap.className = "apsis-chips";
     entries.forEach(function (e) {
@@ -1735,6 +1700,7 @@
     msgs.appendChild(wrap);
     scroll();
   }
+
   /* ---------- Step 4: tappable replies ---------- */
   var optsEl = null;
 
@@ -1772,6 +1738,7 @@
     optsEl = wrap;
     scroll();
   }
+
   // Adds the caution line and link buttons under a bot message
   function decorate(d, opts) {
     if (opts.caution) {
@@ -1866,37 +1833,24 @@
     return d;
   }
 
-  function safeFallback() {
-    return {
-      mood: "sad",
-      text: "I couldn't find a reliable answer to that just now. I can still help you find the right APSIS service. Choose a topic below or contact our team:\n\n" + CONTACT,
-      chips: SUGGESTIONS.map(byId)
-    };
-  }
-
-  function reply(query, forcedId) {
-    var res, t = tone(query);
-    if (forcedId && byId(forcedId)) {
-      res = { entry: byId(forcedId), related: [], score: 99, secondScore: 0 };   // Gemini picked this entry
-    } else {
-      var vr = routeReply(query);
-      if (vr) {
-        lastEntry = null;
-        var vtext = vr.text, vmood = vr.mood;
-        if (vr.kind === "answer" && tone(query) === "neg") { vtext = "Sorry you're dealing with that. " + vtext; vmood = "sad"; }
-        return { mood: vmood, text: vtext, link: vr.link, linkText: vr.linkText, more: vr.more, caution: vr.caution, chips: [], options: vr.options };
-      }
-      res = answer(query, lastEntry);
-      if (!res) {
-        lastEntry = null;
-        return { aiFallback: true, fallback: safeFallback() };
-      }
-      if (res.score < 5 || (res.secondScore > 0 && res.secondScore >= res.score - 2)) {
-        lastEntry = null;
-        return { aiFallback: true, fallback: safeFallback() };
-      }
+  function reply(query) {
+    var vr = routeReply(query);
+    if (vr) {
+      lastEntry = null;
+      var vtext = vr.text, vmood = vr.mood;
+      if (vr.kind === "answer" && tone(query) === "neg") { vtext = "Sorry you're dealing with that. " + vtext; vmood = "sad"; }
+      return { mood: vmood, text: vtext, link: vr.link, linkText: vr.linkText, more: vr.more, caution: vr.caution, chips: [], options: vr.options };
     }
-
+    var res = answer(query, lastEntry), t = tone(query);
+    if (!res) {
+      lastEntry = null;
+      return {
+        mood: "sad",
+        text: "Hmm, I'm not sure I have that one. I'm a simple FAQ assistant, so for anything specific our team is your best bet:\n\n" +
+          CONTACT,
+        chips: SUGGESTIONS.map(byId)
+      };
+    }
     var e = res.entry, text = e.a, m = e.mood;
     if (!e.hidden) lastEntry = e;
     if (typeof e.fn === "function") {              // live answers (time, date, opening hours)
@@ -1931,38 +1885,6 @@
     return { mood: m, then: e.then, text: prefix + text, link: e.link, linkText: e.linkText, more: e.more, caution: e.caution, chips: res.related };
   }
 
-  function askAI(query) {
-    if (!AI_ENDPOINT) return Promise.resolve(null);
-    try {
-      var used = parseInt(sessionStorage.getItem("apsis-ai-calls") || "0", 10);
-      if (used >= 8) return Promise.resolve(null);
-      sessionStorage.setItem("apsis-ai-calls", String(used + 1));
-    } catch (e) { /* session storage can be blocked */ }
-    var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-    var timer = controller ? setTimeout(function () { controller.abort(); }, 12000) : null;
-    var intents = KB.map(function (e) { return { id: e.id, q: e.q || e.id }; });
-    return fetch(AI_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: query, intents: intents }),
-      signal: controller ? controller.signal : undefined
-    }).then(function (response) {
-      if (!response.ok) throw new Error("AI service unavailable");
-      return response.json();
-    }).then(function (data) {
-      return data && typeof data.id === "string" && data.id !== "none" && byId(data.id) ? data.id : null;
-    }).catch(function () {
-      return null;
-    }).then(function (id) {
-      if (timer) clearTimeout(timer);
-      return id;
-    });
-  }
-  function rememberTurn(userText, botText) {
-    aiHistory.push({ role: "user", text: String(userText).slice(0, 1200) });
-    aiHistory.push({ role: "assistant", text: String(botText).slice(0, 1800) });
-    if (aiHistory.length > AI_HISTORY_MAX) aiHistory = aiHistory.slice(-AI_HISTORY_MAX);
-  }
   function ask(text, reaction) {
     if (busy) return;
     busy = true;
@@ -1970,56 +1892,33 @@
     clearTimeout(settleT);
     clearOptions();                                   // old buttons disappear once anything is sent
     addUser(text);
-    setMood(reaction || "thinking");
+    setMood(reaction || "thinking");                  // Yes -> happy, No -> sad while she "types"
     var t = typing();
     var r = reply(text);
-    var answerReady;
-
-    if (r.aiFallback) {
-      answerReady = askAI(text).then(function (id) {
-        var forced = id ? reply(text, id) : null;
-        if (forced && !forced.aiFallback) return forced;
-        return r.fallback || safeFallback();
-      });
-    } else {
-      answerReady = Promise.resolve(r);
-    }
-
-    answerReady.then(function (resolved) {
-      r = resolved;
-      var beat = reduceMotion ? 100 : rnd(420, 640);
-      setTimeout(function () {
-        if (t.parentNode) t.parentNode.removeChild(t);
-        streamBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution },
-          function () { setMood(r.mood || "happy"); },
-          function () {
-            rememberTurn(text, r.text);
-            lastActive = performance.now();
-            addChips(r.chips || []);
-            if (r.options && r.options.length) {
-              addOptions(r.options);
-              var shown = optsEl;
-              if (r.mood && r.mood !== "thinking") {
-                setTimeout(function () { if (optsEl === shown && mood === r.mood) setMood("thinking"); }, 1300);
-              }
-            } else if (r.then) {
-              setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
-            } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
-              settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
-            }
-            busy = false;
-          });
-      }, beat);
-    }).catch(function () {
+    var beat = reduceMotion ? 100 : rnd(420, 640);    // a short pause before the words start
+    setTimeout(function () {
       if (t.parentNode) t.parentNode.removeChild(t);
-      r = safeFallback();
-      streamBot(r.text, {}, function () { setMood(r.mood); }, function () {
-        rememberTurn(text, r.text);
-        addChips(r.chips || []);
-        busy = false;
-      });
-    });
+      streamBot(r.text, { link: r.link, linkText: r.linkText, more: r.more, caution: r.caution },
+        function () { setMood(r.mood || "happy"); },  // her face changes as the first word appears
+        function () {                                 // everything below waits until the text is complete
+          lastActive = performance.now();
+          addChips(r.chips || []);
+          if (r.options && r.options.length) {
+            addOptions(r.options);
+            var shown = optsEl;
+            if (r.mood && r.mood !== "thinking") {    // react to the answer first, then wait for the choice
+              setTimeout(function () { if (optsEl === shown && mood === r.mood) setMood("thinking"); }, 1300);
+            }
+          } else if (r.then) {
+            setTimeout(function () { if (mood === r.mood) setMood(r.then.mood, "bye"); }, r.then.after);
+          } else if (r.mood === "sad" || r.mood === "angry" || r.mood === "thinking") {
+            settleT = setTimeout(function () { if (mood === r.mood) setMood("happy"); }, 14000);
+          }
+          busy = false;
+        });
+    }, beat);
   }
+
   addBot(timeGreeting() + "! I'm Apsi, the virtual assistant for APSIS Business Consulting. Karibu! Ask me about our services, KRA and VAT basics, payroll deadlines or how to work with us.");
 
   function store(key, val) { try { sessionStorage.setItem(key, val); } catch (e) { /* storage may be blocked */ } }
