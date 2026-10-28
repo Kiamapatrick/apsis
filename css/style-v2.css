@@ -2672,3 +2672,319 @@ h5 {
         transition: none;
     }
 }
+
+/* ── Moving Belts: Tax Deadlines & Blogs/Insights ────────── */
+.deadlines-section {
+    padding: clamp(3.5rem, 5vw, 4.5rem) 0 2.5rem;
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+}
+
+.deadlines-head {
+    margin-bottom: 2rem;
+}
+
+.deadlines-head .section-tag {
+    margin-bottom: 0.5rem;
+}
+
+.deadlines-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-hero);
+    margin-bottom: 0.65rem;
+}
+
+.deadlines-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #3a4759;
+    margin: 0;
+    max-width: 36rem;
+}
+
+.belt-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0.75rem 0 1.25rem;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black clamp(16px, 4vw, 48px), black calc(100% - clamp(16px, 4vw, 48px)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black clamp(16px, 4vw, 48px), black calc(100% - clamp(16px, 4vw, 48px)), transparent 100%);
+}
+
+.belt-track {
+    display: flex;
+    align-items: stretch;
+    gap: 1.25rem;
+    width: max-content;
+    will-change: transform;
+}
+
+.belt-wrapper.is-ready.belt-wrapper--deadlines .belt-track {
+    animation: beltScrollLeft var(--belt-duration, 60s) linear infinite;
+}
+
+.belt-wrapper.is-ready.belt-wrapper--blogs .belt-track {
+    animation: beltScrollRight var(--belt-duration, 60s) linear infinite;
+}
+
+.belt-wrapper:hover .belt-track,
+.belt-wrapper:focus-within .belt-track,
+.belt-wrapper.is-paused .belt-track {
+    animation-play-state: paused !important;
+}
+
+@keyframes beltScrollLeft {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(calc(-1 * var(--belt-shift, 2400px)), 0, 0);
+    }
+}
+
+@keyframes beltScrollRight {
+    0% {
+        transform: translate3d(calc(-1 * var(--belt-shift, 2400px)), 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Card base */
+.belt-card {
+    flex: 0 0 300px;
+    width: 300px;
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.belt-card:hover {
+    border-color: var(--blue-acc);
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 576px) {
+    .belt-card {
+        flex: 0 0 78vw;
+        width: 78vw;
+    }
+}
+
+/* Deadline card */
+.belt-card--deadline {
+    padding: 1.35rem 1.25rem;
+    justify-content: space-between;
+    min-height: 195px;
+}
+
+.belt-card--deadline .belt-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+}
+
+.belt-card--deadline .belt-card__title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--navy-lt);
+    margin: 0;
+}
+
+.belt-card--deadline .belt-card__title a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.belt-card--deadline .belt-card__title a:hover {
+    color: var(--orange);
+    text-decoration-color: var(--orange);
+}
+
+.belt-card__badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--blue-lt);
+    color: var(--navy-mid);
+}
+
+.belt-card__badge--annual {
+    background: #fef3e6;
+    color: #b85600;
+}
+
+.belt-card__due {
+    font-family: "Playfair Display", serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.belt-card__applies {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.belt-card__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--orange);
+    text-decoration: none;
+    margin-top: 0.75rem;
+    transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.belt-card__action:hover {
+    gap: 0.55rem;
+    color: var(--orange-lt);
+}
+
+.belt-note {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 1.25rem 0 0;
+    line-height: 1.6;
+}
+
+.belt-note a {
+    color: var(--navy-mid);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.belt-note a:hover {
+    color: var(--orange);
+}
+
+/* Blog / Insights card */
+.belt-card--blog {
+    padding: 0.75rem;
+    height: 100%;
+}
+
+.belt-card__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: #e8e3d8;
+}
+
+.belt-card__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.belt-card--blog:hover .belt-card__img {
+    transform: scale(1.04);
+}
+
+.belt-card__body {
+    padding: 0.85rem 0.35rem 0.35rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.belt-card__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.belt-card__cat {
+    color: var(--orange);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.belt-card__dot {
+    color: var(--border);
+}
+
+.belt-card--blog .belt-card__title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
+    color: var(--text-hero);
+}
+
+.belt-card--blog .belt-card__title a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.belt-card--blog .belt-card__title a:hover {
+    color: var(--orange);
+    text-decoration-color: var(--orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .belt-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+        mask-image: none;
+        -webkit-mask-image: none;
+        padding-bottom: 1.25rem;
+    }
+
+    .belt-track {
+        animation: none !important;
+        transform: none !important;
+        width: auto !important;
+    }
+
+    .belt-card {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+}
