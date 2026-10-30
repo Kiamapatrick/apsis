@@ -331,63 +331,69 @@ h5 {
     opacity: 0.08;
 }
 
-/* ── Hero background: colour follows the slides ── */
-@property --g1x { syntax: "<percentage>"; inherits: false; initial-value: 88%; }
-@property --g1y { syntax: "<percentage>"; inherits: false; initial-value: 5%; }
-@property --g2x { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
-@property --g2y { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+/* ── Hero background: brand navy panel + orange glow, shifting per slide ── */
+@property --nx { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+@property --ny { syntax: "<percentage>"; inherits: false; initial-value: 45%; }
+@property --ox { syntax: "<percentage>"; inherits: false; initial-value: 72%; }
+@property --oy { syntax: "<percentage>"; inherits: false; initial-value: 95%; }
 
 .hero {
-    transition: background-color 1.2s ease-in-out;
+    background-color: #F1F5FA; /* brand off-white */
 }
-
-/* The base tint changes per slide, so the shift is obvious */
-.hero[data-slide="0"] { background-color: #fbf3e8; }  /* warm orange cream: Tax */
-.hero[data-slide="1"] { background-color: #eaf1f9; }  /* cool blue: Accounting and compliance */
-.hero[data-slide="2"] { background-color: #fdeedd; }  /* deeper warm: Advisory and trade */
 
 .hero::after {
     content: "";
     position: absolute;
-    inset: -15%;
+    inset: -6%;
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(ellipse 55% 70% at var(--g1x) var(--g1y),
-            rgba(245, 130, 32, 0.40) 0%, rgba(245, 130, 32, 0) 100%),
-        radial-gradient(ellipse 60% 80% at var(--g2x) var(--g2y),
-            rgba(124, 155, 193, 0.50) 0%, rgba(124, 155, 193, 0) 100%);
-    transition: --g1x 1.2s ease-in-out, --g1y 1.2s ease-in-out,
-                --g2x 1.2s ease-in-out, --g2y 1.2s ease-in-out;
-    animation: heroDrift 14s ease-in-out infinite alternate;
+        /* orange glow sitting on the navy */
+        radial-gradient(ellipse 26% 50% at var(--ox) var(--oy),
+            rgba(245, 130, 32, 0.60) 0%, rgba(245, 130, 32, 0) 100%),
+        /* the navy panel */
+        radial-gradient(ellipse 42% 120% at var(--nx) var(--ny),
+            #0D2A47 0%, #0D2A47 96%, rgba(13, 42, 71, 0) 100%);
+    transition: --nx 1.2s ease-in-out, --ny 1.2s ease-in-out,
+                --ox 1.2s ease-in-out, --oy 1.2s ease-in-out;
+    animation: heroDrift 18s ease-in-out infinite alternate;
     will-change: transform;
 }
 
+/* Slide 1: Accounting and compliance */
 .hero[data-slide="1"]::after {
-    --g1x: 45%;
-    --g1y: 100%;
-    --g2x: 100%;
-    --g2y: 20%;
+    --nx: 94%;
+    --ny: 72%;
+    --ox: 86%;
+    --oy: 8%;
 }
 
+/* Slide 2: Advisory and trade */
 .hero[data-slide="2"]::after {
-    --g1x: 100%;
-    --g1y: 95%;
-    --g2x: 10%;
-    --g2y: 0%;
+    --nx: 106%;
+    --ny: 25%;
+    --ox: 62%;
+    --oy: 62%;
 }
 
 @keyframes heroDrift {
-    from { transform: translate3d(-6%, 3%, 0) scale(1); }
-    to   { transform: translate3d(6%, -3%, 0) scale(1.12); }
+    from { transform: translate3d(-1.5%, 1%, 0) scale(1); }
+    to   { transform: translate3d(1.5%, -1%, 0) scale(1.05); }
 }
 
+/* Phones: the card sits under the text, so the navy becomes a band behind it */
 @media (max-width: 768px) {
-    .hero::after { inset: -8%; }
+    .hero::after {
+        inset: 0;
+        background:
+            radial-gradient(ellipse 50% 14% at var(--ox) 58%,
+                rgba(245, 130, 32, 0.55) 0%, rgba(245, 130, 32, 0) 100%),
+            radial-gradient(ellipse 120% 24% at 50% 58%,
+                #0D2A47 0%, #0D2A47 96%, rgba(13, 42, 71, 0) 100%);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero,
     .hero::after {
         animation: none;
         transition: none;
@@ -3061,7 +3067,7 @@ h5 {
     border: 0;
     border-radius: 16px;
     box-shadow: 0 1px 2px rgba(13, 33, 55, 0.05),
-                0 10px 24px -12px rgba(13, 33, 55, 0.18);
+        0 10px 24px -12px rgba(13, 33, 55, 0.18);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -3069,7 +3075,7 @@ h5 {
     border: 0;
     transform: translateY(-3px);
     box-shadow: 0 2px 4px rgba(13, 33, 55, 0.06),
-                0 18px 32px -14px rgba(13, 33, 55, 0.28);
+        0 18px 32px -14px rgba(13, 33, 55, 0.28);
 }
 
 /* Label: small text with an orange dot */
@@ -3196,14 +3202,14 @@ h5 {
     border: 0;
     border-radius: 16px;
     box-shadow: 0 2px 6px rgba(13, 33, 55, 0.10),
-                0 22px 40px -14px rgba(13, 33, 55, 0.40);
+        0 22px 40px -14px rgba(13, 33, 55, 0.40);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .belt-card--blog:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(13, 33, 55, 0.14),
-                0 30px 50px -16px rgba(13, 33, 55, 0.55);
+        0 30px 50px -16px rgba(13, 33, 55, 0.55);
 }
 
 .belt-card__media {
