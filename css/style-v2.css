@@ -331,11 +331,9 @@ h5 {
     opacity: 0.08;
 }
 
-/* ── Hero background: brand navy panel + orange glow, shifting per slide ── */
-@property --nx { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
-@property --ny { syntax: "<percentage>"; inherits: false; initial-value: 45%; }
-@property --ox { syntax: "<percentage>"; inherits: false; initial-value: 72%; }
-@property --oy { syntax: "<percentage>"; inherits: false; initial-value: 95%; }
+/* ── Hero background: brand navy panel behind the card ── */
+@property --ox { syntax: "<percentage>"; inherits: false; initial-value: 70%; }
+@property --oy { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
 
 .hero {
     background-color: #F1F5FA; /* brand off-white */
@@ -344,58 +342,55 @@ h5 {
 .hero::after {
     content: "";
     position: absolute;
-    inset: -6%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 44%;
     z-index: 0;
     pointer-events: none;
     background:
-        /* orange glow sitting on the navy */
-        radial-gradient(ellipse 26% 50% at var(--ox) var(--oy),
-            rgba(245, 130, 32, 0.60) 0%, rgba(245, 130, 32, 0) 100%),
-        /* the navy panel */
-        radial-gradient(ellipse 42% 120% at var(--nx) var(--ny),
-            #0D2A47 0%, #0D2A47 96%, rgba(13, 42, 71, 0) 100%);
-    transition: --nx 1.2s ease-in-out, --ny 1.2s ease-in-out,
-                --ox 1.2s ease-in-out, --oy 1.2s ease-in-out;
-    animation: heroDrift 18s ease-in-out infinite alternate;
-    will-change: transform;
+        radial-gradient(circle closest-side at var(--ox) var(--oy),
+            rgba(245, 130, 32, 0.55), rgba(245, 130, 32, 0)),
+        #0D2A47;
+    /* slide 0: slanted edge, leaning right */
+    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%);
+    transition: clip-path 1.2s ease-in-out,
+                width 1.2s ease-in-out,
+                --ox 1.2s ease-in-out,
+                --oy 1.2s ease-in-out;
 }
 
-/* Slide 1: Accounting and compliance */
+/* slide 1: edge leans the other way, panel a bit wider */
 .hero[data-slide="1"]::after {
-    --nx: 94%;
-    --ny: 72%;
-    --ox: 86%;
-    --oy: 8%;
+    width: 48%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 16% 100%);
+    --ox: 25%;
+    --oy: 0%;
 }
 
-/* Slide 2: Advisory and trade */
+/* slide 2: straight edge, panel narrower */
 .hero[data-slide="2"]::after {
-    --nx: 106%;
-    --ny: 25%;
-    --ox: 62%;
-    --oy: 62%;
+    width: 40%;
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 8% 100%);
+    --ox: 85%;
+    --oy: 100%;
 }
 
-@keyframes heroDrift {
-    from { transform: translate3d(-1.5%, 1%, 0) scale(1); }
-    to   { transform: translate3d(1.5%, -1%, 0) scale(1.05); }
+/* The card needs to stand out on the navy */
+.hero-card {
+    border-color: transparent;
+    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.45);
 }
 
-/* Phones: the card sits under the text, so the navy becomes a band behind it */
-@media (max-width: 768px) {
+/* Phones: the card stacks under the text, so skip the panel and keep it clean */
+@media (max-width: 900px) {
     .hero::after {
-        inset: 0;
-        background:
-            radial-gradient(ellipse 50% 14% at var(--ox) 58%,
-                rgba(245, 130, 32, 0.55) 0%, rgba(245, 130, 32, 0) 100%),
-            radial-gradient(ellipse 120% 24% at 50% 58%,
-                #0D2A47 0%, #0D2A47 96%, rgba(13, 42, 71, 0) 100%);
+        display: none;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .hero::after {
-        animation: none;
         transition: none;
     }
 }
