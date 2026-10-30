@@ -331,57 +331,63 @@ h5 {
     opacity: 0.08;
 }
 
-/* ── Hero background: soft colour wash that follows the slides ── */
-@property --g1x { syntax: "<percentage>"; inherits: false; initial-value: 85%; }
-@property --g1y { syntax: "<percentage>"; inherits: false; initial-value: 10%; }
-@property --g2x { syntax: "<percentage>"; inherits: false; initial-value: 5%; }
+/* ── Hero background: colour follows the slides ── */
+@property --g1x { syntax: "<percentage>"; inherits: false; initial-value: 88%; }
+@property --g1y { syntax: "<percentage>"; inherits: false; initial-value: 5%; }
+@property --g2x { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
 @property --g2y { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+
+.hero {
+    transition: background-color 1.2s ease-in-out;
+}
+
+/* The base tint changes per slide, so the shift is obvious */
+.hero[data-slide="0"] { background-color: #fbf3e8; }  /* warm orange cream: Tax */
+.hero[data-slide="1"] { background-color: #eaf1f9; }  /* cool blue: Accounting and compliance */
+.hero[data-slide="2"] { background-color: #fdeedd; }  /* deeper warm: Advisory and trade */
 
 .hero::after {
     content: "";
     position: absolute;
-    inset: -10%;
+    inset: -15%;
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(ellipse 45% 60% at var(--g1x) var(--g1y),
-            rgba(245, 130, 32, 0.17) 0%, rgba(245, 130, 32, 0) 100%),
-        radial-gradient(ellipse 50% 70% at var(--g2x) var(--g2y),
-            rgba(124, 155, 193, 0.28) 0%, rgba(124, 155, 193, 0) 100%);
+        radial-gradient(ellipse 55% 70% at var(--g1x) var(--g1y),
+            rgba(245, 130, 32, 0.40) 0%, rgba(245, 130, 32, 0) 100%),
+        radial-gradient(ellipse 60% 80% at var(--g2x) var(--g2y),
+            rgba(124, 155, 193, 0.50) 0%, rgba(124, 155, 193, 0) 100%);
     transition: --g1x 1.2s ease-in-out, --g1y 1.2s ease-in-out,
                 --g2x 1.2s ease-in-out, --g2y 1.2s ease-in-out;
-    animation: heroDrift 26s ease-in-out infinite alternate;
+    animation: heroDrift 14s ease-in-out infinite alternate;
     will-change: transform;
 }
 
-/* Slide 1 (Tax): orange top right, blue bottom left (the defaults above) */
-.hero[data-slide="1"]::after {   /* Accounting and compliance */
-    --g1x: 55%;
-    --g1y: 95%;
-    --g2x: 95%;
-    --g2y: 30%;
+.hero[data-slide="1"]::after {
+    --g1x: 45%;
+    --g1y: 100%;
+    --g2x: 100%;
+    --g2y: 20%;
 }
 
-.hero[data-slide="2"]::after {   /* Advisory and trade */
+.hero[data-slide="2"]::after {
     --g1x: 100%;
-    --g1y: 90%;
-    --g2x: 15%;
+    --g1y: 95%;
+    --g2x: 10%;
     --g2y: 0%;
 }
 
 @keyframes heroDrift {
-    from { transform: translate3d(-2%, 1%, 0) scale(1); }
-    to   { transform: translate3d(2%, -1%, 0) scale(1.06); }
+    from { transform: translate3d(-6%, 3%, 0) scale(1); }
+    to   { transform: translate3d(6%, -3%, 0) scale(1.12); }
 }
 
 @media (max-width: 768px) {
-    .hero::after {
-        inset: -5%;
-        opacity: 0.85;
-    }
+    .hero::after { inset: -8%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .hero,
     .hero::after {
         animation: none;
         transition: none;
