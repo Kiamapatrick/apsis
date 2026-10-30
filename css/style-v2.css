@@ -331,65 +331,42 @@ h5 {
     opacity: 0.08;
 }
 
-/* ── Hero background: brand navy panel behind the card ── */
-@property --ox { syntax: "<percentage>"; inherits: false; initial-value: 70%; }
-@property --oy { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
-
+/* ── Hero background: whole hero changes colour with each slide ── */
 .hero {
-    background-color: #F1F5FA; /* brand off-white */
+    background-color: #F1F5FA;                 /* slide 0: brand off-white */
+    transition: background-color 1.2s ease-in-out;
 }
 
+.hero[data-slide="0"] { background-color: #F1F5FA; }  /* cool off-white */
+.hero[data-slide="1"] { background-color: #D3E3F6; }  /* clear light blue */
+.hero[data-slide="2"] { background-color: #FFE4CC; }  /* warm orange tint */
+
+/* Big colour washes that slide across the full hero */
 .hero::after {
     content: "";
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 44%;
+    inset: 0;
     z-index: 0;
     pointer-events: none;
-    background:
-        radial-gradient(circle closest-side at var(--ox) var(--oy),
-            rgba(245, 130, 32, 0.55), rgba(245, 130, 32, 0)),
-        #0D2A47;
-    /* slide 0: slanted edge, leaning right */
-    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%);
-    transition: clip-path 1.2s ease-in-out,
-                width 1.2s ease-in-out,
-                --ox 1.2s ease-in-out,
-                --oy 1.2s ease-in-out;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(245, 130, 32, 0.38) 0%, rgba(245, 130, 32, 0) 38%),
+        radial-gradient(circle at 50% 50%, rgba(13, 42, 71, 0.26) 0%, rgba(13, 42, 71, 0) 42%);
+    background-size: 200% 200%, 200% 200%;
+    background-repeat: no-repeat;
+    background-position: 0% 100%, 100% 0%;     /* slide 0 */
+    transition: background-position 1.6s ease-in-out;
 }
 
-/* slide 1: edge leans the other way, panel a bit wider */
 .hero[data-slide="1"]::after {
-    width: 48%;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 16% 100%);
-    --ox: 25%;
-    --oy: 0%;
+    background-position: 55% 0%, 0% 100%;
 }
 
-/* slide 2: straight edge, panel narrower */
 .hero[data-slide="2"]::after {
-    width: 40%;
-    clip-path: polygon(8% 0, 100% 0, 100% 100%, 8% 100%);
-    --ox: 85%;
-    --oy: 100%;
-}
-
-/* The card needs to stand out on the navy */
-.hero-card {
-    border-color: transparent;
-    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.45);
-}
-
-/* Phones: the card stacks under the text, so skip the panel and keep it clean */
-@media (max-width: 900px) {
-    .hero::after {
-        display: none;
-    }
+    background-position: 100% 100%, 45% 20%;
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .hero,
     .hero::after {
         transition: none;
     }
