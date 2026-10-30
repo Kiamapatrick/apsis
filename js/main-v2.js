@@ -45,6 +45,7 @@
 
     /* ── Homepage hero services carousel ────────────────────── */
     const heroSlider = document.querySelector('.hero-slider');
+    const heroSection = document.getElementById('home');
     if (heroSlider) {
         const slides = [...heroSlider.querySelectorAll('.hs-slide')];
         const lines = [...document.querySelectorAll('.hero-line')];
@@ -78,6 +79,7 @@
                 });
                 label.textContent = slides[current].dataset.label;
                 index.textContent = String(current + 1);
+                heroSection && heroSection.setAttribute('data-slide', String(current));
             };
 
             const clear = () => {
