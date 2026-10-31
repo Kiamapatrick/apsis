@@ -227,7 +227,7 @@
     {
       id: "team-domisiano",
       q: "Who is Domisiano Wainaina?",
-      s: ["domisiano", "wainaina"],
+      s: ["domisiano", "wainaina", "director"],
       k: ["lead consultant", "managing director", "mba", "financial planning", "investment appraisal"],
       a: "Domisiano Wainaina is the Director & Lead Consultant at APSIS. He has over 14 years in finance and taxation, with a focus on financial planning, financial modelling and regulatory compliance. He holds an MBA and a BA from the University of Nairobi, is CPA-K certified, and heads the FP&A, modelling and investment appraisal practice.",
       link: "/about.html", linkText: "Meet the team"
@@ -478,7 +478,7 @@
     {
       id: "thanks",
       q: "Thank you",
-      k: ["thanks", "thank", "thx", "asante", "cheers", "appreciate", "great", "awesome", "amazing", "brilliant", "impressive", "cool", "nice"],
+      k: ["thanks", "thank", "thx", "asante", "sana", "shukrani", "cheers", "appreciate", "great", "awesome", "amazing", "brilliant", "impressive", "cool", "nice"],
       a: "Karibu! If you'd like to speak to the team, call or WhatsApp +254 722 670 127 or email info@apsis.co.ke.",
       hidden: true
     },
@@ -492,7 +492,7 @@
     {
       id: "farewell",
       q: "Goodbye",
-      k: ["bye", "goodbye", "farewell", "later"],
+      k: ["bye", "goodbye", "farewell", "later", "kwaheri", "tutaonana"],
       a: "Kwaheri, and thanks for stopping by! Whenever you need us, call or WhatsApp +254 722 670 127.",
       hidden: true
     },
@@ -523,6 +523,13 @@
         "- Our team, opening hours, today's date and the time, and who built me\n\n" +
         "Just type your question or pick a topic below.",
       hidden: true
+    },
+    {
+      id: "not-covered",
+      hidden: true,
+      mood: "thinking",
+      a: "I don't have details on that one yet, and I'd rather not guess on tax. Our team can help directly:\n\n" + CONTACT,
+      link: "/contact.html", linkText: "Contact page"
     }
   ];
 
@@ -803,6 +810,8 @@
 
   // Phrases made only of common words (who are you, how are you...) that keyword matching would skip
   var PATTERNS = [
+    [/\bcapital gains?\b|\bexcise\b|\bpresumptive\b|\brental (income|tax)\b|\bdigital (service|services|marketplace)\b|\bdst\b|\bkra pin\b|\bpin certificate\b|\bpassword\b/, "not-covered"],
+    [/\b(nimechelewa|kuchelewa|nimesahau)\b/, "missed-deadline"],
     [/^(?!.*\b(vat|paye|payroll|nssf|shif|nhif|etims)\b).*\b(forgot|forgotten|forget|neglected|overlooked|failed to|fail to|didn'?t|did not|haven'?t|have not|hasn'?t|has not)\b.{0,14}\b(file|filed|filing|submit|submitted|submitting|lodge|lodged|returns?|pay|paid)\b/, "missed-deadline"],
     [/\b(you|u|ur|you're|youre)\b.{0,20}\b(stupid|idiot|dumb|useless|rubbish|worthless|garbage|moron)\b|\b(stupid|useless|dumb|rubbish) (bot|robot|chatbot)\b|\b(shut up|hate you)\b/, "rude"],
     [/\b(who|what) are you\b|\bare you (a |an )?(robot|bot|human|real|person|ai|machine|chatbot)\b|\byour name\b|\bwho am i (talking|chatting)\b/, "identity"],
@@ -817,6 +826,7 @@
     // the developer
     [/\bwho\b.{0,12}\b(built|made|created|developed|designed|programmed|coded|wrote|engineered|invented)\b.{0,20}\b(you|this|apsi|bot|chatbot|assistant|chat|widget)\b|\bwho('s| is| are| was)?( your| the| this| apsi'?s?)? (developer|creator|maker|programmer|builder|coder|engineer|author)\b|\bwho\b.{0,6}\bbehind (you|this|apsi)\b/, "creator"],
     [/\b(patrick|kiama)\b|\b(contact|reach|hire|email|message|connect with|talk to|speak to)\b.{0,20}\b(developer|creator|programmer|coder|builder)\b|\b(developer|creator|programmer)('s|s)? (contact|linkedin|email|profile|portfolio|github|details|info)\b|\bthe (developer|creator|programmer)\b/, "developer"],
+    [/\b(ur|your)\s+(phone\s+|mobile\s+|contact\s+|office\s+|tel\s+)?(number|no|num)\b|\b(phone|mobile|tel|call|whatsapp)\s+(number|no)\b/, "phone"],
     [/\bget in touch\b|\bcontact (details|info|information|us)\b|\b(contact|reach|call|phone|email|message|whatsapp|talk to|speak to)\b.{0,20}\b(you|u|apsis|someone|the team|a consultant|staff|the office)\b/, "contact"],
     // the team
     [/\bwho('s| is| are)?( the| your| apsis'?s?)? (director|boss|ceo|managing director|lead consultant)\b|\bwho (runs|leads|heads|manages) (apsis|the (firm|company|business)|this (firm|company))\b|\bwho('s| is) in charge\b/, "team-domisiano"],
