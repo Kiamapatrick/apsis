@@ -810,7 +810,7 @@
 
   // Phrases made only of common words (who are you, how are you...) that keyword matching would skip
   var PATTERNS = [
-    [/\bcapital gains?\b|\bexcise\b|\bpresumptive\b|\brental (income|tax)\b|\bdigital (service|services|marketplace)\b|\bdst\b|\bkra pin\b|\bpin certificate\b|\bpassword\b/, "not-covered"],
+    [/\bcapital gains?\b|\bexcise\b|\bpresumptive\b|\brental (income|tax)\b|\bdigital (service|services|marketplace)\b|\bdst\b|\bkra pin\b|\bpin certificate\b|\bpassword\b|\bcompany registration\b|\bregister (a |my )?company\b|\bdividend (tax|withholding)\b|\btax on dividends?\b|\bngo audit\b|\b(audit|audits) for (ngo|non.?profit)s?\b|\bfarmers?\b|\bagriculture\b|\bvat on fuel\b|\bfuel vat\b/, "not-covered"],
     [/\b(nimechelewa|kuchelewa|nimesahau)\b/, "missed-deadline"],
     [/^(?!.*\b(vat|paye|payroll|nssf|shif|nhif|etims)\b).*\b(forgot|forgotten|forget|neglected|overlooked|failed to|fail to|didn'?t|did not|haven'?t|have not|hasn'?t|has not)\b.{0,14}\b(file|filed|filing|submit|submitted|submitting|lodge|lodged|returns?|pay|paid)\b/, "missed-deadline"],
     [/\b(you|u|ur|you're|youre)\b.{0,20}\b(stupid|idiot|dumb|useless|rubbish|worthless|garbage|moron)\b|\b(stupid|useless|dumb|rubbish) (bot|robot|chatbot)\b|\b(shut up|hate you)\b/, "rude"],
