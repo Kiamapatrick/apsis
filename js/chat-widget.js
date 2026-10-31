@@ -49,7 +49,7 @@
       id: "team",
       q: "Who is on your team?",
       k: ["team", "member", "members", "team member", "meet team", "our team", "colleague", "leadership", "management",
-        "director", "consultant", "staff", "founder", "cpa", "qualification", "qualified", "domisiano", "stephen", "mwenda", "experts", "people"],
+        "director", "consultant", "staff", "founder", "domisiano", "stephen", "mwenda", "experts", "people"],
       a: "The core team is:\n" +
         "- Domisiano Wainaina, Director & Lead Consultant: 14+ years in finance and taxation, CPA-K, MBA\n" +
         "- Stephen Chege, Compliance & Business Advisory: 15+ years, CPA-K, member of the Institute of Internal Auditors\n" +
@@ -269,7 +269,8 @@
     {
       id: "team-qualifications",
       q: "What qualifications does the team have?",
-      k: ["qualifications", "certified", "certification", "credentials", "degree", "cpa-k", "cpak", "icpak", "professional body", "registered"],
+      s: ["qualification", "credential", "certified", "cpak", "icpak"],
+      k: ["degree", "cpa", "professional body"],
       a: "Per the APSIS website:\n" +
         "- Domisiano Wainaina: CPA-K, MBA and BA from the University of Nairobi\n" +
         "- Stephen Chege: CPA-K, member of the Institute of Internal Auditors, BA from the University of Nairobi, pursuing an MBA in Strategic Management at JKUAT\n" +
@@ -821,7 +822,7 @@
     [/\bwho('s| is| are)?( the| your| apsis'?s?)? (director|boss|ceo|managing director|lead consultant)\b|\bwho (runs|leads|heads|manages) (apsis|the (firm|company|business)|this (firm|company))\b|\bwho('s| is) in charge\b/, "team-domisiano"],
     [/\bhow many (people|staff|employees|consultants|members|team members|accountants|advisors|advisers|directors|partners)\b|\bteam size\b|\bsize of (the |your )?team\b|\bhow big is (the |your )?(team|firm|company)\b/, "team-size"],
     [/\bwho (handles|handle|deals with|looks after|is responsible for)\b|\bwho should i (speak|talk) (to|with)\b|\bwhich (consultant|advisor|adviser|person|team member)\b/, "team-who"],
-    [/\b(team|staff|firm'?s?) members?\b|\bmembers? of (the |your )?(team|firm|apsis|staff)\b|\bwho('s| is| are)?\b.{0,20}\b(members?|people|staff|consultants|accountants|advisors|advisers)\b|\bwho works (at|for|with|in)\b|\bmeet (the|your|our) (team|people|staff)\b|\bthe people behind\b/, "team"],
+    [/\b(team|staff|firm'?s?) members?\b|\bmembers? of (the |your )?(team|firm|apsis|staff)\b|\bwho('s| is| are)?\b.{0,12}\b(on|in|at|behind) (the |your |apsis'?s? )?(team|firm|company|apsis)\b|\bmeet (the|your|our) (team|people|staff)\b|\bthe people behind\b/, "team"],
     // directions
     [/\bhow (do|can|should) (i|we) (get|find|come|go|travel)\b.{0,20}\b(office|apsis|you|there)\b|\bwhere('s| is| are)\b.{0,15}\b(office|apsis|located|based)\b|\bwhere (can i|do i) find you\b/, "address"],
     // contact extras and small talk
