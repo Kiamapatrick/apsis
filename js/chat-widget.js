@@ -48,11 +48,13 @@
     {
       id: "team",
       q: "Who is on your team?",
-      k: ["team", "director", "consultant", "staff", "founder", "cpa", "qualification", "qualified", "domisiano", "stephen", "mwenda", "experts", "people"],
+      k: ["team", "member", "members", "team member", "meet team", "our team", "colleague", "leadership", "management",
+        "director", "consultant", "staff", "founder", "cpa", "qualification", "qualified", "domisiano", "stephen", "mwenda", "experts", "people"],
       a: "The core team is:\n" +
         "- Domisiano Wainaina, Director & Lead Consultant: 14+ years in finance and taxation, CPA-K, MBA\n" +
         "- Stephen Chege, Compliance & Business Advisory: 15+ years, CPA-K, member of the Institute of Internal Auditors\n" +
-        "- Mwenda Mwongera, Finance & Systems Lead: 13+ years in finance and audit across East Africa, ICPAK member",
+        "- Mwenda Mwongera, Finance & Systems Lead: 13+ years in finance and audit across East Africa, ICPAK member\n\n" +
+        "Ask me about any of them by name for more detail.",
       link: "/about.html", linkText: "Meet the team"
     },
     {
@@ -226,7 +228,7 @@
       id: "team-domisiano",
       q: "Who is Domisiano Wainaina?",
       s: ["domisiano", "wainaina"],
-      k: ["lead consultant", "managing director"],
+      k: ["lead consultant", "managing director", "mba", "financial planning", "investment appraisal"],
       a: "Domisiano Wainaina is the Director & Lead Consultant at APSIS. He has over 14 years in finance and taxation, with a focus on financial planning, financial modelling and regulatory compliance. He holds an MBA and a BA from the University of Nairobi, is CPA-K certified, and heads the FP&A, modelling and investment appraisal practice.",
       link: "/about.html", linkText: "Meet the team"
     },
@@ -234,6 +236,7 @@
       id: "team-stephen",
       q: "Who is Stephen Chege?",
       s: ["stephen", "chege"],
+      k: ["compliance advisory", "internal audit", "institute of internal auditors", "jkuat"],
       a: "Stephen Chege handles Compliance & Business Advisory at APSIS. He has over 15 years of post-qualification experience in financial services and public accounting, with a focus on internal audit and organisational development. He is CPA-K, a member of the Institute of Internal Auditors, holds a BA from the University of Nairobi, and is pursuing an MBA in Strategic Management at JKUAT.",
       link: "/about.html", linkText: "Meet the team"
     },
@@ -241,6 +244,7 @@
       id: "team-mwenda",
       q: "Who is Mwenda Mwongera?",
       s: ["mwenda", "mwongera"],
+      k: ["finance lead", "systems lead", "icpak", "bank reconciliation", "advanced excel", "saas"],
       a: "Mwenda Mwongera is APSIS's Finance & Systems Lead, with over 13 years in finance and audit across East Africa. He leads statutory and internal audits, strategic planning and tax compliance, including VAT compliance, eTIMS reconciliation and regional tax work. He also designs training on bank reconciliation and advanced Excel, and leads SaaS solutions for bookkeeping and multi-currency reporting. He is an ICPAK member and fluent in English and Swahili.",
       link: "/about.html", linkText: "Meet the team"
     },
@@ -261,6 +265,17 @@
         "- VAT, eTIMS, audits, payroll and bookkeeping systems: Mwenda Mwongera\n\n" +
         "Not sure who fits? Call or WhatsApp +254 722 670 127 and the team will point you to the right person.",
       link: "/contact.html", linkText: "Contact page"
+    },
+    {
+      id: "team-qualifications",
+      q: "What qualifications does the team have?",
+      k: ["qualifications", "certified", "certification", "credentials", "degree", "cpa-k", "cpak", "icpak", "professional body", "registered"],
+      a: "Per the APSIS website:\n" +
+        "- Domisiano Wainaina: CPA-K, MBA and BA from the University of Nairobi\n" +
+        "- Stephen Chege: CPA-K, member of the Institute of Internal Auditors, BA from the University of Nairobi, pursuing an MBA in Strategic Management at JKUAT\n" +
+        "- Mwenda Mwongera: ICPAK member\n\n" +
+        "On client work they are joined by tax advisors, customs specialists and systems experts, including CPA-K certified professionals.",
+      link: "/about.html", linkText: "Meet the team"
     },
 
     /* ---- Contact: specific questions, including live opening hours (Nairobi time) ---- */
@@ -804,8 +819,9 @@
     [/\bget in touch\b|\bcontact (details|info|information|us)\b|\b(contact|reach|call|phone|email|message|whatsapp|talk to|speak to)\b.{0,20}\b(you|u|apsis|someone|the team|a consultant|staff|the office)\b/, "contact"],
     // the team
     [/\bwho('s| is| are)?( the| your| apsis'?s?)? (director|boss|ceo|managing director|lead consultant)\b|\bwho (runs|leads|heads|manages) (apsis|the (firm|company|business)|this (firm|company))\b|\bwho('s| is) in charge\b/, "team-domisiano"],
-    [/\bhow many (people|staff|employees|consultants|members|accountants|advisors|advisers|directors|partners)\b|\bteam size\b|\bsize of (the |your )?team\b|\bhow big is (the |your )?(team|firm|company)\b/, "team-size"],
+    [/\bhow many (people|staff|employees|consultants|members|team members|accountants|advisors|advisers|directors|partners)\b|\bteam size\b|\bsize of (the |your )?team\b|\bhow big is (the |your )?(team|firm|company)\b/, "team-size"],
     [/\bwho (handles|handle|deals with|looks after|is responsible for)\b|\bwho should i (speak|talk) (to|with)\b|\bwhich (consultant|advisor|adviser|person|team member)\b/, "team-who"],
+    [/\b(team|staff|firm'?s?) members?\b|\bmembers? of (the |your )?(team|firm|apsis|staff)\b|\bwho('s| is| are)?\b.{0,20}\b(members?|people|staff|consultants|accountants|advisors|advisers)\b|\bwho works (at|for|with|in)\b|\bmeet (the|your|our) (team|people|staff)\b|\bthe people behind\b/, "team"],
     // directions
     [/\bhow (do|can|should) (i|we) (get|find|come|go|travel)\b.{0,20}\b(office|apsis|you|there)\b|\bwhere('s| is| are)\b.{0,15}\b(office|apsis|located|based)\b|\bwhere (can i|do i) find you\b/, "address"],
     // contact extras and small talk
