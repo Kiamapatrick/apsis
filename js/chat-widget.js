@@ -121,6 +121,16 @@
       link: "/content/blogs/kra-tax-demand-notice-kenya.html", linkText: "Read the full guide", caution: true
     },
     {
+      id: "amnesty",
+      q: "Is there a tax amnesty?",
+      s: ["amnesty", "waiver", "waive"],
+      k: ["forgive", "arrears", "old debts", "tax debt", "pre 2026"],
+      mood: "happy",
+      fn: function (q, now) { return amnestyAnswer(now); },
+      a: "KRA's 2026 Tax Amnesty Programme was scheduled to run until 31 December 2026. Please call the APSIS team on +254 722 670 127 to confirm the current position.",
+      link: "/contact.html", linkText: "Contact the team", caution: true
+    },
+    {
       id: "audit",
       q: "Can you help with a KRA audit?",
       k: ["audit", "kra audit", "audit support", "defence", "defense", "representation", "represent", "agent", "authorised", "authorized", "post clearance"],
@@ -478,7 +488,8 @@
     {
       id: "thanks",
       q: "Thank you",
-      k: ["thanks", "thank", "thx", "asante", "sana", "shukrani", "cheers", "appreciate", "great", "awesome", "amazing", "brilliant", "impressive", "cool", "nice"],
+      s: ["thank"],
+      k: ["thanks", "thx", "asante", "sana", "shukrani", "cheers", "appreciate", "great", "awesome", "amazing", "brilliant", "impressive", "cool", "nice"],
       a: "Karibu! If you'd like to speak to the team, call or WhatsApp +254 722 670 127 or email info@apsis.co.ke.",
       hidden: true
     },
@@ -519,6 +530,7 @@
         "- VAT: deadlines, registration, penalties\n" +
         "- KRA: missed deadlines, demand notices, audits\n" +
         "- Payroll: PAYE, NSSF and SHIF deadlines\n" +
+        "- Tax amnesty: the 2026 KRA programme\n" +
         "- Fees, how to get started, and how to reach us\n" +
         "- Our team, opening hours, today's date and the time, and who built me\n\n" +
         "Just type your question or pick a topic below.",
@@ -541,7 +553,7 @@
     id: "vat",
     words: ["vat"],                               // a message containing one of these words is about this topic
     phrase: /value[- ]added/,                     // optional: an extra pattern that also means this topic
-    stepAside: ["etims", "tims", "etr", "cuin", "invoice", "paye", "payroll", "nssf", "shif", "nhif", "helb", "salary", "import", "export", "customs", "tariff"],
+    stepAside: ["etims", "tims", "etr", "cuin", "invoice", "paye", "payroll", "nssf", "shif", "nhif", "helb", "salary", "import", "export", "customs", "tariff", "amnesty", "waiver"],
     feeExempt: "penalty",                         // price words go to the Fees answer, unless this fact was asked for
     vague: ["deadline", "registration", "penalty"],   // the buttons shown when the question is too vague
     canYou: "overview",                           // "Do you handle VAT?" gets this fact
@@ -810,6 +822,7 @@
 
   // Phrases made only of common words (who are you, how are you...) that keyword matching would skip
   var PATTERNS = [
+    [/\bamnest(y|ies)\b|\btax waivers?\b|\bwaive(r|d|s)?\b.{0,25}\b(penalt|interest)|\b(penalt\w*|interest)\b.{0,25}\bwaive(r|d|s)?\b/, "amnesty"],
     [/\bcapital gains?\b|\bexcise\b|\bpresumptive\b|\brental (income|tax)\b|\bdigital (service|services|marketplace)\b|\bdst\b|\bkra pin\b|\bpin certificate\b|\bpassword\b|\bcompany registration\b|\bregister (a |my )?company\b|\bdividend (tax|withholding)\b|\btax on dividends?\b|\bngo audit\b|\b(audit|audits) for (ngo|non.?profit)s?\b|\bfarmers?\b|\bagriculture\b|\bvat on fuel\b|\bfuel vat\b/, "not-covered"],
     [/\b(nimechelewa|kuchelewa|nimesahau)\b/, "missed-deadline"],
     [/^(?!.*\b(vat|paye|payroll|nssf|shif|nhif|etims)\b).*\b(forgot|forgotten|forget|neglected|overlooked|failed to|fail to|didn'?t|did not|haven'?t|have not|hasn'?t|has not)\b.{0,14}\b(file|filed|filing|submit|submitted|submitting|lodge|lodged|returns?|pay|paid)\b/, "missed-deadline"],
@@ -1062,6 +1075,20 @@
       return { mood: "sad", text: "We've closed for today (office hours end at " + fmt(CLOSE_MIN) + " Nairobi time). We open again " + (n.dow === 5 ? "on Monday" : "tomorrow") + " at " + fmt(OPEN_MIN) + "." + mail };
     }
     return { mood: "sad", text: "We're closed today (" + DAYS[n.dow] + "). " + week + " We open again on Monday at " + fmt(OPEN_MIN) + "." + mail };
+  }
+
+  function amnestyAnswer(date) {
+    var n = eat(date);
+    if (n.year >= 2027) {
+      return { mood: "thinking", text: "The 2026 Tax Amnesty Programme was scheduled to close on 31 December 2026. I can't confirm whether anything has changed since, so please check with KRA or call the APSIS team on +254 722 670 127." };
+    }
+    return { mood: "happy", text:
+      "Yes. KRA's 2026 Tax Amnesty Programme, under the Finance Act, 2026, runs from 1 July to 31 December 2026.\n" +
+      "- It waives 100% of penalties, interest and fines on eligible tax debts accrued up to 31 December 2025\n" +
+      "- You still pay the principal tax, and it must be fully paid by 31 December 2026 to qualify\n" +
+      "- Tax liabilities arising from 1 January 2026 are not covered\n" +
+      "- It is handled through iTax, and KRA says an amnesty certificate is generated once the principal is cleared\n\n" +
+      "After the deadline, penalties and interest become payable again. Eligibility depends on the tax type and period, so it's worth having APSIS check your iTax ledger before you pay." };
   }
 
   function clockAnswer(date) {
