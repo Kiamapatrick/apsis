@@ -832,7 +832,7 @@
     [/\bwho('s| is| are)?( the| your| apsis'?s?)? (director|boss|ceo|managing director|lead consultant)\b|\bwho (runs|leads|heads|manages) (apsis|the (firm|company|business)|this (firm|company))\b|\bwho('s| is) in charge\b/, "team-domisiano"],
     [/\bhow many (people|staff|employees|consultants|members|team members|accountants|advisors|advisers|directors|partners)\b|\bteam size\b|\bsize of (the |your )?team\b|\bhow big is (the |your )?(team|firm|company)\b/, "team-size"],
     [/\bwho (handles|handle|deals with|looks after|is responsible for)\b|\bwho should i (speak|talk) (to|with)\b|\bwhich (consultant|advisor|adviser|person|team member)\b/, "team-who"],
-    [/\b(team|staff|firm'?s?) members?\b|\bmembers? of (the |your )?(team|firm|apsis|staff)\b|\bwho('s| is| are)?\b.{0,12}\b(on|in|at|behind) (the |your |apsis'?s? )?(team|firm|company|apsis)\b|\bmeet (the|your|our) (team|people|staff)\b|\bthe people behind\b/, "team"],
+    [/\b(team|staff|firm'?s?) members?\b|\bmembers? of (the |your )?(team|firm|apsis|staff)\b|\bwho('s| is| are)?\b.{0,12}\b(on|in|at|behind) (the |your |apsis'?s? )?(team|firm|company|apsis)\b|\bmeet (the|your|our) (team|people|staff)\b|\bthe people behind\b|\babout (the |your |our |apsis'?s? )?(team|members?|staff|people|consultants|advisors|advisers)\b/, "team"],
     // directions
     [/\bhow (do|can|should) (i|we) (get|find|come|go|travel)\b.{0,20}\b(office|apsis|you|there)\b|\bwhere('s| is| are)\b.{0,15}\b(office|apsis|located|based)\b|\bwhere (can i|do i) find you\b/, "address"],
     // contact extras and small talk
@@ -1303,6 +1303,13 @@
     return { chunks: chunks, times: times };
   }
 
+  var FILLER = { about: true, info: true, information: true, detail: true, more: true };
+  function unsure(query, res) {
+    var e = res.entry;
+    if (res.score >= 4 || e.hidden || e.fn) return false;
+    return tokens(query).filter(function (t) { return !FILLER[t]; }).length > 1;
+  }
+
   // Expose the engine for testing (Node) and stop if there is no page
   var api = {
     KB: KB, answer: answer, tokens: tokens, tone: tone,
@@ -1310,7 +1317,7 @@
     VAT_TOPIC: VAT_TOPIC, PAYROLL_TOPIC: PAYROLL_TOPIC, compose: compose, clarify: clarify, clarifyMulti: clarifyMulti,
     TOPICS: TOPICS, addTopic: addTopic, routeReply: routeReply, routeReset: routeReset,
     vatReply: routeReply, vatReset: routeReset,       // the old names, so your earlier tests keep working
-    streamPlan: streamPlan
+    streamPlan: streamPlan, unsure: unsure
   };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   if (typeof document === "undefined") return;
@@ -1902,7 +1909,7 @@
       return { mood: m, text: text, chips: SUGGESTIONS.map(byId) };
     }
     var prefix = lead(e);
-    if (res.score < 4 && !e.hidden && !e.fn && tokens(query).length > 1) prefix = "I'm not completely sure I understood, but this may help. ";
+    if (unsure(query, res)) prefix = "I'm not completely sure I understood, but this may help. ";
     if (t === "neg" && !/^(worried|frustrated|rude)$/.test(e.id)) {
       prefix = "Sorry you're dealing with that. ";
       m = "sad";
