@@ -74,13 +74,13 @@
   <!-- ── Blogs & Insights Hub ───────────────────────────── -->
   <url>
     <loc>https://www.apsis.co.ke/content/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.apsis.co.ke/content/blogs/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -92,6 +92,12 @@
   </url>
 
   <!-- ── Blog Articles ──────────────────────────────────── -->
+  <url>
+    <loc>https://www.apsis.co.ke/content/blogs/kra-relaxation-enforcement-pending-bills-kenya.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://www.apsis.co.ke/content/blogs/business-taxes-in-kenya.html</loc>
     <lastmod>2026-10-06</lastmod>
