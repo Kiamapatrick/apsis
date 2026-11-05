@@ -32,13 +32,13 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Items Excluded from Consolidated Cargo Clearance Under the KES 2 Million Framework" />
+  <meta property="og:title"
+    content="Items Excluded from Consolidated Cargo Clearance Under the KES 2 Million Framework" />
   <meta property="og:description"
     content="KRA has listed items excluded from consolidated cargo clearance under the KES 2 million framework. See the list, the 5% volume cap and the declaration conditions." />
   <meta property="og:url"
     content="https://www.apsis.co.ke/content/blogs/kra-excluded-items-consolidated-cargo-kes-2-million.html" />
-  <meta property="og:image"
-    content="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.1.0" />
+  <meta property="og:image" content="https://www.apsis.co.ke/content/blogs/img/apsis-kra-cargo-framework-og.jpg" />
   <meta property="og:site_name" content="APSIS Business Consulting Ltd" />
   <meta property="og:locale" content="en_KE" />
   <meta property="article:published_time" content="2026-11-06T08:00:00+03:00" />
@@ -58,8 +58,7 @@
     content="Items Excluded from Consolidated Cargo Clearance Under the KES 2 Million Framework" />
   <meta name="twitter:description"
     content="KRA has listed items excluded from consolidated cargo clearance under the KES 2 million framework. See the list, the 5% volume cap and the declaration conditions." />
-  <meta name="twitter:image"
-    content="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.1.0" />
+  <meta name="twitter:image" content="https://www.apsis.co.ke/content/blogs/img/apsis-kra-cargo-framework-og.jpg" />
   <meta name="twitter:site" content="@ApsisBusinessKE" />
 
   <!-- ─── Google Analytics (GA4) ────────────────────────────── -->
@@ -79,7 +78,7 @@
     "@id": "https://www.apsis.co.ke/content/blogs/kra-excluded-items-consolidated-cargo-kes-2-million.html",
     "headline": "Items Excluded from Consolidated Cargo Clearance Under the KES 2 Million Framework",
     "description": "KRA has listed items excluded from consolidated cargo clearance under the KES 2 million framework. See the list, the 5% volume cap and the declaration conditions.",
-    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.1.0",
+    "image": "https://www.apsis.co.ke/content/blogs/img/apsis-kra-cargo-framework-og.jpg",
     "datePublished": "2026-11-06T08:00:00+03:00",
     "dateModified":  "2026-11-06T08:00:00+03:00",
     "author": { "@type": "Organization", "name": "Apsis Compliance Team", "url": "https://www.apsis.co.ke/" },
@@ -117,6 +116,309 @@
   <link rel="stylesheet" href="../../css/style-v2.css" />
   <link rel="stylesheet" href="../../css/service-pages.css" />
   <link rel="stylesheet" href="../css/content.css" />
+
+  <!-- ─── Article Scoped Styling ───────────────────────────── -->
+  <style>
+    /* Preloader clean dismissal */
+    .preloader.hidden {
+      display: none !important;
+    }
+
+    /* ── 1. Global Reset of Left-Border Accents ── */
+    .article-toc-list,
+    .article-toc-list a,
+    .article-prose .article-box,
+    .article-prose .tip-box,
+    .article-prose .takeaways-box,
+    .article-prose blockquote,
+    .article-prose .callout,
+    .article-prose [role="note"] {
+      border-left: none !important;
+    }
+
+    /* Standardise callout box with clean, uniform border (no left accent) */
+    .article-prose .article-box {
+      border: 1px solid var(--border-light, #e3dfd6) !important;
+      border-radius: 12px;
+      background: var(--off-white, #f7f9fc);
+      margin: 1.75rem 0;
+      padding: 1.35rem 1.6rem;
+    }
+
+    .article-prose .article-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── 2. Table of Contents (Restrained typography, subtle active pill state) ── */
+    .article-toc-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .article-toc-list li {
+      margin-bottom: 0.2rem;
+    }
+
+    .article-toc-list a {
+      display: block;
+      padding: 0.42rem 0.75rem;
+      font-size: 0.925rem;
+      line-height: 1.45;
+      color: #4a5668;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .article-toc-list a:hover {
+      color: var(--navy, #0d2137);
+      background-color: rgba(13, 33, 55, 0.04);
+    }
+
+    .article-toc-list a.is-active,
+    .article-toc-list a.active {
+      color: var(--orange, #f58220) !important;
+      font-weight: 600;
+      background-color: rgba(245, 130, 32, 0.08);
+    }
+
+    /* ── 3. Section Categories & Headings ── */
+    .category-header {
+      margin-bottom: 0.75rem;
+    }
+
+    .category-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    .category-tag--excluded {
+      background: #fdf2f2;
+      color: #991b1b;
+    }
+
+    .category-tag--conditional {
+      background: rgba(245, 130, 32, 0.1);
+      color: var(--orange, #f58220);
+    }
+
+    .category-lead {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      color: #3a4759;
+      margin-bottom: 1.25rem;
+    }
+
+    .category-note {
+      font-size: 0.9375rem;
+      color: var(--text-muted, #64748b);
+      margin: -0.25rem 0 1.25rem;
+    }
+
+    /* ── 4. Proper Semantic Ordered Lists (1–11 and 12–30) ── */
+    .article-prose ol.cargo-items-list {
+      list-style: decimal outside !important;
+      counter-reset: none !important;
+      padding-left: 2rem !important;
+      margin: 1.25rem 0 2.5rem !important;
+    }
+
+    .article-prose ol.cargo-items-list li {
+      counter-increment: none !important;
+      padding-left: 0.35rem !important;
+      margin-bottom: 0.85rem !important;
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: #3a4759;
+    }
+
+    .article-prose ol.cargo-items-list li::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    .article-prose ol.cargo-items-list--excluded li::marker {
+      font-weight: 700;
+      color: var(--navy, #0d2137);
+      font-size: 1rem;
+    }
+
+    .article-prose ol.cargo-items-list--conditional li::marker {
+      font-weight: 700;
+      color: var(--orange, #f58220);
+      font-size: 1rem;
+    }
+
+    /* ── 5. Editorial Conditions Section ── */
+    .conditions-editorial {
+      background: var(--off-white, #f7f9fc);
+      border: 1px solid var(--border-light, #e3dfd6);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .conditions-editorial-list {
+      list-style: none !important;
+      counter-reset: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .conditions-editorial-list .condition-editorial-item {
+      position: static;
+      padding: 1.25rem 0;
+      margin: 0;
+      border-bottom: 1px solid var(--border-light, #e3dfd6);
+    }
+
+    .conditions-editorial-list .condition-editorial-item:first-child {
+      padding-top: 0;
+    }
+
+    .conditions-editorial-list .condition-editorial-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .conditions-editorial-list .condition-editorial-item::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    .conditions-editorial-list .condition-editorial-item h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy, #0d2137);
+    }
+
+    .conditions-editorial-list .condition-editorial-item p {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #3a4759;
+    }
+
+    /* ── 6. Before You Ship Checklist ── */
+    .article-checklist .checklist-items {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .article-checklist .checklist-items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.85rem 0;
+      margin: 0;
+      border-bottom: 1px solid var(--border-light, #e3dfd6);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3a4759;
+    }
+
+    .article-checklist .checklist-items li:first-child {
+      padding-top: 0;
+    }
+
+    .article-checklist .checklist-items li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .article-checklist .checklist-items li::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    .article-checklist .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 0.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(245, 130, 32, 0.12);
+      border-radius: 50%;
+      color: var(--orange, #f58220);
+    }
+
+    .article-checklist .check-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ── 7. Subtle, Progressive Animations ── */
+    .js-animations .reveal-section {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      will-change: opacity, transform;
+    }
+
+    .js-animations .reveal-section.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered list items reveal in small groups (capped at 120ms) */
+    .js-animations .cargo-items-list li {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .js-animations .cargo-items-list.is-revealed li {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .js-animations .cargo-items-list.is-revealed li:nth-child(4n + 1) {
+      transition-delay: 0ms;
+    }
+
+    .js-animations .cargo-items-list.is-revealed li:nth-child(4n + 2) {
+      transition-delay: 40ms;
+    }
+
+    .js-animations .cargo-items-list.is-revealed li:nth-child(4n + 3) {
+      transition-delay: 80ms;
+    }
+
+    .js-animations .cargo-items-list.is-revealed li:nth-child(4n + 4) {
+      transition-delay: 120ms;
+    }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .js-animations .reveal-section,
+      .js-animations .cargo-items-list li {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -147,7 +449,7 @@
           <li class="nav-item"><a class="nav-link" href="../../workwithus.html">Work With Us</a></li>
           <li class="nav-item"><a class="nav-link" href="../../contact.html">Contact Us</a></li>
           <li class="nav-item"><a class="nav-link nav-blog-btn active" href="../../content/index.html"
-              aria-current="page"><i class="bi bi-journal-richtext"></i>Blogs & Insights</a></li>
+              aria-current="page"><i class="bi bi-journal-richtext"></i>Blogs &amp; Insights</a></li>
         </ul>
       </div>
     </div>
@@ -187,20 +489,21 @@
 
       <div class="ph-visual">
         <div class="ph-photo">
-          <img
-            src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.1.0"
-            alt="Shipping containers at a port terminal" loading="eager" width="800" height="500">
+          <img src="img/apsis-kra-cargo-framework-og.jpg" alt="KRA consolidated cargo clearance framework"
+            loading="eager" width="1672" height="941"
+            style="width:100%; height:auto; object-fit:contain; aspect-ratio:1672/941;">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Source line near top (no inline styles) -->
+  <!-- Source line near top -->
   <div class="container">
     <p class="article-source">
       Source: <a
         href="https://www.kra.go.ke/news-center/public-notices/2411-items-excluded-from-the-consolidated-cargo-clearance-for-consignments-under-the-kshs-2-million-framework"
-        target="_blank" rel="noopener">Kenya Revenue Authority, Public Notice (Customs and Border Control), published on KRA's public notices page on 5 November 2026</a>
+        target="_blank" rel="noopener">Kenya Revenue Authority, Public Notice (Customs and Border Control), published on
+        KRA's public notices page on 5 November 2026</a>
     </p>
   </div>
 
@@ -214,132 +517,235 @@
         <ul class="article-toc-list" id="toc-list">
           <li><a href="#quick-summary">Quick Summary</a></li>
           <li><a href="#what-kra-announced">What KRA Announced</a></li>
-          <li><a href="#excluded-items">Excluded Items (1–30)</a></li>
+          <li><a href="#excluded-items">Excluded Items (1–11)</a></li>
+          <li><a href="#conditionally-allowed-items">Conditionally Allowed Items (12–30)</a></li>
           <li><a href="#conditions">Three Conditions for Items 12–30</a></li>
           <li><a href="#before-you-ship">Before You Ship</a></li>
-          <li><a href="#source">Source</a></li>
+          <li><a href="#source">Source &amp; Disclaimer</a></li>
         </ul>
       </aside>
 
       <article class="article-prose" aria-labelledby="blog-title">
 
         <!-- Quick Summary Box -->
-        <h2 id="quick-summary">Quick Summary</h2>
-
-        <div class="article-box" role="note">
+        <div class="article-box reveal-section" role="note" id="quick-summary">
+          <h2 style="font-size: 1.25rem; margin: 0 0 0.75rem;">Quick Summary</h2>
           <ul>
-            <li>KRA has published a notice listing items excluded from consolidated cargo clearance under the KES 2 million framework.</li>
+            <li>KRA has published a notice listing items excluded from consolidated cargo clearance under the KES 2
+              million framework.</li>
             <li>The notice is addressed to all cargo clearance stakeholders.</li>
-            <li>Items 12–30 may be allowed as consolidated cargo if presented together, with the combined volume capped at 5% of total cargo volume (CBM).</li>
+            <li>Items 12–30 may be allowed as consolidated cargo if presented together, with the combined volume capped
+              at 5% of total cargo volume (CBM).</li>
           </ul>
         </div>
+
+        <!-- Contextual Link Box -->
+        <a href="#final-cta" class="article-mid-cta">
+          <div>
+            <span class="article-mid-cta-label">Service Link</span>
+            <span class="article-mid-cta-title">Need Help with Customs Clearance or Tax Advisory?</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
 
         <!-- What KRA Announced -->
-        <h2 id="what-kra-announced">What KRA Announced</h2>
+        <section id="what-kra-announced" class="reveal-section">
+          <h2>What KRA Announced</h2>
 
-        <p>
-          KRA notified all cargo clearance stakeholders that the listed items are excluded from consolidated cargo clearance for consignments under the KES 2 million framework, and advised stakeholders to take note of the exclusions and ensure compliance with the applicable customs clearance requirements.
-        </p>
+          <p>
+            The Kenya Revenue Authority (KRA) has notified all cargo clearance stakeholders that the listed items are
+            excluded from consolidated cargo clearance for consignments under the KES 2 million framework. KRA advised
+            stakeholders to take note of the exclusions and ensure strict compliance with applicable customs clearance
+            requirements.
+          </p>
 
-        <p class="article-box" role="note">
-          The notice does not explain the KES 2 million framework itself or specify an effective date. For those details, refer to KRA directly.
-        </p>
+          <div class="article-box" role="note">
+            <p>
+              The notice does not explain the KES 2 million framework itself or specify an effective date. For those
+              details, refer to KRA directly.
+            </p>
+          </div>
 
-        <!-- Two Lists -->
-        <h2 id="excluded-items">Excluded Items (1–11)</h2>
+          <p>
+            This notice should also be read alongside KRA's earlier requirements on the declaration of individual
+            importer details for consolidated cargo. Importers and consolidators should ensure that the required
+            identification and shipment information is accurately provided. See the
+            <a href="https://www.kra.go.ke/news-center/public-notices/2406-declaration-of-importer-details-for-consolidated-cargo-issuance-of-electronic-tax-invoices"
+              target="_blank" rel="noopener">KRA public notice on Declaration of Importer Details for Consolidated Cargo
+              and Issuance of Electronic Tax Invoices</a>
+            (published 28 October 2026).
+          </p>
+        </section>
 
-        <p>The following items are excluded from consolidated cargo clearance:</p>
+        <!-- Section 1: Excluded Items (1–11) -->
+        <section id="excluded-items" class="reveal-section">
+          <div class="category-header">
+            <span class="category-tag category-tag--excluded">Strictly Excluded</span>
+            <h2>Excluded Items (1–11)</h2>
+          </div>
+          <p class="category-lead">
+            The following <strong>11 items are strictly excluded</strong> from consolidated cargo clearance under the
+            KES 2 million framework. Consignments containing any of these goods cannot be cleared as consolidated cargo
+            under this scheme and do not qualify for conditional clearance.
+          </p>
 
-        <h2 id="conditionally-allowed-items">Excluded Items That May Be Allowed as Consolidated Cargo Under Conditions (12–30)</h2>
+          <ol class="cargo-items-list cargo-items-list--excluded">
+            <li>Assorted foodstuff</li>
+            <li>Complete kitchen</li>
+            <li>Designer brands for finished manufactured products</li>
+            <li>Plant and machinery, excluding small machinery e.g. handheld tractors and similar small-scale equipment
+              that support the agricultural and small industry sectors</li>
+            <li>Smart phones and watches</li>
+            <li>Used clothes and shoes</li>
+            <li>Wooden/Steel/Aluminium doors</li>
+            <li>Televisions</li>
+            <li>Car accessories &mdash; car audio systems/speakers, dash cameras, reversing cameras/parking sensors and
+              GPS navigation devices</li>
+            <li>Musical instruments, public address systems, entertainment equipment and related accessories</li>
+            <li>Sanitary ware</li>
+          </ol>
+        </section>
 
-        <p>The following items are excluded but may be allowed as consolidated cargo if presented together and the conditions below are met:</p>
+        <!-- Section 2: Conditionally Allowed Items (12–30) -->
+        <section id="conditionally-allowed-items" class="reveal-section">
+          <div class="category-header">
+            <span class="category-tag category-tag--conditional">Conditional Clearance Only</span>
+            <h2>Conditionally Allowed Items (12–30)</h2>
+          </div>
+          <p class="category-lead">
+            The following <strong>19 items are also excluded by default</strong>, but <strong>may be allowed as
+              consolidated cargo only</strong> if they are presented together and <strong>all three KRA
+              conditions</strong> outlined in the next section are fully satisfied. They are not automatically
+            permitted.
+          </p>
+          <p class="category-note">
+            <em>Note: The item descriptions below are based on the KRA public notice; wording has been formatted for
+              readability.</em>
+          </p>
 
-        <div class="ct-data-grid">
-          <div class="ct-data-card">
-            <ol>
-              <li>Assorted foodstuff</li>
-              <li>Complete kitchen</li>
-              <li>Designer brands for finished manufactured products</li>
-              <li>Plant and machinery, excluding small machinery e.g. handheld tractors and similar small-scale equipment that support the agricultural and small industry sectors</li>
-              <li>Smart phones and watches</li>
-              <li>Used clothes and shoes</li>
-              <li>Wooden/Steel/Aluminium doors</li>
-              <li>Televisions</li>
-              <li>Car accessories - car audio systems/speakers, dash cameras, reversing cameras/parking sensors and GPS navigation devices</li>
-              <li>Musical instruments, public address systems, entertainment equipment and related accessories</li>
-              <li>Sanitary ware</li>
+          <ol start="12" class="cargo-items-list cargo-items-list--conditional">
+            <li>Cables</li>
+            <li>Ready-made garments</li>
+            <li>Fabrics</li>
+            <li>Interlining material</li>
+            <li>Beddings and household linen</li>
+            <li>Carpets</li>
+            <li>Cosmetics, toiletries and beauty products</li>
+            <li>New motorcycle spare parts and accessories</li>
+            <li>New shoes</li>
+            <li>Terry towels</li>
+            <li>Auto paints, epoxy and related products</li>
+            <li>Padlocks</li>
+            <li>Curtain accessories</li>
+            <li>Door locks/handles</li>
+            <li>Hardware items (machetes, meters, valves)</li>
+            <li>Bathroom accessories (towel holders, towel bars, shower heads)</li>
+            <li>Cosmetic and haircare products/henna</li>
+            <li>Computer accessories</li>
+            <li>Mobile phone accessories</li>
+          </ol>
+        </section>
+
+        <!-- Three Conditions Section -->
+        <section id="conditions" class="reveal-section">
+          <h2>Three Conditions for Items 12–30</h2>
+          <p class="category-lead">
+            For items 12–30 to be cleared as consolidated cargo, KRA states that they will be subject to the following
+            criteria. <strong>All three conditions must be satisfied:</strong>
+          </p>
+
+          <div class="conditions-editorial">
+            <ol class="conditions-editorial-list">
+              <li class="condition-editorial-item">
+                <h3>1. Volume Cap</h3>
+                <p>The combined volume of these items must not exceed <strong>5% of the total cargo volume</strong>,
+                  measured in cubic metres (CBM).</p>
+              </li>
+              <li class="condition-editorial-item">
+                <h3>2. Full Declaration</h3>
+                <p>All items must be <strong>fully declared on the invoice, the customs entry, and the list of
+                    importers</strong>, with the description and quantity of each item.</p>
+              </li>
+              <li class="condition-editorial-item">
+                <h3>3. Unit Values</h3>
+                <p>Items are subject to <strong>applicable unit values</strong>, determined using the applicable customs
+                  valuation method.</p>
+              </li>
             </ol>
           </div>
-          <div class="ct-data-card">
-            <ol start="12">
-              <li>Cables</li>
-              <li>Ready-made garments</li>
-              <li>Fabrics</li>
-              <li>Interlining material</li>
-              <li>Beddings and household linen</li>
-              <li>Carpets</li>
-              <li>Cosmetics, toiletries and beauty products</li>
-              <li>New motorcycle spare parts and accessories</li>
-              <li>New shoes</li>
-              <li>Terry towels</li>
-              <li>Auto paints, epoxy and related products</li>
-              <li>Padlocks</li>
-              <li>Curtain accessories</li>
-              <li>Door locks/handles</li>
-              <li>Hardware items (machetes, meters, valves)</li>
-              <li>Bathroom accessories (towel holders, towel bars, shower heads)</li>
-              <li>Cosmetic and haircare products/henna</li>
-              <li>Computer accessories</li>
-              <li>Mobile phone accessories</li>
-            </ol>
-          </div>
-        </div>
-
-        <!-- Three Conditions as Cards -->
-        <h2 id="conditions">Three Conditions for Items 12–30</h2>
-
-        <p>For items 12–30, KRA states they will be subject to the following conditions:</p>
-
-        <div class="ct-data-grid">
-          <div class="ct-data-card">
-            <h4>Volume Cap</h4>
-            <p>The combined volume of these items must not exceed 5% of the total cargo volume, measured in cubic metres (CBM).</p>
-          </div>
-          <div class="ct-data-card">
-            <h4>Full Declaration</h4>
-            <p>All of them must be fully declared on the invoice, the entry and the list of importers, with the description and quantity of each item.</p>
-          </div>
-          <div class="ct-data-card">
-            <h4>Unit Values</h4>
-            <p>They are subject to the applicable unit values, determined using the applicable customs valuation method.</p>
-          </div>
-        </div>
+        </section>
 
         <!-- Before You Ship -->
-        <h2 id="before-you-ship">Before You Ship</h2>
+        <section id="before-you-ship" class="reveal-section">
+          <h2>Before You Ship</h2>
+          <div class="article-box article-checklist" role="note">
+            <ul class="checklist-items">
+              <li>
+                <span class="check-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span>Identify whether the goods fall under items 1–11 or items 12–30 of KRA's exclusion list.</span>
+              </li>
+              <li>
+                <span class="check-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span>For items 12–30, calculate their aggregate volume and confirm that it does not exceed 5% of the
+                  total cargo volume, measured in cubic metres (CBM).</span>
+              </li>
+              <li>
+                <span class="check-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span>Ensure each item is fully declared on the invoice, customs entry and list of importers, including
+                  its description and quantity.</span>
+              </li>
+              <li>
+                <span class="check-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span>Confirm the applicable customs valuation and unit values with the clearing agent.</span>
+              </li>
+            </ul>
+          </div>
+        </section>
 
-        <div class="article-box" role="note">
-          <ul>
-            <li>Check your shipment list against the notice.</li>
-            <li>Make sure descriptions and quantities on your invoice are complete.</li>
-            <li>Confirm the details with your clearing agent.</li>
-          </ul>
-        </div>
-
-        <!-- Source -->
-        <h2 id="source">Source</h2>
-
-        <p class="article-source">
-          Source: <a
-            href="https://www.kra.go.ke/news-center/public-notices/2411-items-excluded-from-the-consolidated-cargo-clearance-for-consignments-under-the-kshs-2-million-framework"
-            target="_blank" rel="noopener">Kenya Revenue Authority, Public Notice (Customs and Border Control), published on KRA's public notices page on 5 November 2026</a>
-        </p>
-
-        <div class="article-box" role="note">
-          <p>
-            Always verify the current notice on KRA's website before acting.
+        <!-- Source & Disclaimer -->
+        <section id="source" class="reveal-section">
+          <h2>Source &amp; Disclaimer</h2>
+          <p class="article-source">
+            Source: <a
+              href="https://www.kra.go.ke/news-center/public-notices/2411-items-excluded-from-the-consolidated-cargo-clearance-for-consignments-under-the-kshs-2-million-framework"
+              target="_blank" rel="noopener">Kenya Revenue Authority, Public Notice (Customs and Border Control),
+              published on KRA's public notices page on 5 November 2026</a>
           </p>
-        </div>
+          <div class="article-box" role="note">
+            <p>
+              <strong>Disclaimer:</strong> General information based on KRA's published public notice. It is not legal
+              or tax advice. Always check KRA's official website for current notices and clearance requirements before
+              acting.
+            </p>
+          </div>
+        </section>
 
         <!-- Follow / Connect -->
         <div class="article-author">
@@ -347,7 +753,7 @@
           <p>Get plain-language tax insights, compliance alerts, and business guidance.</p>
           <div class="article-follow-links">
             <a href="https://x.com/ApsisBusinessKE" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
                   d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
@@ -355,7 +761,7 @@
             </a>
             <a href="https://www.linkedin.com/company/apsis-business-consulting-ltd/" target="_blank"
               rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
                   d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
               </svg>
@@ -390,7 +796,8 @@
       <div class="related-grid">
         <a href="kra-relaxation-enforcement-pending-bills-kenya.html" class="related-card">
           <span class="related-cat">Compliance</span>
-          <span class="related-title">Pending Government Bills and Tax Payment: KRA Enforcement Relaxation Guidelines</span>
+          <span class="related-title">Pending Government Bills and Tax Payment: KRA Enforcement Relaxation
+            Guidelines</span>
           <span class="related-meta">Nov 2026 &middot; 3 min read</span>
         </a>
         <a href="kra-tax-demand-notice-kenya.html" class="related-card">
@@ -400,7 +807,7 @@
         </a>
         <a href="../../import-export-tax-advisory.html" class="related-card">
           <span class="related-cat">Advisory</span>
-          <span class="related-title">Import & Export Tax Advisory</span>
+          <span class="related-title">Import &amp; Export Tax Advisory</span>
           <span class="related-meta">Service &middot; Read more</span>
         </a>
       </div>
@@ -448,7 +855,7 @@
             <li><a href="/services.html">Our Services</a></li>
             <li><a href="/workwithus.html">Work With Us</a></li>
             <li><a href="/contact.html">Contact Us</a></li>
-            <li><a href="/content/">Blogs & Insights</a></li>
+            <li><a href="/content/">Blogs &amp; Insights</a></li>
           </ul>
         </nav>
 
@@ -480,10 +887,73 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../../js/main-v2.js"></script>
   <script src="../js/content.js"></script>
-
-
   <script src="../../js/chat-widget.js" defer></script>
 
+  <!-- ─── Scoped Progressive Enhancement Scripts ─── -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 0. Dismiss preloader promptly when page is ready
+      var preloader = document.getElementById('preloader');
+      if (preloader) {
+        var hidePreloader = function () {
+          preloader.classList.add('hidden');
+        };
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 200);
+      }
+
+      // 1. Enable animation classes only if reduced motion is not preferred
+      var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        document.documentElement.classList.add('js-animations');
+      }
+
+      // 2. Smooth scrolling for TOC links with offset for fixed navbar
+      var tocLinks = document.querySelectorAll('.article-toc-list a');
+      tocLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var targetId = link.getAttribute('href');
+          if (targetId && targetId.charAt(0) === '#') {
+            var target = document.querySelector(targetId);
+            if (target) {
+              e.preventDefault();
+              var nav = document.getElementById('mainNav');
+              var navHeight = nav ? nav.offsetHeight : 76;
+              var targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+              window.scrollTo({
+                top: targetTop,
+                behavior: prefersReducedMotion ? 'auto' : 'smooth'
+              });
+              if (history.pushState) {
+                history.pushState(null, '', targetId);
+              }
+            }
+          }
+        });
+      });
+
+      // 3. Subtle viewport reveal for major sections and small-group lists
+      if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          rootMargin: '0px 0px -40px 0px',
+          threshold: 0.05
+        });
+
+        document.querySelectorAll('.reveal-section, .cargo-items-list').forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      }
+    })();
+  </script>
 
 </body>
 
