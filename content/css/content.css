@@ -1668,3 +1668,36 @@
         margin-top: 1.5rem;
     }
 }
+
+/* ── 9. Article source citation line (used on blog article pages) ── */
+.article-source {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7686);
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light, #e3dfd6);
+}
+
+.article-source a {
+    color: var(--navy, #0f2742);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color 0.2s ease;
+}
+
+.article-source a:hover {
+    color: var(--orange, #f58220);
+}
+
+/* ── 10. Hero copy layout fix (.ph-copy sits inside .ph-inner grid) ── */
+.ph-copy {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    .ph-copy {
+        margin-bottom: 0;
+    }
+}
