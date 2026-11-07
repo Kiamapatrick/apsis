@@ -98,12 +98,14 @@
     gap: 1.5rem;
 }
 
+/* Tablet */
 @media (max-width: 900px) {
     .tools-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
+/* Phone */
 @media (max-width: 640px) {
     .tools-grid {
         grid-template-columns: 1fr;
@@ -138,6 +140,7 @@
     .tools-card:hover {
         border-color: #c9c3b6;
         box-shadow: var(--tools-card-shadow-hover);
+        transform: translateY(-4px);
     }
 }
 
@@ -148,6 +151,7 @@
 
     .tools-card:hover {
         box-shadow: var(--tools-card-shadow-rest);
+        transform: none;
     }
 }
 
@@ -198,12 +202,23 @@
     text-wrap: pretty;
 }
 
-/* Stretched link - whole card is clickable */
+/* Visible link text inside card - real inline text links */
 .tools-card__link {
-    position: absolute;
-    inset: 0;
-    border-radius: var(--tools-card-radius);
-    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--tools-orange);
+    text-decoration: none;
+    border-bottom: 1px solid var(--tools-orange);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tools-card__link:hover {
+    color: var(--tools-navy);
+    border-bottom-color: var(--tools-navy);
 }
 
 .tools-card__link:focus-visible {
@@ -211,49 +226,13 @@
     outline-offset: 3px;
 }
 
-/* Visible link text inside card */
+/* Stretched link - whole card is clickable */
 .tools-card__link::after {
-    content: attr(href);
-    /* This is a placeholder - we'll use visible text instead */
-}
-
-.tools-card__link::before {
-    content: "Open the calculator";
+    content: "";
     position: absolute;
-    bottom: 1.75rem;
-    left: 1.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--tools-orange);
-    text-decoration: none;
-    border-bottom: 1px solid var(--tools-orange);
-    transition: color 0.2s ease, border-color 0.2s ease;
-    z-index: 2;
-}
-
-.tools-card__link:hover::before {
-    color: var(--tools-navy);
-    border-bottom-color: var(--tools-navy);
-}
-
-/* Second card has different link text */
-.tools-card:nth-child(2) .tools-card__link::before {
-    content: "Contact APSIS";
-}
-
-@media (max-width: 640px) {
-    .tools-card__link::before {
-        bottom: 1.25rem;
-        left: 1.25rem;
-    }
-
-    .tools-card:nth-child(2) .tools-card__link::before {
-        bottom: 1.25rem;
-        left: 1.25rem;
-    }
+    inset: 0;
+    border-radius: var(--tools-card-radius);
+    z-index: 1;
 }
 
 /* Print styles */
@@ -284,7 +263,7 @@
         page-break-inside: avoid;
     }
 
-    .tools-card__link::before {
+    .tools-card__link::after {
         display: none !important;
     }
 
