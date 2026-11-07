@@ -23,6 +23,10 @@ if (!css.includes(".pc-print-btn") || !css.includes("display: none")) {
 if (!css.includes("page-break-inside: avoid")) {
   throw new Error("CSS print block missing page-break-inside: avoid for tables");
 }
+// Test: CSS print block hides the chat widget using correct selectors
+if (!css.includes("#apsis-chat-btn") || !css.includes("#apsis-chat")) {
+  throw new Error("CSS print block missing #apsis-chat-btn or #apsis-chat hiding");
+}
 
 // Test: JS contains the print-line code
 const js = fs.readFileSync("js/paye-calculator.js", "utf8");

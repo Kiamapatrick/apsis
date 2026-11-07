@@ -146,7 +146,7 @@
 
 .pc-error:empty {
     display: none;
-  }
+}
 
 /* Other deductions details */
 .pc-other-deductions {
@@ -155,17 +155,17 @@
     border: 1px solid var(--pc-line);
     border-radius: 12px;
     background: #fff;
-  }
+}
 
 .pc-other-deductions summary {
     cursor: pointer;
     font-weight: 500;
     color: var(--pc-ink);
-  }
+}
 
 .pc-field-group {
     margin-bottom: 1rem;
-  }
+}
 
 .pc-field-group label {
     display: block;
@@ -173,7 +173,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--pc-ink);
-  }
+}
 
 .pc-field-group input {
     width: 100%;
@@ -187,26 +187,26 @@
     line-height: 1.4;
     font-variant-numeric: tabular-nums;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
+}
 
 .pc-field-group input:hover {
     border-color: #b9b3a5;
-  }
+}
 
 .pc-field-group input:focus {
     outline: none;
     border-color: var(--pc-navy);
     box-shadow: 0 0 0 3px rgba(15, 39, 66, 0.08);
-  }
+}
 
 .pc-field-group input[aria-invalid=true] {
     border-color: #b42318;
-  }
+}
 
 .pc-extra-row td,
 .pc-extra-row th {
     font-size: 0.9375rem;
-  }
+}
 
 .pc-empty {
     margin: 0;
@@ -231,6 +231,7 @@
     font-weight: 500;
     line-height: 1.2;
     color: var(--pc-ink);
+    caption-side: top;
 }
 
 .pc-table th,
@@ -425,7 +426,7 @@
     .pc-source a {
         transition: none;
     }
-  }
+}
 
 /* Print button */
 .pc-print-btn {
@@ -440,17 +441,22 @@
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s ease;
-  }
+}
 
 .pc-print-btn:hover {
     background: var(--pc-ink);
-  }
+}
 
 .pc-print-date {
     margin-top: 1rem;
     font-size: 0.875rem;
     color: var(--pc-muted);
-  }
+}
+
+/* FAQ */
+.pc-faq {
+    margin-top: 3rem;
+}
 
 /* Print styles */
 @media print {
@@ -517,9 +523,8 @@
     #mainNav,
     #preloader,
     .site-footer,
-    #chat-widget {
+    #apsis-chat-btn,
+    #apsis-chat {
         display: none !important;
     }
 }
-
-
