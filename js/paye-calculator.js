@@ -1,0 +1,167 @@
+/* APSIS PAYE calculator: standard payslip (monthly, resident employee).
+   All rates live in RATES. When the law changes, edit RATES and checkedOn only. */
+(function () {
+  "use strict";
+
+  var RATES = {
+    checkedOn: "7 November 2026",
+    // Upper edge of each band (monthly taxable pay, KES). KRA PAYE guide 2025/26.
+    bands: [
+      { upTo: 24000, rate: 0.10 },
+      { upTo: 32333, rate: 0.25 },
+      { upTo: 500000, rate: 0.30 },
+      { upTo: 800000, rate: 0.325 },
+      { upTo: Infinity, rate: 0.35 }
+    ],
+    personalRelief: 2400,
+    nssf: { rate: 0.06, upperLimit: 108000 }, // Year 4, from February 2026
+    shif: { rate: 0.0275, minimum: 300 },     // Social Health Insurance Regulations 2024
+    housingLevy: { rate: 0.015 }              // employee share
+  };
+
+  var MAX_GROSS = 1000000000;
+
+  function round2(n) { return Math.round((n + Number.EPSILON) * 100) / 100; }
+
+  function taxOnTaxable(taxable) {
+    var lower = 0, taxBefore = 0, bands = [];
+    RATES.bands.forEach(function (b) {
+      var amount = Math.max(0, Math.min(taxable, b.upTo) - lower);
+      var tax = amount * b.rate;
+      bands.push({ from: lower, to: b.upTo, rate: b.rate, amount: amount, tax: tax });
+      taxBefore += tax;
+      lower = b.upTo;
+    });
+    taxBefore = round2(taxBefore);
+    return { taxBefore: taxBefore, bands: bands };
+  }
+
+  function compute(gross) {
+    var nssf = round2(RATES.nssf.rate * Math.min(gross, RATES.nssf.upperLimit));
+    var shif = round2(Math.max(RATES.shif.minimum, RATES.shif.rate * gross));
+    var levy = round2(RATES.housingLevy.rate * gross);
+    var taxable = Math.max(0, round2(gross - nssf - shif - levy));
+
+    var taxResult = taxOnTaxable(taxable);
+    var taxBefore = taxResult.taxBefore;
+    var bands = taxResult.bands;
+
+    var paye = Math.max(0, round2(taxBefore - RATES.personalRelief));
+    var net = round2(gross - nssf - shif - levy - paye);
+
+    return { gross: gross, nssf: nssf, shif: shif, levy: levy, taxable: taxable,
+             bands: bands, taxBefore: taxBefore, relief: RATES.personalRelief,
+             paye: paye, net: net };
+  }
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = { compute: compute, taxOnTaxable: taxOnTaxable, RATES: RATES };
+    return;
+  }
+
+  /* ---------- Page wiring ---------- */
+  var fmt = new Intl.NumberFormat("en-KE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var fmtInt = new Intl.NumberFormat("en-KE", { maximumFractionDigits: 0 });
+  function money(n) { return fmt.format(n); }
+
+  var input = document.getElementById("pcGross");
+  var errorEl = document.getElementById("pcError");
+  var emptyEl = document.getElementById("pcEmpty");
+  var resultEl = document.getElementById("pcResult");
+  var bandBody = document.getElementById("pcBandRows");
+  var checkedEls = document.querySelectorAll("[data-checked-on]");
+
+  checkedEls.forEach(function (el) { el.textContent = RATES.checkedOn; });
+
+  function set(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function parseGross(text) {
+    var cleaned = String(text).replace(/[,\s]/g, "");
+    if (cleaned === "") return { empty: true };
+    if (!/^\d*\.?\d+$|^\d+\.$/.test(cleaned)) return { error: "Enter numbers only, for example 85000." };
+    var n = parseFloat(cleaned);
+    if (n === 0) return { empty: true };
+    if (n > MAX_GROSS) return { error: "Enter an amount below KES 1,000,000,000." };
+    return { value: n };
+  }
+
+  function bandLabel(b, i) {
+    if (i === 0) return "First " + fmtInt.format(b.to);
+    if (b.to === Infinity) return "Above " + fmtInt.format(b.from);
+    return fmtInt.format(b.from + 1) + " to " + fmtInt.format(b.to);
+  }
+
+  function renderBands(bands) {
+    bandBody.innerHTML = "";
+    bands.forEach(function (b, i) {
+      var tr = document.createElement("tr");
+      if (b.amount === 0) tr.className = "pc-muted-row";
+      var cells = [
+        bandLabel(b, i),
+        (b.rate * 100).toString().replace(/\.0+$/, "") + "%",
+        money(b.amount),
+        money(b.tax)
+      ];
+      cells.forEach(function (text, j) {
+        var td = document.createElement("td");
+        td.textContent = text;
+        if (j > 0) td.className = "pc-num";
+        tr.appendChild(td);
+      });
+      bandBody.appendChild(tr);
+    });
+  }
+
+  function render() {
+    var parsed = parseGross(input.value);
+
+    if (parsed.error) {
+      errorEl.textContent = parsed.error;
+      input.setAttribute("aria-invalid", "true");
+      emptyEl.hidden = true;
+      resultEl.hidden = true;
+      return;
+    }
+    errorEl.textContent = "";
+    input.removeAttribute("aria-invalid");
+
+    if (parsed.empty) {
+      emptyEl.hidden = false;
+      resultEl.hidden = true;
+      return;
+    }
+
+    var r = compute(parsed.value);
+    if (r.net < 0) {
+      errorEl.textContent = "The deductions are higher than this pay. Check the amount.";
+      input.setAttribute("aria-invalid", "true");
+      emptyEl.hidden = true;
+      resultEl.hidden = true;
+      return;
+    }
+    emptyEl.hidden = true;
+    resultEl.hidden = false;
+
+    set("pcGrossOut", money(r.gross));
+    set("pcNssf", money(r.nssf));
+    set("pcShif", money(r.shif));
+    set("pcLevy", money(r.levy));
+    set("pcPaye", money(r.paye));
+    set("pcNet", money(r.net));
+
+    set("pcWGross", money(r.gross));
+    set("pcWDeductions", money(r.nssf + r.shif + r.levy));
+    set("pcTaxable", money(r.taxable));
+    set("pcTaxBefore", money(r.taxBefore));
+    set("pcRelief", money(Math.min(r.relief, r.taxBefore)));
+    set("pcWPaye", money(r.paye));
+    renderBands(r.bands);
+  }
+
+  input.addEventListener("input", render);
+  document.getElementById("pcForm").addEventListener("submit", function (e) { e.preventDefault(); render(); });
+  render();
+})();
