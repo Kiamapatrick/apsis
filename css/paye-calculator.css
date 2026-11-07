@@ -493,7 +493,11 @@
     }
 
     .pc-notes {
-        display: none;
+        display: block !important;
+    }
+
+    .pc-faq {
+        display: none !important;
     }
 
     .pc-table {
@@ -507,6 +511,14 @@
         border-top: 1px solid var(--pc-line);
         font-size: 0.875rem;
         color: var(--pc-muted);
+    }
+
+    /* Hide site frame elements */
+    #mainNav,
+    #preloader,
+    .site-footer,
+    #chat-widget {
+        display: none !important;
     }
 }
 

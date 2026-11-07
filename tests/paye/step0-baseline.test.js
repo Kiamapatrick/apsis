@@ -1,3 +1,4 @@
+// Run: node --test tests/paye/*.test.js
 const { compute, RATES, taxOnTaxable } = require("../../js/paye-calculator.js");
 
 const TOLERANCE = 0.005;

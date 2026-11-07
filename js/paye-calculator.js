@@ -148,7 +148,7 @@
     if (cleaned === "") return { value: 0 };
     if (!/^\d*\.?\d+$|^\d+\.$/.test(cleaned)) return { error: fieldName + " must be a number." };
     var n = parseFloat(cleaned);
-    if (n < 0) return { error: fieldName + " cannot be negative." };
+    if (n < 0) return { error: fieldName + " must be 0 or more." };
     return { value: n };
   }
 
