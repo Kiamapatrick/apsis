@@ -1,0 +1,299 @@
+/* APSIS Tools hub. Loads after style-v2.css and reuses its colour variables.
+   Everything is namespaced .tools* so no other page is affected. */
+
+.tools {
+    --tools-line: #e3dfd6;
+    --tools-line-strong: #d9d4c8;
+    --tools-ink: var(--text-hero, #14202e);
+    --tools-muted: var(--text-muted, #64748b);
+    --tools-navy: var(--navy, #0d2137);
+    --tools-orange: var(--orange, #f58220);
+
+    /* Card tokens (same as .pc) */
+    --tools-card-border: #e3dfd6;
+    --tools-card-radius: 20px;
+    --tools-card-shadow-rest: 0 2px 6px rgba(13, 33, 55, 0.10), 0 22px 40px -14px rgba(13, 33, 55, 0.40);
+    --tools-card-shadow-rest-narrow: 0 2px 6px rgba(13, 33, 55, 0.10), 0 12px 24px -10px rgba(13, 33, 55, 0.30);
+    --tools-card-shadow-hover: 0 4px 10px rgba(13, 33, 55, 0.14), 0 30px 50px -16px rgba(13, 33, 55, 0.55);
+
+    margin-top: 76px;               /* clears the fixed navbar */
+    padding: 3rem 0 5rem;
+    background: var(--off-white, #f7f9fc);
+    color: var(--tools-ink);
+}
+
+.tools-wrap {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Breadcrumb - same pattern as .pc-crumbs */
+.tools-crumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    color: var(--tools-muted);
+}
+
+.tools-crumbs a {
+    color: var(--tools-ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.tools-crumbs a:hover {
+    color: var(--tools-orange);
+}
+
+.tools-crumbs a:focus-visible {
+    outline: 2px solid var(--tools-orange);
+    outline-offset: 3px;
+}
+
+.tools-crumbs svg {
+    width: 10px;
+    height: 10px;
+    fill: none;
+    stroke: var(--tools-orange);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tools-crumbs span[aria-current="page"] {
+    color: var(--tools-muted);
+}
+
+/* Header */
+.tools-head {
+    margin-bottom: 3rem;
+}
+
+.tools-head h1 {
+    margin: 0 0 0.75rem;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 3.6vw, 3rem);
+    line-height: 1.05;
+    color: var(--tools-ink);
+    text-wrap: balance;
+}
+
+.tools-head p {
+    margin: 0;
+    max-width: 34em;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #3a4759;
+    text-wrap: pretty;
+}
+
+/* Card grid: 3 cols desktop, 2 tablet, 1 phone */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tools card */
+.tools-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--tools-card-border);
+    border-radius: var(--tools-card-radius);
+    box-shadow: var(--tools-card-shadow-rest);
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 640px) {
+    .tools-card {
+        padding: 1.25rem;
+        border-radius: 16px;
+        box-shadow: var(--tools-card-shadow-rest-narrow);
+    }
+}
+
+/* Hover effect - only for the two cards here, using .belt-card--blog pattern */
+@media (hover: hover) {
+    .tools-card:hover {
+        border-color: #c9c3b6;
+        box-shadow: var(--tools-card-shadow-hover);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tools-card {
+        transition: none;
+    }
+
+    .tools-card:hover {
+        box-shadow: var(--tools-card-shadow-rest);
+    }
+}
+
+/* Card media area with icon */
+.tools-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.tools-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--tools-navy);
+}
+
+.tools-icon .ti-main {
+    stroke: var(--tools-navy);
+    stroke-width: 1.75;
+}
+
+.tools-icon .ti-accent {
+    stroke: var(--tools-orange);
+    stroke-width: 1.75;
+}
+
+/* Card body */
+.tools-card__body {
+    flex: 1;
+}
+
+.tools-card__title {
+    margin: 0 0 0.75rem;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--tools-ink);
+    text-wrap: balance;
+}
+
+.tools-card__text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--tools-muted);
+    text-wrap: pretty;
+}
+
+/* Stretched link - whole card is clickable */
+.tools-card__link {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--tools-card-radius);
+    z-index: 1;
+}
+
+.tools-card__link:focus-visible {
+    outline: 2px solid var(--tools-orange);
+    outline-offset: 3px;
+}
+
+/* Visible link text inside card */
+.tools-card__link::after {
+    content: attr(href);
+    /* This is a placeholder - we'll use visible text instead */
+}
+
+.tools-card__link::before {
+    content: "Open the calculator";
+    position: absolute;
+    bottom: 1.75rem;
+    left: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--tools-orange);
+    text-decoration: none;
+    border-bottom: 1px solid var(--tools-orange);
+    transition: color 0.2s ease, border-color 0.2s ease;
+    z-index: 2;
+}
+
+.tools-card__link:hover::before {
+    color: var(--tools-navy);
+    border-bottom-color: var(--tools-navy);
+}
+
+/* Second card has different link text */
+.tools-card:nth-child(2) .tools-card__link::before {
+    content: "Contact APSIS";
+}
+
+@media (max-width: 640px) {
+    .tools-card__link::before {
+        bottom: 1.25rem;
+        left: 1.25rem;
+    }
+
+    .tools-card:nth-child(2) .tools-card__link::before {
+        bottom: 1.25rem;
+        left: 1.25rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .tools {
+        margin-top: 0;
+        padding: 0;
+        background: #fff;
+    }
+
+    .tools-wrap {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .tools-head {
+        margin-bottom: 1.5rem;
+    }
+
+    .tools-crumbs {
+        display: none !important;
+    }
+
+    .tools-card {
+        box-shadow: none !important;
+        border: 1px solid var(--tools-line) !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .tools-card__link::before {
+        display: none !important;
+    }
+
+    /* Hide site frame elements */
+    #mainNav,
+    #preloader,
+    .site-footer,
+    #apsis-chat-btn,
+    #apsis-chat {
+        display: none !important;
+    }
+}
