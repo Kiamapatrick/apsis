@@ -37,31 +37,52 @@
     return { taxBefore: taxBefore, bands: bands };
   }
 
-  function compute(gross) {
+  function compute(gross, options) {
+    options = options || {};
+    var extraPension = options.extraPension || 0;
+    var prmf = options.prmf || 0;
+    var mortgageInterest = options.mortgageInterest || 0;
+    var insurancePremium = options.insurancePremium || 0;
+
     var nssf = round2(RATES.nssf.rate * Math.min(gross, RATES.nssf.upperLimit));
     var shif = round2(Math.max(RATES.shif.minimum, RATES.shif.rate * gross));
     var levy = round2(RATES.housingLevy.rate * gross);
-    var taxable = Math.max(0, round2(gross - nssf - shif - levy));
+
+    // Pension deduction = min(NSSF + extraPension, 30000)
+    var pensionDeduction = Math.min(nssf + extraPension, 30000);
+    // PRMF deduction = min(prmf, 15000)
+    var prmfDeduction = Math.min(prmf, 15000);
+    // Mortgage interest deduction = min(mortgageInterest, 30000)
+    var mortgageDeduction = Math.min(mortgageInterest, 30000);
+
+    var taxable = Math.max(0, round2(gross - pensionDeduction - prmfDeduction - mortgageDeduction - shif - levy));
 
     var taxResult = taxOnTaxable(taxable);
     var taxBefore = taxResult.taxBefore;
     var bands = taxResult.bands;
 
-    var paye = Math.max(0, round2(taxBefore - RATES.personalRelief));
-    var net = round2(gross - nssf - shif - levy - paye);
+    // Insurance relief = min(0.15 * insurancePremium, 5000)
+    var insuranceRelief = Math.min(round2(0.15 * insurancePremium), 5000);
+    var paye = Math.max(0, round2(taxBefore - RATES.personalRelief - insuranceRelief));
+    // Net pay = gross - NSSF - SHIF - levy - PAYE - extraPension - prmf
+    // Mortgage interest and insurance premiums are paid outside payroll
+    var net = round2(gross - nssf - shif - levy - paye - extraPension - prmf);
 
     return { gross: gross, nssf: nssf, shif: shif, levy: levy, taxable: taxable,
              bands: bands, taxBefore: taxBefore, relief: RATES.personalRelief,
-             paye: paye, net: net };
+             insuranceRelief: insuranceRelief,
+             paye: paye, net: net,
+             pensionDeduction: pensionDeduction, prmfDeduction: prmfDeduction,
+             mortgageDeduction: mortgageDeduction, extraPension: extraPension, prmf: prmf };
   }
 
-  function grossFromNet(net) {
+  function grossFromNet(net, options) {
     if (net <= 0) return 0;
     var low = 0;
     var high = net * 2 + 10000;
     for (var i = 0; i < 100; i++) {
       var mid = (low + high) / 2;
-      var r = compute(mid);
+      var r = compute(mid, options);
       if (r.net >= net) {
         high = mid;
       } else {
@@ -98,6 +119,10 @@
   var grossLabel = document.getElementById("pcGrossLabel");
   var netHint = document.getElementById("pcNetHint");
   var modeRadios = document.querySelectorAll('input[name="mode"]');
+  var extraPensionEl = document.getElementById("pcExtraPension");
+  var prmfEl = document.getElementById("pcPrmf");
+  var mortgageEl = document.getElementById("pcMortgage");
+  var insuranceEl = document.getElementById("pcInsurance");
 
   checkedEls.forEach(function (el) { el.textContent = RATES.checkedOn; });
 
@@ -113,6 +138,15 @@
     var n = parseFloat(cleaned);
     if (n === 0) return { empty: true };
     if (n > MAX_GROSS) return { error: "Enter an amount below KES 1,000,000,000." };
+    return { value: n };
+  }
+
+  function parseOptional(text, fieldName) {
+    var cleaned = String(text).replace(/[,\s]/g, "");
+    if (cleaned === "") return { value: 0 };
+    if (!/^\d*\.?\d+$|^\d+\.$/.test(cleaned)) return { error: fieldName + " must be a number." };
+    var n = parseFloat(cleaned);
+    if (n < 0) return { error: fieldName + " cannot be negative." };
     return { value: n };
   }
 
@@ -162,14 +196,92 @@
     });
   }
 
+  function renderExtraRows(r) {
+    // Extra deduction rows in payslip
+    var payslipBody = document.querySelector(".pc-payslip tbody");
+    var existingExtra = payslipBody.querySelectorAll(".pc-extra-row");
+    existingExtra.forEach(function (row) { row.remove(); });
+
+    var extraRows = [];
+    if (r.extraPension > 0) {
+      extraRows.push({ label: "Extra pension contributions", value: r.extraPension });
+    }
+    if (r.prmf > 0) {
+      extraRows.push({ label: "Post-retirement medical fund", value: r.prmf });
+    }
+    // Note: mortgage interest and insurance premiums are NOT shown in payslip (paid outside payroll)
+
+    var payeRow = document.getElementById("pcPaye").closest("tr");
+    extraRows.forEach(function (row) {
+      var tr = document.createElement("tr");
+      tr.className = "pc-extra-row";
+      var th = document.createElement("th");
+      th.scope = "row";
+      th.textContent = row.label;
+      var td = document.createElement("td");
+      td.className = "pc-num";
+      td.textContent = money(row.value);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      payslipBody.insertBefore(tr, payeRow);
+    });
+
+    // Working section: extra deductions and insurance relief
+    var stepsBody = document.querySelector(".pc-steps:last-of-type tbody");
+    var existingWorkExtra = stepsBody.querySelectorAll(".pc-extra-row");
+    existingWorkExtra.forEach(function (row) { row.remove(); });
+
+    var workRows = [];
+    if (r.extraPension > 0) {
+      workRows.push({ label: "Less extra pension contributions", value: r.extraPension });
+    }
+    if (r.prmf > 0) {
+      workRows.push({ label: "Less post-retirement medical fund", value: r.prmf });
+    }
+    if (r.mortgageDeduction > 0) {
+      workRows.push({ label: "Less mortgage interest deduction", value: r.mortgageDeduction });
+    }
+    if (r.insuranceRelief > 0) {
+      workRows.push({ label: "Less insurance relief", value: r.insuranceRelief, isRelief: true });
+    }
+
+    var payeWorkRow = document.getElementById("pcWPaye").closest("tr");
+    workRows.forEach(function (row) {
+      var tr = document.createElement("tr");
+      tr.className = "pc-extra-row";
+      var th = document.createElement("th");
+      th.scope = "row";
+      th.textContent = row.label;
+      var td = document.createElement("td");
+      td.className = "pc-num";
+      td.textContent = money(row.value);
+      tr.appendChild(th);
+      tr.appendChild(td);
+      stepsBody.insertBefore(tr, payeWorkRow);
+    });
+  }
+
   function render() {
     var mode = getMode();
     updateModeUI(mode);
 
     var parsed = parseInput(input.value);
 
+    var extraPensionParsed = parseOptional(extraPensionEl.value, "Extra pension");
+    var prmfParsed = parseOptional(prmfEl.value, "Post-retirement medical fund");
+    var mortgageParsed = parseOptional(mortgageEl.value, "Mortgage interest");
+    var insuranceParsed = parseOptional(insuranceEl.value, "Insurance premiums");
+
     if (parsed.error) {
       errorEl.textContent = parsed.error;
+      input.setAttribute("aria-invalid", "true");
+      emptyEl.hidden = true;
+      resultEl.hidden = true;
+      netHint.hidden = true;
+      return;
+    }
+    if (extraPensionParsed.error || prmfParsed.error || mortgageParsed.error || insuranceParsed.error) {
+      errorEl.textContent = extraPensionParsed.error || prmfParsed.error || mortgageParsed.error || insuranceParsed.error;
       input.setAttribute("aria-invalid", "true");
       emptyEl.hidden = true;
       resultEl.hidden = true;
@@ -186,10 +298,17 @@
       return;
     }
 
+    var options = {
+      extraPension: extraPensionParsed.value,
+      prmf: prmfParsed.value,
+      mortgageInterest: mortgageParsed.value,
+      insurancePremium: insuranceParsed.value
+    };
+
     var gross;
     if (mode === "net") {
-      gross = grossFromNet(parsed.value);
-      var r = compute(gross);
+      gross = grossFromNet(parsed.value, options);
+      var r = compute(gross, options);
       if (r.net < 0) {
         errorEl.textContent = "The deductions are higher than this pay. Check the amount.";
         input.setAttribute("aria-invalid", "true");
@@ -202,7 +321,7 @@
       netHint.hidden = false;
     } else {
       gross = parsed.value;
-      var r = compute(gross);
+      var r = compute(gross, options);
       if (r.net < 0) {
         errorEl.textContent = "The deductions are higher than this pay. Check the amount.";
         input.setAttribute("aria-invalid", "true");
@@ -224,12 +343,13 @@
     set("pcNet", money(r.net));
 
     set("pcWGross", money(r.gross));
-    set("pcWDeductions", money(r.nssf + r.shif + r.levy));
+    set("pcWDeductions", money(r.nssf + r.shif + r.levy + r.pensionDeduction + r.prmfDeduction + r.mortgageDeduction));
     set("pcTaxable", money(r.taxable));
     set("pcTaxBefore", money(r.taxBefore));
     set("pcRelief", money(Math.min(r.relief, r.taxBefore)));
     set("pcWPaye", money(r.paye));
     renderBands(r.bands);
+    renderExtraRows(r);
 
     var ec = employerCost(gross);
     set("pcEmpGross", money(ec.gross));
@@ -240,6 +360,9 @@
   }
 
   input.addEventListener("input", render);
+  [extraPensionEl, prmfEl, mortgageEl, insuranceEl].forEach(function (el) {
+    el.addEventListener("input", render);
+  });
   modeRadios.forEach(function (radio) {
     radio.addEventListener("change", render);
   });

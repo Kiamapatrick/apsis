@@ -45,9 +45,26 @@
           <input id="pcGross" name="gross" type="text" inputmode="decimal" autocomplete="off"
                  placeholder="For example 85,000" aria-describedby="pcHint pcError">
           <p class="pc-hint" id="pcHint">Basic salary plus regular allowances, before any deductions. Results update as you type.</p>
-          <p class="pc-hint" id="pcNetHint" hidden></p>
-          <p class="pc-error" id="pcError" role="alert"></p>
-        </form>
+          <details class="pc-other-deductions">
+            <summary>Other deductions and reliefs</summary>
+            <div class="pc-field-group">
+              <label for="pcExtraPension">Extra pension contributions (KES)</label>
+              <input id="pcExtraPension" name="extraPension" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+            </div>
+            <div class="pc-field-group">
+              <label for="pcPrmf">Post-retirement medical fund (KES)</label>
+              <input id="pcPrmf" name="prmf" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+            </div>
+            <div class="pc-field-group">
+              <label for="pcMortgage">Mortgage interest paid (KES)</label>
+              <input id="pcMortgage" name="mortgageInterest" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+            </div>
+            <div class="pc-field-group">
+              <label for="pcInsurance">Insurance premiums (KES)</label>
+              <input id="pcInsurance" name="insurancePremium" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+            </div>
+            <p class="pc-hint">Life policies, and health or education policies that run at least 10 years. Mortgage interest and insurance premiums are paid outside payroll and do not reduce net pay.</p>
+          </details>
 
         <div class="pc-output">
           <p class="pc-empty" id="pcEmpty">Enter a gross pay to see the payslip.</p>
@@ -120,7 +137,8 @@
         <ul>
           <li>A resident employee with one employer, so the full personal relief of KES 2,400 a month applies.</li>
           <li>NSSF, SHIF and the housing levy are all worked out on the gross pay entered. If your contract or your employer treats some allowances differently, your payslip can differ.</li>
-          <li>No other deductions or reliefs: no pension beyond NSSF, mortgage interest, insurance relief or disability exemption, and no taxable benefits such as a company car.</li>
+          <li>Pension deduction is capped at KES 30,000 (NSSF plus extra contributions combined). Post-retirement medical fund deduction is capped at KES 15,000. Mortgage interest deduction is capped at KES 30,000. Insurance relief is 15% of premiums up to KES 5,000.</li>
+          <li>The disability exemption is not included.</li>
           <li>PAYE bands and personal relief are unchanged by the Finance Act 2026. NSSF uses the Year 4 limits that took effect in February 2026.</li>
         </ul>
         <p class="pc-source">
