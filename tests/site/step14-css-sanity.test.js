@@ -64,4 +64,25 @@ if (!html.includes("Contact APSIS")) {
 }
 console.log("  tools.html: has correct anchors with correct text and hrefs");
 
+// Test (d): .pc-notes has a border rule and padding in the CSS (main block, not media query)
+// Find all .pc-notes blocks and check the main one (not in @media)
+const pcNotesBlocks = [...payeCss.matchAll(/\.pc-notes\s*\{[\s\S]*?\}/g)];
+if (pcNotesBlocks.length === 0) {
+    throw new Error("css/paye-calculator.css: .pc-notes rule not found");
+}
+// Find the main block (not inside @media) - it should have border and padding
+let foundMainBlock = false;
+for (const match of pcNotesBlocks) {
+    const block = match[0];
+    // Skip media query blocks (they only have padding, no border)
+    if (block.includes("border:") && block.includes("padding:")) {
+        foundMainBlock = true;
+        break;
+    }
+}
+if (!foundMainBlock) {
+    throw new Error("css/paye-calculator.css: .pc-notes main block missing border or padding");
+}
+console.log("  css/paye-calculator.css: .pc-notes main block has border and padding");
+
 console.log("Step 14 CSS sanity test passed.");

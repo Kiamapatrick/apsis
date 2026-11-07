@@ -114,6 +114,12 @@
         border-radius: 16px;
         box-shadow: var(--pc-card-shadow-rest-narrow);
     }
+
+    .pc-notes {
+        padding: 1.25rem;
+        border-radius: 16px;
+        box-shadow: var(--pc-card-shadow-rest-narrow);
+    }
 }
 
 /* Input card */
@@ -532,6 +538,7 @@
 /* Help card */
 .pc-help-card {
     text-align: center;
+    margin-top: 1.5rem;
 }
 
 .pc-help-card h2 {
@@ -602,7 +609,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 @media (max-width: 900px) {
@@ -615,9 +622,20 @@
 /* Notes / Assumptions card */
 .pc-notes {
     margin-top: 0;
-    padding: 0;
-    border: none;
+    padding: 1.75rem;
+    border: 1px solid var(--pc-card-border);
+    border-radius: var(--pc-card-radius);
     max-width: none;
+    background: #fff;
+    box-shadow: var(--pc-card-shadow-rest);
+}
+
+@media (max-width: 640px) {
+    .pc-notes {
+        padding: 1.25rem;
+        border-radius: 16px;
+        box-shadow: var(--pc-card-shadow-rest-narrow);
+    }
 }
 
 .pc-notes h2 {
