@@ -116,6 +116,19 @@
     }
     </script>
 
+    <!-- BreadcrumbList JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.apsis.co.ke/" },
+        { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.apsis.co.ke/tools.html" },
+        { "@type": "ListItem", "position": 3, "name": "PAYE Calculator", "item": "https://www.apsis.co.ke/paye-calculator.html" }
+      ]
+    }
+    </script>
+
     <!-- ═══ Fonts & Performance ════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,7 +150,7 @@
         <img src="img/preloader.png" alt="APSIS Logo" class="preloader-logo">
     </div>
 
-    <!-- Navbar (identical to index.html) -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -168,6 +181,19 @@
     <main class="pc">
         <div class="pc-wrap">
 
+            <!-- Breadcrumb -->
+            <nav class="pc-crumbs" aria-label="Breadcrumb">
+                <a href="index.html">Home</a>
+                <svg viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+                </svg>
+                <a href="tools.html">Tools</a>
+                <svg viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="m4.5 2.5 3.5 3.5-3.5 3.5" />
+                </svg>
+                <span aria-current="page">PAYE calculator</span>
+            </nav>
+
             <header class="pc-head">
                 <h1>PAYE calculator for Kenya</h1>
                 <p>Enter a monthly gross pay to see the NSSF, SHIF, housing levy, PAYE and take-home pay on a standard payslip.</p>
@@ -175,64 +201,77 @@
 
             <div class="pc-grid">
 
-                <form class="pc-form" id="pcForm" novalidate>
-                    <fieldset class="pc-mode">
-                        <legend>I know my</legend>
-                        <div class="pc-mode-options">
-                            <label class="pc-mode-label">
-                                <input type="radio" name="mode" value="gross" checked> Gross pay
-                            </label>
-                            <label class="pc-mode-label">
-                                <input type="radio" name="mode" value="net"> Take-home pay
-                            </label>
-                        </div>
-                    </fieldset>
-                    <label for="pcGross" id="pcGrossLabel">Monthly gross pay (KES)</label>
-                    <input id="pcGross" name="gross" type="text" inputmode="decimal" autocomplete="off"
-                           placeholder="For example 85,000" aria-describedby="pcHint pcError">
-                    <p class="pc-hint" id="pcHint">Basic salary plus regular allowances, before any deductions. Results update as you type.</p>
-                    <p class="pc-hint" id="pcNetHint" hidden aria-live="polite"></p>
-                    <p class="pc-error" id="pcError" role="alert"></p>
-                    <details class="pc-other-deductions">
-                        <summary>Other deductions and reliefs</summary>
-                        <div class="pc-field-group">
-                            <label for="pcExtraPension">Extra pension contributions (KES)</label>
-                            <input id="pcExtraPension" name="extraPension" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-                        </div>
-                        <div class="pc-field-group">
-                            <label for="pcPrmf">Post-retirement medical fund (KES)</label>
-                            <input id="pcPrmf" name="prmf" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-                        </div>
-                        <div class="pc-field-group">
-                            <label for="pcMortgage">Mortgage interest paid (KES)</label>
-                            <input id="pcMortgage" name="mortgageInterest" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-                        </div>
-                        <div class="pc-field-group">
-                            <label for="pcInsurance">Insurance premiums (KES)</label>
-                            <input id="pcInsurance" name="insurancePremium" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
-                        </div>
-                        <p class="pc-hint">Life policies, and health or education policies that run at least 10 years. Mortgage interest and insurance premiums are paid outside payroll and do not reduce net pay.</p>
-                    </details>
-                </form>
+                <!-- Input card -->
+                <div class="pc-card pc-input-card">
+                    <form class="pc-form" id="pcForm" novalidate>
+                        <fieldset class="pc-mode">
+                            <legend>I know my</legend>
+                            <div class="pc-mode-options">
+                                <label class="pc-mode-label pc-mode-btn">
+                                    <input type="radio" name="mode" value="gross" checked>
+                                    <span>Gross pay</span>
+                                </label>
+                                <label class="pc-mode-label pc-mode-btn">
+                                    <input type="radio" name="mode" value="net">
+                                    <span>Take-home pay</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <label for="pcGross" id="pcGrossLabel">Monthly gross pay (KES)</label>
+                        <input id="pcGross" name="gross" type="text" inputmode="decimal" autocomplete="off"
+                               placeholder="For example 85,000" aria-describedby="pcHint pcError">
+                        <p class="pc-hint" id="pcHint">Basic salary plus regular allowances, before any deductions. Results update as you type.</p>
+                        <p class="pc-hint" id="pcNetHint" hidden aria-live="polite"></p>
+                        <p class="pc-error" id="pcError" role="alert"></p>
+                        <details class="pc-other-deductions">
+                            <summary>Other deductions and reliefs</summary>
+                            <div class="pc-field-group">
+                                <label for="pcExtraPension">Extra pension contributions (KES)</label>
+                                <input id="pcExtraPension" name="extraPension" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+                            </div>
+                            <div class="pc-field-group">
+                                <label for="pcPrmf">Post-retirement medical fund (KES)</label>
+                                <input id="pcPrmf" name="prmf" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+                            </div>
+                            <div class="pc-field-group">
+                                <label for="pcMortgage">Mortgage interest paid (KES)</label>
+                                <input id="pcMortgage" name="mortgageInterest" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+                            </div>
+                            <div class="pc-field-group">
+                                <label for="pcInsurance">Insurance premiums (KES)</label>
+                                <input id="pcInsurance" name="insurancePremium" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+                            </div>
+                            <p class="pc-hint">Life policies, and health or education policies that run at least 10 years. Mortgage interest and insurance premiums are paid outside payroll and do not reduce net pay.</p>
+                        </details>
+                    </form>
+                </div>
 
-                <div class="pc-output">
-                    <p class="pc-empty" id="pcEmpty">Enter a gross pay to see the payslip.</p>
+                <!-- Output stack -->
+                <div class="pc-output-stack">
 
-                    <div id="pcResult" hidden>
-                        <table class="pc-table pc-payslip">
-                            <caption>Monthly payslip (KES)</caption>
-                            <tbody>
-                                <tr><th scope="row">Gross pay</th><td class="pc-num" id="pcGrossOut"></td></tr>
-                                <tr><th scope="row">NSSF <span>6% of pay, up to KES 108,000</span></th><td class="pc-num" id="pcNssf"></td></tr>
-                                <tr><th scope="row">SHIF <span>2.75% of pay, minimum KES 300</span></th><td class="pc-num" id="pcShif"></td></tr>
-                                <tr><th scope="row">Housing levy <span>1.5% of pay</span></th><td class="pc-num" id="pcLevy"></td></tr>
-                                <tr><th scope="row">PAYE <span>after personal relief</span></th><td class="pc-num" id="pcPaye"></td></tr>
-                            </tbody>
-                            <tfoot>
-                                <tr><th scope="row">Net pay</th><td class="pc-num" id="pcNet" aria-live="polite"></td></tr>
-                            </tfoot>
-                        </table>
+                    <!-- Payslip card -->
+                    <div class="pc-card pc-payslip-card">
+                        <p class="pc-empty" id="pcEmpty">Enter a gross pay to see the payslip.</p>
 
+                        <div id="pcResult" hidden>
+                            <table class="pc-table pc-payslip">
+                                <caption>Monthly payslip (KES)</caption>
+                                <tbody>
+                                    <tr><th scope="row">Gross pay</th><td class="pc-num" id="pcGrossOut"></td></tr>
+                                    <tr><th scope="row">NSSF <span>6% of pay, up to KES 108,000</span></th><td class="pc-num" id="pcNssf"></td></tr>
+                                    <tr><th scope="row">SHIF <span>2.75% of pay, minimum KES 300</span></th><td class="pc-num" id="pcShif"></td></tr>
+                                    <tr><th scope="row">Housing levy <span>1.5% of pay</span></th><td class="pc-num" id="pcLevy"></td></tr>
+                                    <tr><th scope="row">PAYE <span>after personal relief</span></th><td class="pc-num" id="pcPaye"></td></tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="pc-net-row"><th scope="row">Net pay</th><td class="pc-num" id="pcNet" aria-live="polite"></td></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Working card -->
+                    <div class="pc-card pc-working-card">
                         <h2 class="pc-sub">How the PAYE was worked out</h2>
                         <p class="pc-lead">NSSF, SHIF and the housing levy come off first. PAYE is charged on what is left.</p>
 
@@ -262,7 +301,8 @@
                         </div>
                     </div>
 
-                    <details class="pc-employer-cost">
+                    <!-- Employer cost card -->
+                    <details class="pc-card pc-employer-card pc-employer-cost">
                         <summary>Cost to the employer</summary>
                         <table class="pc-table pc-employer-table">
                             <caption>Monthly employer cost (KES)</caption>
@@ -276,65 +316,80 @@
                                 <tr><th scope="row">Total cost</th><td class="pc-num" id="pcEmpTotal"></td></tr>
                             </tfoot>
                         </table>
+                        <button type="button" class="pc-print-btn" id="pcPrintBtn">Print or save as PDF</button>
+                        <p class="pc-print-date" id="pcPrintDate" hidden></p>
                     </details>
 
-                    <button type="button" class="pc-print-btn" id="pcPrintBtn">Print or save as PDF</button>
-                    <p class="pc-print-date" id="pcPrintDate" hidden></p>
                 </div>
 
             </div>
 
-            <section class="pc-notes" aria-labelledby="pcNotesHead">
-                <h2 id="pcNotesHead">What this estimate assumes</h2>
-                <ul>
-                    <li>A resident employee with one employer, so the full personal relief of KES 2,400 a month applies.</li>
-                    <li>NSSF, SHIF and the housing levy are all worked out on the gross pay entered. If your contract or your employer treats some allowances differently, your payslip can differ.</li>
-                    <li>Pension deduction is capped at KES 30,000 (NSSF plus extra contributions combined). Post-retirement medical fund deduction is capped at KES 15,000. Mortgage interest deduction is capped at KES 30,000. Insurance relief is 15% of premiums up to KES 5,000.</li>
-                    <li>The disability exemption is not included.</li>
-                    <li>PAYE bands and personal relief are unchanged by the Finance Act 2026. NSSF uses the Year 4 limits that took effect in February 2026.</li>
-                </ul>
-                <p class="pc-source">
-                    Rates last checked on <span data-checked-on></span>. Sources: the
-                    <a href="https://www.kra.go.ke/images/publications/PAYE-AS-YOU-EARN-PAYE_4-01-2025.pdf">KRA PAYE guide</a>,
-                    NSSF's Year 4 notice to employers, the Social Health Insurance Regulations 2024, and
-                    <a href="https://www.nita.go.ke/our-services/levy-inspectorate.html">NITA's Levy Inspectorate page</a> (KES 50 per employee per month).
-                    This is an estimate. Your employer's payroll and KRA's records decide the final figures.
-                    For payroll or tax advice, <a href="contact.html">contact APSIS</a>.
-                </p>
-            </section>
+            <!-- Help card -->
+            <div class="pc-card pc-help-card">
+                <h2>Need help with payroll?</h2>
+                <p>APSIS runs payroll for businesses across Kenya, from payslips to PAYE, NSSF and SHIF returns.</p>
+                <div class="pc-help-actions">
+                    <a href="contact.html" class="hero-btn-primary">Talk to APSIS</a>
+                    <a href="content/insights/payroll-tax-services-kenya.html" class="hero-link">Payroll services in Kenya</a>
+                </div>
+            </div>
 
-            <section class="pc-faq" aria-labelledby="pcFaqHead">
-                <h2 id="pcFaqHead">Common questions</h2>
-                <details>
-                    <summary>Is PAYE charged on gross pay?</summary>
-                    <p>No. NSSF, SHIF and the employee's housing levy are deducted first, and PAYE is charged on the pay that remains. This has applied since 27 December 2024.</p>
-                </details>
-                <details>
-                    <summary>Why is there no PAYE on the first KES 24,000 of taxable pay?</summary>
-                    <p>Tax on the first KES 24,000 is KES 2,400 at 10%, which equals the monthly personal relief for residents. For an employee with only the standard deductions, PAYE starts at a gross pay of about KES 26,741.</p>
-                </details>
-                <details>
-                    <summary>What is the most NSSF an employee pays?</summary>
-                    <p>KES 6,480 a month: 6% of pay up to KES 108,000, under the limits in force since February 2026. The employer pays the same amount.</p>
-                </details>
-                <details>
-                    <summary>Is SHIF capped?</summary>
-                    <p>No. It is 2.75% of gross pay with a minimum of KES 300 and no upper limit.</p>
-                </details>
-                <details>
-                    <summary>How much is the housing levy and who pays it?</summary>
-                    <p>1.5% of gross pay from the employee and 1.5% from the employer.</p>
-                </details>
-                <details>
-                    <summary>When must PAYE be paid?</summary>
-                    <p>Employers must pay PAYE and file the return by the 9th of the following month.</p>
-                </details>
-            </section>
+            <!-- Bottom row: Assumptions + FAQ -->
+            <div class="pc-bottom-row">
+
+                <section class="pc-card pc-notes" aria-labelledby="pcNotesHead">
+                    <h2 id="pcNotesHead">What this estimate assumes</h2>
+                    <ul>
+                        <li>A resident employee with one employer, so the full personal relief of KES 2,400 a month applies.</li>
+                        <li>NSSF, SHIF and the housing levy are all worked out on the gross pay entered. If your contract or your employer treats some allowances differently, your payslip can differ.</li>
+                        <li>Pension deduction is capped at KES 30,000 (NSSF plus extra contributions combined). Post-retirement medical fund deduction is capped at KES 15,000. Mortgage interest deduction is capped at KES 30,000. Insurance relief is 15% of premiums up to KES 5,000.</li>
+                        <li>The disability exemption is not included.</li>
+                        <li>PAYE bands and personal relief are unchanged by the Finance Act 2026. NSSF uses the Year 4 limits that took effect in February 2026.</li>
+                    </ul>
+                    <p class="pc-source">
+                        Rates last checked on <span data-checked-on></span>. Sources: the
+                        <a href="https://www.kra.go.ke/images/publications/PAYE-AS-YOU-EARN-PAYE_4-01-2025.pdf">KRA PAYE guide</a>,
+                        NSSF's Year 4 notice to employers, the Social Health Insurance Regulations 2024, and
+                        <a href="https://www.nita.go.ke/our-services/levy-inspectorate.html">NITA's Levy Inspectorate page</a> (KES 50 per employee per month).
+                        This is an estimate. Your employer's payroll and KRA's records decide the final figures.
+                        For payroll or tax advice, <a href="contact.html">contact APSIS</a>.
+                    </p>
+                </section>
+
+                <section class="pc-card pc-faq" aria-labelledby="pcFaqHead">
+                    <h2 id="pcFaqHead">Common questions</h2>
+                    <details>
+                        <summary>Is PAYE charged on gross pay?</summary>
+                        <p>No. NSSF, SHIF and the employee's housing levy are deducted first, and PAYE is charged on the pay that remains. This has applied since 27 December 2024.</p>
+                    </details>
+                    <details>
+                        <summary>Why is there no PAYE on the first KES 24,000 of taxable pay?</summary>
+                        <p>Tax on the first KES 24,000 is KES 2,400 at 10%, which equals the monthly personal relief for residents. For an employee with only the standard deductions, PAYE starts at a gross pay of about KES 26,741.</p>
+                    </details>
+                    <details>
+                        <summary>What is the most NSSF an employee pays?</summary>
+                        <p>KES 6,480 a month: 6% of pay up to KES 108,000, under the limits in force since February 2026. The employer pays the same amount.</p>
+                    </details>
+                    <details>
+                        <summary>Is SHIF capped?</summary>
+                        <p>No. It is 2.75% of gross pay with a minimum of KES 300 and no upper limit.</p>
+                    </details>
+                    <details>
+                        <summary>How much is the housing levy and who pays it?</summary>
+                        <p>1.5% of gross pay from the employee and 1.5% from the employer.</p>
+                    </details>
+                    <details>
+                        <summary>When must PAYE be paid?</summary>
+                        <p>Employers must pay PAYE and file the return by the 9th of the following month.</p>
+                    </details>
+                </section>
+
+            </div>
 
         </div>
     </main>
 
-    <!-- Footer (identical to index.html) -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
 
@@ -377,6 +432,7 @@
                         <li><a href="/workwithus.html">Work With Us</a></li>
                         <li><a href="/contact.html">Contact Us</a></li>
                         <li><a href="/content/">Blogs & Insights</a></li>
+                        <li><a href="/tools.html">Tools</a></li>
                     </ul>
                 </nav>
 
@@ -387,6 +443,7 @@
                         <li><a href="/content/insights/kra-tax-consultant-kenya.html">Tax Advisors</a></li>
                         <li><a href="/financial-advisor.html">Financial Advisor</a></li>
                         <li><a href="/content/insights/payroll-tax-services-kenya.html">Payroll Services Kenya</a></li>
+                        <li><a href="/paye-calculator.html">PAYE Calculator</a></li>
                         <li><a href="/vat-compliance-kenya.html">VAT Compliance Kenya</a></li>
                         <li><a href="/import-export-tax-advisory.html">Import/Export Tax Advisory</a></li>
                     </ul>
