@@ -54,8 +54,24 @@
              paye: paye, net: net };
   }
 
+  function grossFromNet(net) {
+    if (net <= 0) return 0;
+    var low = 0;
+    var high = net * 2 + 10000;
+    for (var i = 0; i < 100; i++) {
+      var mid = (low + high) / 2;
+      var r = compute(mid);
+      if (r.net >= net) {
+        high = mid;
+      } else {
+        low = mid;
+      }
+    }
+    return round2(high);
+  }
+
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { compute: compute, taxOnTaxable: taxOnTaxable, RATES: RATES };
+    module.exports = { compute: compute, taxOnTaxable: taxOnTaxable, grossFromNet: grossFromNet, RATES: RATES };
     return;
   }
 
@@ -70,6 +86,9 @@
   var resultEl = document.getElementById("pcResult");
   var bandBody = document.getElementById("pcBandRows");
   var checkedEls = document.querySelectorAll("[data-checked-on]");
+  var grossLabel = document.getElementById("pcGrossLabel");
+  var netHint = document.getElementById("pcNetHint");
+  var modeRadios = document.querySelectorAll('input[name="mode"]');
 
   checkedEls.forEach(function (el) { el.textContent = RATES.checkedOn; });
 
@@ -78,7 +97,7 @@
     if (el) el.textContent = value;
   }
 
-  function parseGross(text) {
+  function parseInput(text) {
     var cleaned = String(text).replace(/[,\s]/g, "");
     if (cleaned === "") return { empty: true };
     if (!/^\d*\.?\d+$|^\d+\.$/.test(cleaned)) return { error: "Enter numbers only, for example 85000." };
@@ -86,6 +105,25 @@
     if (n === 0) return { empty: true };
     if (n > MAX_GROSS) return { error: "Enter an amount below KES 1,000,000,000." };
     return { value: n };
+  }
+
+  function getMode() {
+    for (var i = 0; i < modeRadios.length; i++) {
+      if (modeRadios[i].checked) return modeRadios[i].value;
+    }
+    return "gross";
+  }
+
+  function updateModeUI(mode) {
+    if (mode === "net") {
+      grossLabel.textContent = "Monthly take-home pay (KES)";
+      input.placeholder = "For example 50,000";
+      netHint.hidden = false;
+    } else {
+      grossLabel.textContent = "Monthly gross pay (KES)";
+      input.placeholder = "For example 85,000";
+      netHint.hidden = true;
+    }
   }
 
   function bandLabel(b, i) {
@@ -116,13 +154,17 @@
   }
 
   function render() {
-    var parsed = parseGross(input.value);
+    var mode = getMode();
+    updateModeUI(mode);
+
+    var parsed = parseInput(input.value);
 
     if (parsed.error) {
       errorEl.textContent = parsed.error;
       input.setAttribute("aria-invalid", "true");
       emptyEl.hidden = true;
       resultEl.hidden = true;
+      netHint.hidden = true;
       return;
     }
     errorEl.textContent = "";
@@ -131,17 +173,37 @@
     if (parsed.empty) {
       emptyEl.hidden = false;
       resultEl.hidden = true;
+      netHint.hidden = true;
       return;
     }
 
-    var r = compute(parsed.value);
-    if (r.net < 0) {
-      errorEl.textContent = "The deductions are higher than this pay. Check the amount.";
-      input.setAttribute("aria-invalid", "true");
-      emptyEl.hidden = true;
-      resultEl.hidden = true;
-      return;
+    var gross;
+    if (mode === "net") {
+      gross = grossFromNet(parsed.value);
+      var r = compute(gross);
+      if (r.net < 0) {
+        errorEl.textContent = "The deductions are higher than this pay. Check the amount.";
+        input.setAttribute("aria-invalid", "true");
+        emptyEl.hidden = true;
+        resultEl.hidden = true;
+        netHint.hidden = true;
+        return;
+      }
+      netHint.textContent = "For a take-home pay of KES " + money(parsed.value) + " you need a gross pay of KES " + money(gross) + ".";
+      netHint.hidden = false;
+    } else {
+      gross = parsed.value;
+      var r = compute(gross);
+      if (r.net < 0) {
+        errorEl.textContent = "The deductions are higher than this pay. Check the amount.";
+        input.setAttribute("aria-invalid", "true");
+        emptyEl.hidden = true;
+        resultEl.hidden = true;
+        return;
+      }
+      netHint.hidden = true;
     }
+
     emptyEl.hidden = true;
     resultEl.hidden = false;
 
@@ -162,6 +224,9 @@
   }
 
   input.addEventListener("input", render);
+  modeRadios.forEach(function (radio) {
+    radio.addEventListener("change", render);
+  });
   document.getElementById("pcForm").addEventListener("submit", function (e) { e.preventDefault(); render(); });
   render();
 })();

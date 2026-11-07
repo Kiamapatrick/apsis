@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAYE Calculator Kenya 2026 | APSIS Business Consulting</title>
+  <meta name="description" content="Work out PAYE, NSSF, SHIF, the housing levy and take-home pay from a monthly gross salary in Kenya. Free calculator from APSIS Business Consulting, Nairobi.">
+  <link rel="canonical" href="https://apsis.co.ke/paye-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Site stylesheet first (provides the colour variables), then the calculator -->
+  <link rel="stylesheet" href="css/style-v2.css">
+  <link rel="stylesheet" href="css/paye-calculator.css">
+</head>
+<body>
+
+  <!-- Paste the site navbar here (same markup as the other pages) -->
+
+  <main class="pc">
+    <div class="pc-wrap">
+
+      <header class="pc-head">
+        <h1>PAYE calculator for Kenya</h1>
+        <p>Enter a monthly gross pay to see the NSSF, SHIF, housing levy, PAYE and take-home pay on a standard payslip.</p>
+      </header>
+
+      <div class="pc-grid">
+
+        <form class="pc-form" id="pcForm" novalidate>
+          <fieldset class="pc-mode">
+            <legend>I know my</legend>
+            <div class="pc-mode-options">
+              <label class="pc-mode-label">
+                <input type="radio" name="mode" value="gross" checked> Gross pay
+              </label>
+              <label class="pc-mode-label">
+                <input type="radio" name="mode" value="net"> Take-home pay
+              </label>
+            </div>
+          </fieldset>
+          <label for="pcGross" id="pcGrossLabel">Monthly gross pay (KES)</label>
+          <input id="pcGross" name="gross" type="text" inputmode="decimal" autocomplete="off"
+                 placeholder="For example 85,000" aria-describedby="pcHint pcError">
+          <p class="pc-hint" id="pcHint">Basic salary plus regular allowances, before any deductions. Results update as you type.</p>
+          <p class="pc-hint" id="pcNetHint" hidden></p>
+          <p class="pc-error" id="pcError" role="alert"></p>
+        </form>
+
+        <div class="pc-output">
+          <p class="pc-empty" id="pcEmpty">Enter a gross pay to see the payslip.</p>
+
+          <div id="pcResult" hidden>
+            <table class="pc-table pc-payslip">
+              <caption>Monthly payslip (KES)</caption>
+              <tbody>
+                <tr><th scope="row">Gross pay</th><td class="pc-num" id="pcGrossOut"></td></tr>
+                <tr><th scope="row">NSSF <span>6% of pay, up to KES 108,000</span></th><td class="pc-num" id="pcNssf"></td></tr>
+                <tr><th scope="row">SHIF <span>2.75% of pay, minimum KES 300</span></th><td class="pc-num" id="pcShif"></td></tr>
+                <tr><th scope="row">Housing levy <span>1.5% of pay</span></th><td class="pc-num" id="pcLevy"></td></tr>
+                <tr><th scope="row">PAYE <span>after personal relief</span></th><td class="pc-num" id="pcPaye"></td></tr>
+              </tbody>
+              <tfoot>
+                <tr><th scope="row">Net pay</th><td class="pc-num" id="pcNet" aria-live="polite"></td></tr>
+              </tfoot>
+            </table>
+
+            <h2 class="pc-sub">How the PAYE was worked out</h2>
+            <p class="pc-lead">NSSF, SHIF and the housing levy come off first. PAYE is charged on what is left.</p>
+
+            <div class="pc-scroll">
+              <table class="pc-table pc-steps">
+                <tbody>
+                  <tr><th scope="row">Gross pay</th><td class="pc-num" id="pcWGross"></td></tr>
+                  <tr><th scope="row">Less NSSF, SHIF and housing levy</th><td class="pc-num" id="pcWDeductions"></td></tr>
+                  <tr class="pc-strong"><th scope="row">Taxable pay</th><td class="pc-num" id="pcTaxable"></td></tr>
+                </tbody>
+              </table>
+
+              <table class="pc-table pc-bands">
+                <thead>
+                  <tr><th scope="col">Slice of taxable pay</th><th scope="col" class="pc-num">Rate</th><th scope="col" class="pc-num">In slice</th><th scope="col" class="pc-num">Tax</th></tr>
+                </thead>
+                <tbody id="pcBandRows"></tbody>
+              </table>
+
+              <table class="pc-table pc-steps">
+                <tbody>
+                  <tr><th scope="row">Tax before relief</th><td class="pc-num" id="pcTaxBefore"></td></tr>
+                  <tr><th scope="row">Less personal relief</th><td class="pc-num" id="pcRelief"></td></tr>
+                  <tr class="pc-strong"><th scope="row">PAYE</th><td class="pc-num" id="pcWPaye"></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <section class="pc-notes" aria-labelledby="pcNotesHead">
+        <h2 id="pcNotesHead">What this estimate assumes</h2>
+        <ul>
+          <li>A resident employee with one employer, so the full personal relief of KES 2,400 a month applies.</li>
+          <li>NSSF, SHIF and the housing levy are all worked out on the gross pay entered. If your contract or your employer treats some allowances differently, your payslip can differ.</li>
+          <li>No other deductions or reliefs: no pension beyond NSSF, mortgage interest, insurance relief or disability exemption, and no taxable benefits such as a company car.</li>
+          <li>PAYE bands and personal relief are unchanged by the Finance Act 2026. NSSF uses the Year 4 limits that took effect in February 2026.</li>
+        </ul>
+        <p class="pc-source">
+          Rates last checked on <span data-checked-on></span>. Sources: the
+          <a href="https://www.kra.go.ke/images/publications/PAYE-AS-YOU-EARN-PAYE_4-01-2025.pdf">KRA PAYE guide</a>,
+          NSSF’s Year 4 notice to employers, and the Social Health Insurance Regulations 2024.
+          This is an estimate. Your employer’s payroll and KRA’s records decide the final figures.
+          For payroll or tax advice, <a href="contact.html">contact APSIS</a>.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Paste the site footer here (same markup as the other pages) -->
+
+  <script src="js/paye-calculator.js" defer></script>
+</body>
+</html>

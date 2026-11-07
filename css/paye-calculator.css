@@ -1,0 +1,368 @@
+/* APSIS PAYE calculator. Loads after style-v2.css and reuses its colour variables.
+   Everything is namespaced .pc* so no other page is affected. */
+
+.pc {
+    --pc-line: #e3dfd6;
+    --pc-line-strong: #d9d4c8;
+    --pc-ink: var(--text-hero, #14202e);
+    --pc-muted: var(--text-muted, #64748b);
+    --pc-navy: var(--navy, #0d2137);
+    --pc-orange: var(--orange, #f58220);
+    margin-top: 76px;               /* clears the fixed navbar, same as .hero */
+    padding: 4rem 0 6rem;
+    background: var(--off-white, #f7f9fc);
+    color: var(--pc-ink);
+}
+
+.pc-wrap {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Header: left aligned, same pattern as the other sections */
+.pc-head {
+    margin-bottom: 3rem;
+}
+
+.pc-head h1 {
+    margin: 0 0 0.9rem;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 3.6vw, 3rem);
+    line-height: 1.05;
+    color: var(--pc-ink);
+    text-wrap: balance;
+}
+
+.pc-head p {
+    margin: 0;
+    max-width: 34em;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #3a4759;
+    text-wrap: pretty;
+}
+
+/* Layout: input on the left, payslip on the right */
+.pc-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 3rem 4rem;
+    align-items: start;
+}
+
+/* Form: no panel, one thin-outlined field */
+.pc-form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--pc-ink);
+}
+
+/* Mode radio group */
+.pc-mode {
+    margin-bottom: 1rem;
+    padding: 0;
+    border: 0;
+}
+
+.pc-mode legend {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--pc-ink);
+    margin-bottom: 0.4rem;
+}
+
+.pc-mode-options {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.pc-mode-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--pc-ink);
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.pc-mode-label input[type="radio"] {
+    width: auto;
+    accent-color: var(--pc-navy);
+}
+
+.pc-form input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: #fff;
+    border: 1px solid var(--pc-line-strong);
+    border-radius: 12px;
+    color: var(--pc-ink);
+    font: inherit;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pc-form input::placeholder {
+    color: #8a94a3;
+    font-size: 1rem;
+}
+
+.pc-form input:hover {
+    border-color: #b9b3a5;
+}
+
+.pc-form input:focus {
+    outline: none;
+    border-color: var(--pc-navy);
+    box-shadow: 0 0 0 3px rgba(15, 39, 66, 0.08);
+}
+
+.pc-form input[aria-invalid="true"] {
+    border-color: #b42318;
+}
+
+.pc-hint {
+    margin: 0.6rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--pc-muted);
+    text-wrap: pretty;
+}
+
+.pc-error {
+    margin: 0.6rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #b42318;
+}
+
+.pc-error:empty {
+    display: none;
+}
+
+.pc-empty {
+    margin: 0;
+    padding: 2rem 0;
+    border-top: 1px solid var(--pc-line);
+    font-size: 1.0625rem;
+    color: var(--pc-muted);
+}
+
+/* Tables */
+.pc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+}
+
+.pc-table caption {
+    padding: 0 0 0.75rem;
+    text-align: left;
+    font-family: "Playfair Display", serif;
+    font-size: 1.375rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--pc-ink);
+}
+
+.pc-table th,
+.pc-table td {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--pc-line);
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.45;
+    font-weight: 400;
+    vertical-align: baseline;
+}
+
+.pc-table thead th {
+    padding-top: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--pc-muted);
+    border-bottom-color: var(--pc-line-strong);
+}
+
+.pc-table th[scope="row"] span {
+    display: block;
+    margin-top: 0.1rem;
+    font-size: 0.8125rem;
+    color: var(--pc-muted);
+}
+
+.pc-num {
+    text-align: right !important;
+    white-space: nowrap;
+    padding-left: 1rem !important;
+}
+
+/* The payslip: net pay is the last line and the only large figure */
+.pc-payslip tfoot th,
+.pc-payslip tfoot td {
+    padding: 1.1rem 0 0.4rem;
+    border-bottom: 0;
+    border-top: 2px solid var(--pc-navy);
+    font-family: "Playfair Display", serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--pc-navy);
+}
+
+.pc-payslip tfoot th {
+    font-size: 1.375rem;
+}
+
+/* Working */
+.pc-sub {
+    margin: 3rem 0 0.4rem;
+    font-size: 1.375rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--pc-ink);
+}
+
+.pc-lead {
+    margin: 0 0 1.25rem;
+    max-width: 34em;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--pc-muted);
+    text-wrap: pretty;
+}
+
+.pc-steps tr:first-child th,
+.pc-steps tr:first-child td {
+    border-top: 1px solid var(--pc-line-strong);
+}
+
+.pc-steps + .pc-bands,
+.pc-bands + .pc-steps {
+    margin-top: 1.5rem;
+}
+
+.pc-strong th,
+.pc-strong td {
+    font-weight: 600 !important;
+    color: var(--pc-ink);
+}
+
+.pc-muted-row td {
+    color: #8a94a3;
+}
+
+.pc-scroll {
+    overflow-x: auto;
+}
+
+/* Notes */
+.pc-notes {
+    max-width: 44rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--pc-line-strong);
+}
+
+.pc-notes h2 {
+    margin: 0 0 1rem;
+    font-size: 1.375rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--pc-ink);
+}
+
+.pc-notes ul {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+}
+
+.pc-notes li {
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #3a4759;
+    text-wrap: pretty;
+}
+
+.pc-source {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--pc-muted);
+    text-wrap: pretty;
+}
+
+.pc-source a {
+    color: var(--pc-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--pc-orange);
+    transition: color 0.2s ease;
+}
+
+.pc-source a:hover {
+    color: var(--pc-orange);
+}
+
+.pc a:focus-visible,
+.pc input:focus-visible {
+    outline: 2px solid var(--pc-orange);
+    outline-offset: 3px;
+}
+
+/* Tablet and phone: one column, input first */
+@media (max-width: 900px) {
+    .pc {
+        padding: 2.5rem 0 4rem;
+    }
+
+    .pc-head {
+        margin-bottom: 2.25rem;
+    }
+
+    .pc-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .pc-notes {
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pc-wrap {
+        padding: 0 1.25rem;
+    }
+
+    .pc-table th,
+    .pc-table td {
+        font-size: 0.9375rem;
+    }
+
+    .pc-payslip tfoot td {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 901px) {
+    .pc-form {
+        position: sticky;
+        top: 108px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pc-form input,
+    .pc-source a {
+        transition: none;
+    }
+}
