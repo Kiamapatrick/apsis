@@ -16,7 +16,8 @@
     personalRelief: 2400,
     nssf: { rate: 0.06, upperLimit: 108000 }, // Year 4, from February 2026
     shif: { rate: 0.0275, minimum: 300 },     // Social Health Insurance Regulations 2024
-    housingLevy: { rate: 0.015 }              // employee share
+    housingLevy: { rate: 0.015 },              // employee share
+    nita: 50                                   // NITA training levy per employee per month (NITA Levy Inspectorate page)
   };
 
   var MAX_GROSS = 1000000000;
@@ -70,8 +71,16 @@
     return round2(high);
   }
 
+  function employerCost(gross) {
+    var empNssf = round2(RATES.nssf.rate * Math.min(gross, RATES.nssf.upperLimit));
+    var empLevy = round2(RATES.housingLevy.rate * gross);
+    var nita = RATES.nita;
+    var total = round2(gross + empNssf + empLevy + nita);
+    return { gross: gross, employerNssf: empNssf, employerLevy: empLevy, nita: nita, total: total };
+  }
+
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { compute: compute, taxOnTaxable: taxOnTaxable, grossFromNet: grossFromNet, RATES: RATES };
+    module.exports = { compute: compute, taxOnTaxable: taxOnTaxable, grossFromNet: grossFromNet, employerCost: employerCost, RATES: RATES };
     return;
   }
 
@@ -221,6 +230,13 @@
     set("pcRelief", money(Math.min(r.relief, r.taxBefore)));
     set("pcWPaye", money(r.paye));
     renderBands(r.bands);
+
+    var ec = employerCost(gross);
+    set("pcEmpGross", money(ec.gross));
+    set("pcEmpNssf", money(ec.employerNssf));
+    set("pcEmpLevy", money(ec.employerLevy));
+    set("pcEmpNita", money(ec.nita));
+    set("pcEmpTotal", money(ec.total));
   }
 
   input.addEventListener("input", render);
