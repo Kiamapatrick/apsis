@@ -425,5 +425,89 @@
     .pc-source a {
         transition: none;
     }
+  }
+
+/* Print button */
+.pc-print-btn {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--pc-navy);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+.pc-print-btn:hover {
+    background: var(--pc-ink);
+  }
+
+.pc-print-date {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--pc-muted);
+  }
+
+/* Print styles */
+@media print {
+    .pc {
+        margin-top: 0;
+        padding: 0;
+        background: #fff;
+    }
+
+    .pc-wrap {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .pc-head {
+        margin-bottom: 1.5rem;
+    }
+
+    .pc-form,
+    .pc-print-btn,
+    .pc-other-deductions,
+    .pc-mode {
+        display: none !important;
+    }
+
+    .pc-output {
+        display: block !important;
+    }
+
+    .pc-empty {
+        display: none;
+    }
+
+    #pcResult {
+        display: block !important;
+    }
+
+    .pc-grid {
+        display: block;
+    }
+
+    .pc-notes {
+        display: none;
+    }
+
+    .pc-table {
+        page-break-inside: avoid;
+    }
+
+    .pc-print-date {
+        display: block !important;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--pc-line);
+        font-size: 0.875rem;
+        color: var(--pc-muted);
+    }
 }
+
 

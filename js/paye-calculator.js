@@ -123,6 +123,8 @@
   var prmfEl = document.getElementById("pcPrmf");
   var mortgageEl = document.getElementById("pcMortgage");
   var insuranceEl = document.getElementById("pcInsurance");
+  var printBtn = document.getElementById("pcPrintBtn");
+  var printDateEl = document.getElementById("pcPrintDate");
 
   checkedEls.forEach(function (el) { el.textContent = RATES.checkedOn; });
 
@@ -357,6 +359,13 @@
     set("pcEmpLevy", money(ec.employerLevy));
     set("pcEmpNita", money(ec.nita));
     set("pcEmpTotal", money(ec.total));
+
+    // Update print date
+    var now = new Date();
+    var dateStr = now.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+    var timeStr = now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    printDateEl.textContent = "Estimate calculated on " + dateStr + " at " + timeStr + " at apsis.co.ke/paye-calculator.html";
+    printDateEl.hidden = false;
   }
 
   input.addEventListener("input", render);
@@ -366,6 +375,7 @@
   modeRadios.forEach(function (radio) {
     radio.addEventListener("change", render);
   });
+  printBtn.addEventListener("click", function () { window.print(); });
   document.getElementById("pcForm").addEventListener("submit", function (e) { e.preventDefault(); render(); });
   render();
 })();
