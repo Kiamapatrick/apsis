@@ -147,7 +147,7 @@
         "- PAYE: filed and remitted by the 9th of the following month\n" +
         "- NSSF: remitted by the 15th of the following month\n" +
         "- SHIF replaced NHIF from October 2024 and is remitted monthly\n" +
-        "- Late PAYE: Ksh 10,000 plus 25% of the PAYE not paid on time, with 1% monthly interest\n\n" +
+        "- Late PAYE filing: the higher of 25% of the tax due or Ksh 10,000. Late payment: 5% of the tax due plus 1% interest per month\n\n" +
         "Directors can be personally liable for PAYE deducted but not remitted.",
       link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
     },
@@ -752,11 +752,11 @@
         nextId: "liability", button: "Late penalties", mood: "sad",
         s: ["penalty", "late", "fine"],
         w: ["interest"],
-        must: ["10,000", "25%", "1%"],
+        must: ["10,000", "25%", "5%", "1%"],
         wordings: [
-          "Late PAYE, per APSIS: Ksh 10,000 plus 25% of the PAYE not paid on time, with 1% monthly interest.",
-          "Per APSIS, paying PAYE late means Ksh 10,000 plus 25% of the PAYE not paid on time, with 1% monthly interest.",
-          "Late PAYE, per APSIS:\n- Ksh 10,000\n- Plus 25% of the PAYE not paid on time\n- With 1% monthly interest"
+          "Late PAYE filing: the higher of 25% of the tax due or Ksh 10,000. Late payment: 5% of the tax due plus 1% interest per month.",
+          "Per APSIS, late PAYE filing means the higher of 25% of the tax due or Ksh 10,000. Late payment: 5% of the tax due plus 1% interest per month.",
+          "Late PAYE, per APSIS:\n- Filing: the higher of 25% of the tax due or Ksh 10,000\n- Late payment: 5% of the tax due plus 1% interest per month"
         ],
         link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
       },
