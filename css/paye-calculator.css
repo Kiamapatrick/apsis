@@ -815,7 +815,9 @@
 
     .pc-crumbs,
     .pc-help-card,
-    .pc-faq {
+    .pc-faq,
+    .pc-input-card,
+    .pc-form {
         display: none !important;
     }
 
