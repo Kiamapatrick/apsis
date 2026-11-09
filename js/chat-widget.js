@@ -145,7 +145,7 @@
       g: ["deadline", "due"],
       a: "APSIS handles monthly payroll computation, PAYE filing, NSSF and SHIF remittances, HELB deductions, payslips and annual P9 forms, plus KRA payroll audit support.\n" +
         "- PAYE: filed and remitted by the 9th of the following month\n" +
-        "- NSSF: remitted by the 15th of the following month\n" +
+        "- NSSF: remitted by the 9th of the following month\n" +
         "- SHIF replaced NHIF from October 2024 and is remitted monthly\n" +
         "- Late PAYE filing: the higher of 25% of the tax due or Ksh 10,000. Late payment: 5% of the tax due plus 1% interest per month\n\n" +
         "Directors can be personally liable for PAYE deducted but not remitted.",
@@ -646,12 +646,12 @@
         nextId: "registration", button: "Penalties", mood: "sad",
         s: ["penalty", "late", "levy", "seizure", "fine"],
         w: ["interest", "unpaid", "enforcement"],
-        must: ["10,000", "1%"],
+        must: ["10,000", "5%", "1%"],
         wordings: [
-          "Per APSIS, a late VAT return carries a minimum penalty of Ksh 10,000 per return, and unpaid VAT attracts interest of 1% per month, compounded from the due date. Persistent non-compliance can lead to enforcement such as bank levies and asset seizure.",
-          "Filing VAT late costs money. Per APSIS: a minimum penalty of Ksh 10,000 per return, plus interest of 1% per month on unpaid VAT, compounded from the due date. If non-compliance persists, enforcement such as bank levies and asset seizure can follow.",
-          "Late VAT, per APSIS:\n- Minimum penalty of Ksh 10,000 per late return\n- Interest of 1% per month on unpaid VAT, compounded from the due date\n- Persistent non-compliance can lead to bank levies and asset seizure",
-          "Late VAT gets costly, according to APSIS: Ksh 10,000 minimum per late return, 1% monthly interest on unpaid VAT (compounded from the due date), and, for persistent non-compliance, possible bank levies and asset seizure."
+          "Per APSIS, a late VAT return attracts 5% of the tax due or Ksh 10,000, whichever is higher. Unpaid VAT attracts a 5% penalty and 1% monthly interest. Persistent non-compliance can lead to enforcement such as bank levies and asset seizure.",
+          "Late filing: 5% of the tax due or Ksh 10,000, whichever is higher. Late payment: 5% penalty plus 1% monthly interest. Persistent non-compliance can lead to enforcement such as bank levies and asset seizure.",
+          "Late VAT, per APSIS:\n- Filing: 5% of the tax due or Ksh 10,000, whichever is higher\n- Late payment: 5% penalty plus 1% monthly interest\n- Persistent non-compliance can lead to bank levies and asset seizure",
+          "Per APSIS, late VAT filing attracts 5% of the tax due or Ksh 10,000, whichever is higher. Late payment: 5% penalty plus 1% monthly interest. Persistent non-compliance can lead to enforcement such as bank levies and asset seizure."
         ],
         link: "/vat-compliance-kenya.html", linkText: "VAT compliance", caution: true
       }
@@ -724,13 +724,13 @@
       {
         id: "deadlines", label: "the payroll deadlines", next: "the late PAYE penalties",
         nextId: "penalty", button: "Payroll deadlines",
-        s: ["deadline", "due", "9th", "15th"],
+        s: ["deadline", "due", "9th"],
         w: ["monthly", "file", "date"],
-        must: ["9th", "15th"],
+        must: ["9th"],
         wordings: [
-          "Per APSIS: PAYE is filed and remitted by the 9th of the following month, and NSSF is remitted by the 15th of the following month. SHIF is remitted monthly.",
-          "Payroll deadlines, per APSIS:\n- PAYE: filed and remitted by the 9th of the following month\n- NSSF: remitted by the 15th of the following month\n- SHIF: remitted monthly",
-          "Two dates to remember, per APSIS: the 9th of the following month for PAYE (filing and remitting), and the 15th of the following month for NSSF. SHIF is remitted monthly too."
+          "Per APSIS: PAYE and NSSF are both due by the 9th of the following month. SHIF is remitted monthly.",
+          "Payroll deadlines, per APSIS:\n- PAYE: filed and remitted by the 9th of the following month\n- NSSF: remitted by the 9th of the following month\n- SHIF: remitted monthly",
+          "One date to remember, per APSIS: the 9th of the following month, for both PAYE (filing and remitting) and NSSF. SHIF is remitted monthly too."
         ],
         link: "/content/insights/payroll-tax-services-kenya.html", linkText: "Payroll services", caution: true
       },
