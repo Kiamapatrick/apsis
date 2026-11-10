@@ -100,14 +100,14 @@ if (checkResult.status !== 0) {
 }
 console.log("  chat-widget.js passes node --check");
 
-// Test 2f: sitemap entry has lastmod 2026-11-08
+// Test 2f: sitemap entry has lastmod 2026-11-09
 if (!sitemap.includes('<loc>https://www.apsis.co.ke/content/insights/payroll-tax-services-kenya.html</loc>')) {
     throw new Error("Sitemap missing payroll article entry");
 }
-if (!sitemap.includes('<lastmod>2026-11-08</lastmod>')) {
-    throw new Error("Sitemap missing lastmod 2026-11-08 for payroll article");
+if (!sitemap.includes('<lastmod>2026-11-09</lastmod>')) {
+    throw new Error("Sitemap missing lastmod 2026-11-09 for payroll article");
 }
-console.log("  Sitemap lastmod updated to 2026-11-08");
+console.log("  Sitemap lastmod updated to 2026-11-09");
 
 console.log("All step15 tests passed!");
 console.log("Step 15 payroll wording test passed.");
