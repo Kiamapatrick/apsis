@@ -529,7 +529,13 @@
     background: var(--pc-ink);
 }
 
+.pc-payslip-actions {
+    margin-top: 1.25rem;
+}
+
+/* The date line is for the printed copy only */
 .pc-print-date {
+    display: none;
     margin-top: 1rem;
     font-size: 0.875rem;
     color: var(--pc-muted);
@@ -852,6 +858,10 @@
     }
 
     .pc-print-btn {
+        display: none !important;
+    }
+
+    .pc-employer-card:not([open]) {
         display: none !important;
     }
 
